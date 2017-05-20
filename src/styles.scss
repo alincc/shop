@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto|Ubuntu|Ubuntu+Condensed|Ubuntu+Mono');
+/*
+font-family: 'Roboto', sans-serif;
+font-family: 'Ubuntu Mono', monospace;
+font-family: 'Ubuntu Condensed', sans-serif;
+font-family: 'Ubuntu', sans-serif;
+*/
+
+$bgColor: #EDEDED;
+$menuBgColor: #fff;
+$pageWidth: 1200px;
+$pageBgColor: #fff;
+
+$baseFontColor: #333;
+$baseLinkColor: $baseFontColor;
+
+$footerBgColor: #333;
+
+$priceColor: #0ab3a3;
+
+html {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  color: $baseFontColor;
+  background: $bgColor;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+a {
+  color: $baseLinkColor;
+  text-decoration: none;
+}
+
+.page {
+  margin: 60px auto;
+  background: $pageBgColor;
+  padding: 20px;
+  width: $pageWidth;
+}
+
+.header {
+  margin-bottom: 40px;
+  
+  .menu {
+    background: $menuBgColor;
+    margin: 0;
+    overflow: auto;
+    list-style: none;
+    text-transform: uppercase;
+    font-size: 1.2em;
+
+    li {
+      float: left;
+      margin: 0 30px;
+    }
+  }
+
+  .top-bar {
+    text-align: right;
+  }
+}
+
+
+.footer {
+  background: $footerBgColor;
+  padding: 40px;
+}
+
+/** Misc **/
+.price {
+  color: $priceColor;
+  font-size: 1.2em;
+  font-weight: 300;
+}
