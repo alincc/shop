@@ -1,10 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params }   from '@angular/router';
-import { Location }                 from '@angular/common';
+
 import 'rxjs/add/operator/switchMap';
 
 import { ProductService } from '../services/product.service';
-import { Product } from '../product';
+import { CartService } from '../services/cart.service';
+import { Product } from '../model/product';
 
 
 @Component({
@@ -17,14 +18,18 @@ export class ProductDetailsComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
+    private cartService: CartService,
     private route: ActivatedRoute,
-    private location: Location
   ) { }
 
   ngOnInit() {
     this.route.params
       .switchMap((params: Params) => this.productService.getProduct(+params['id']))
       .subscribe(product => this.product = product);
+  }
+
+  addToCart(): void {
+    this.cartService.add(this.product);
   }
 
 }

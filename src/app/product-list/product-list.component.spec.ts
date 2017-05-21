@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ProductListComponent } from './product-list.component';
+// import { Product } from '../product';
+import { ProductListComponent } from './product-list.component'
+import { ProductComponent } from '../product/product.component';
+import { ProductService } from '../services/product.service'
+import { RouterLinkStubDirective }   from '../../testing/router-stubs';
+import { RouterOutletStubComponent } from '../../testing/router-stubs';
+import { HttpModule } from '@angular/http';
 
 describe('ProductListComponent', () => {
   let component: ProductListComponent;
@@ -8,7 +13,18 @@ describe('ProductListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProductListComponent ]
+      imports: [
+        HttpModule,
+      ],
+      declarations: [
+        ProductListComponent,
+        ProductComponent,
+        RouterLinkStubDirective,
+        RouterOutletStubComponent,
+      ],
+      providers: [
+        ProductService,
+      ],
     })
     .compileComponents();
   }));

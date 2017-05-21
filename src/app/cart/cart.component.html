@@ -1,0 +1,13 @@
+<div class="cart">
+  <h1>Cart</h1>
+  <div class="products" *ngIf="products">
+
+    <div *ngFor="let product of products">
+      <h2>{{ product.product.name }}</h2>
+      <p>Quantity: {{ product.quantity }}</p>
+      <button type="button" (click)="removeItem(product)">Remove</button>
+    </div>
+
+  </div>
+
+</div>

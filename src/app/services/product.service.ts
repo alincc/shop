@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import { Product } from '../product'
+import { Product } from '../model/product'
 
 @Injectable()
 export class ProductService {

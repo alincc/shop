@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterLinkStubDirective }   from '../../testing/router-stubs';
+import { RouterOutletStubComponent } from '../../testing/router-stubs';
 import { ProductComponent } from './product.component';
+import { CartService } from '../services/cart.service';
 
 describe('ProductComponent', () => {
   let component: ProductComponent;
@@ -8,7 +10,14 @@ describe('ProductComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProductComponent ]
+      declarations: [
+        ProductComponent,
+        RouterLinkStubDirective,
+        RouterOutletStubComponent,
+      ],
+      providers: [
+        CartService,
+      ],
     })
     .compileComponents();
   }));
