@@ -1,24 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 
-import { Product } from '../model/product'
+import { Category } from '../model/Category'
 
 @Injectable()
-export class ProductService {
-  private url = 'http://localhost:9000/product'
+export class CategoryService {
+  private url = 'http://localhost:9000/category'
 
   constructor(private http: Http) { }
 
-  getProducts(): Observable<Product[]> {
+  getCategories(): Observable<Category[]> {
     return this.http.get(this.url)
                     .map(res => res.json())
                     .catch(this.handleError);
   }
 
-  getProduct(id: number): Observable<Product> {
+  getCategory(id: number): Observable<Category> {
     return this.http.get(this.url + '/' + id)
                     .map(res => res.json())
                     .catch(this.handleError);
@@ -37,4 +35,5 @@ export class ProductService {
 
     return Observable.throw(errMsg);
   }
+
 }

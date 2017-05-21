@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+
 import { CartService } from '../services/cart.service';
 import { Product } from '../model/product';
 import { CartProduct } from '../model/CartProduct';
 
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
   selector: 'app-cart',

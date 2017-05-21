@@ -1,5 +1,35 @@
 <div class="product-details" *ngIf="product">
-  {{ product.name }}
 
-  <button type="button" (click)="addToCart()">Add to cart</button>
+  <div class="row">
+
+    <div class="large-image col-md-6">
+      <img src="https://www.thegoodguys.com.au/wcsstore/TGGCAS/idcplg?IdcService=GET_FILE&RevisionSelectionMethod=LatestReleased&noSaveAs=1&dDocName=50035069_478516&Rendition=ZOOMIMAGE" alt="Large image"/>
+    </div>
+
+    <div class="right-info col-md-6">
+      <h1>{{ product.name }}</h1>
+
+      <ul>
+        <li>In stock. Ships within 1-2 days</li>
+        <li>Free Shipping</li>
+        <li>Guarantee</li>
+      </ul>
+
+      <div class="price">${{ product.price }}</div>
+
+      <button (click)="addToCart()" class="button add-to-cart">
+        <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+        Add to cart
+      </button>
+    </div>
+
+  </div>
+
+  <div class="detailed-info">
+    <p>
+      Beautiful New Old Stock Antique Windsor eyeglass frames.
+      These are in Mint condition, never used. They are close to 100 years old. They are ready for your prescription or sunglass lenses and everyday wear. The Windsor style was very common in the late 1800's and early 1900's. Made popular much later by John Lennon and Mahatma Gandhi.
+    </p>
+  </div>
+
 </div>

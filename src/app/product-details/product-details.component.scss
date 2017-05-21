@@ -1,3 +1,19 @@
 .product-details {
-  
+
+  .large-image {
+    img {
+      max-width: 95%;
+    }
+  }
+
+  .detailed-info {
+    border-top: #dfdfdf 1px solid;
+    padding-top: 20px;
+  }
+
+  .price {
+    font-size: 1.8em;
+    margin: 20px 0;
+  }
+
 }

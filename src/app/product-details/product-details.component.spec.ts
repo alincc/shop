@@ -7,6 +7,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { routes } from '../app-routing.module';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
 
 import { ProductListComponent } from '../product-list/product-list.component';
 import { HomeComponent } from '../home/home.component';
@@ -31,17 +32,12 @@ describe('ProductDetailsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         ProductDetailsComponent,
-        // ProductListComponent,
-        // HomeComponent,
-        // AboutComponent,
-        // ContactComponent,
         RouterLinkStubDirective,
         RouterOutletStubComponent,
-        // ActivatedRouteStub,
       ],
       imports: [
         HttpModule,
-        // RouterTestingModule.withRoutes(routes),
+        ToastModule.forRoot(),
       ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRoute },

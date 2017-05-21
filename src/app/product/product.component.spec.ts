@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { RouterLinkStubDirective }   from '../../testing/router-stubs';
 import { RouterOutletStubComponent } from '../../testing/router-stubs';
 import { ProductComponent } from './product.component';
@@ -17,6 +18,9 @@ describe('ProductComponent', () => {
       ],
       providers: [
         CartService,
+      ],
+      imports: [
+        ToastModule.forRoot(),
       ],
     })
     .compileComponents();

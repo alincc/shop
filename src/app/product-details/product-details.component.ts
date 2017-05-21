@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params }   from '@angular/router';
-
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import 'rxjs/add/operator/switchMap';
 
 import { ProductService } from '../services/product.service';
@@ -20,6 +20,7 @@ export class ProductDetailsComponent implements OnInit {
     private productService: ProductService,
     private cartService: CartService,
     private route: ActivatedRoute,
+    private toastr: ToastsManager,
   ) { }
 
   ngOnInit() {
@@ -29,6 +30,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addToCart(): void {
+    this.toastr.success('The product was added to your cart', 'Added!');
     this.cartService.add(this.product);
   }
 
