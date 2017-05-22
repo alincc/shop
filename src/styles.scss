@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto|Ubuntu|Ubuntu+Condensed|Ubuntu+Mono');
+
+@import 'assets/style/buttons.scss';
+@import 'assets/style/breadcrumb.scss';
+@import 'assets/style/forms.scss';
+@import 'assets/style/messages.scss';
+
 /*
 font-family: 'Roboto', sans-serif;
 font-family: 'Ubuntu Mono', monospace;
@@ -12,6 +18,7 @@ $pageWidth: 1200px;
 $pageBgColor: #fff;
 
 $baseFontColor: #333;
+$baseLighterColor: #888;
 $baseLinkColor: $baseFontColor;
 
 $footerBgColor: #333;
@@ -32,6 +39,10 @@ body {
 a {
   color: $baseLinkColor;
   text-decoration: none;
+}
+
+p {
+  color: $baseLighterColor;
 }
 
 .page {
@@ -74,35 +85,4 @@ a {
   color: $priceColor;
   font-size: 1.2em;
   font-weight: 300;
-}
-
-.button {
-  border-radius: 0;
-  background: #0ab3a3;
-  margin: 10px 0;
-  display: inline-block;
-  color: #fff;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.14);
-  border: 0;
-  padding: 11px 20px;
-  font-size: 14px;
-  font-weight: 400;
-  font-family: "Ubuntu", sans-serif;
-  line-height: 20px;
-  text-align: center;
-  // vertical-align: middle;
-  overflow: hidden;
-  cursor: pointer;
-  transition: all, 0.2s, ease-in-out;
-
-  &:hover {
-    background: #099b8d;
-  }
-
-  &.add-to-cart {
-    i {
-      vertical-align: middle;
-      margin-right: 5px;
-    }
-  }
 }

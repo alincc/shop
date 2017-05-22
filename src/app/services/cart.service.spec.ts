@@ -5,7 +5,7 @@ import { Product } from '../model/product';
 import { CartProduct } from '../model/CartProduct';
 
 describe('CartService', () => {
-  let fakeProductData = {
+  let fakeProductData: Product = {
     id: 1,
     category_id: 1,
     name: "name",
@@ -14,7 +14,7 @@ describe('CartService', () => {
     price: 100,
   };
 
-  let fakeProductData2 = {
+  let fakeProductData2: Product = {
     id: 2,
     category_id: 3,
     name: "name",
@@ -23,8 +23,8 @@ describe('CartService', () => {
     price: 200,
   };
 
-  let fakeProduct: Product = new Product(fakeProductData);
-  let fakeProduct2: Product = new Product(fakeProductData2);
+  let fakeProduct: Product = fakeProductData;
+  let fakeProduct2: Product = fakeProductData2;
 
   beforeEach(() => {
     TestBed.configureTestingModule({

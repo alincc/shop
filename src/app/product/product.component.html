@@ -1,7 +1,9 @@
 <div class="product-item row" *ngIf="product">
   <div class="image col-md-6">
 
-    <img src="https://www.thegoodguys.com.au/wcsstore/TGGCAS/idcplg?IdcService=GET_FILE&RevisionSelectionMethod=LatestReleased&noSaveAs=1&dDocName=50035069_478516&Rendition=ZOOMIMAGE" alt="">
+    <a [routerLink]="['/product', product.id]">
+      <img src="https://www.thegoodguys.com.au/wcsstore/TGGCAS/idcplg?IdcService=GET_FILE&RevisionSelectionMethod=LatestReleased&noSaveAs=1&dDocName=50035069_478516&Rendition=ZOOMIMAGE" alt="">
+    </a>
 
   </div>
 

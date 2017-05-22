@@ -18,7 +18,7 @@ export class CartService {
       });
     }
     else {
-      this.items.push(new CartProduct(product, 1));
+      this.items.push({ product: product, quantity: 1 });
     }
   }
 

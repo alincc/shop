@@ -3,11 +3,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProductDetailsComponent } from './product-details.component';
 import { ProductService } from '../services/product.service';
 import { CartService } from '../services/cart.service';
+import { CategoryService } from '../services/category.service';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { routes } from '../app-routing.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { Observable } from 'rxjs/Rx';
 
 import { ProductListComponent } from '../product-list/product-list.component';
 import { HomeComponent } from '../home/home.component';
@@ -22,6 +24,13 @@ describe('ProductDetailsComponent', () => {
   let fixture: ComponentFixture<ProductDetailsComponent>;
   let routerStub;
   let activatedRoute = new ActivatedRouteStub();
+  let categoryService: CategoryService;
+
+  let MOCK_CATEGORY = {
+    id: 0,
+    name: "Category 1",
+    image: "Image",
+  };
 
   beforeEach(async(() => {
     activatedRoute.testParams = { id: 99999 }
@@ -43,6 +52,7 @@ describe('ProductDetailsComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRoute },
         ProductService,
         CartService,
+        CategoryService,
       ],
     })
     .compileComponents();
@@ -52,9 +62,19 @@ describe('ProductDetailsComponent', () => {
     fixture = TestBed.createComponent(ProductDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    categoryService = TestBed.get(CategoryService);
+    spyOn(categoryService, 'getCategory').and.returnValue(Observable.of(MOCK_CATEGORY));
   });
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('getProductCategory()', () => {
+    it ('should get the product category', () => {
+      component.getProductCategory(1);
+      expect(component.category).toBe(MOCK_CATEGORY);
+    });
   });
 });

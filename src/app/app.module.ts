@@ -20,6 +20,8 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { CartComponent } from './cart/cart.component';
+import { CategoryListComponent } from './category-list/category-list.component';
+import { ContactFormComponent } from './contact-form/contact-form.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { CartComponent } from './cart/cart.component';
     AboutComponent,
     ContactComponent,
     CartComponent,
+    CategoryListComponent,
+    ContactFormComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -4,8 +4,10 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import 'rxjs/add/operator/switchMap';
 
 import { ProductService } from '../services/product.service';
+import { CategoryService } from '../services/category.service';
 import { CartService } from '../services/cart.service';
 import { Product } from '../model/product';
+import { Category }from '../model/Category';
 
 
 @Component({
@@ -15,10 +17,12 @@ import { Product } from '../model/product';
 })
 export class ProductDetailsComponent implements OnInit {
   @Input() product: Product;
+  category: Category;
 
   constructor(
     private productService: ProductService,
     private cartService: CartService,
+    private categoryService: CategoryService,
     private route: ActivatedRoute,
     private toastr: ToastsManager,
   ) { }
@@ -26,12 +30,24 @@ export class ProductDetailsComponent implements OnInit {
   ngOnInit() {
     this.route.params
       .switchMap((params: Params) => this.productService.getProduct(+params['id']))
-      .subscribe(product => this.product = product);
+      .subscribe(product => {
+        this.product = product;
+
+        // Load the category
+        this.getProductCategory(product.category_id);
+      });
   }
 
   addToCart(): void {
     this.toastr.success('The product was added to your cart', 'Added!');
     this.cartService.add(this.product);
+  }
+
+  getProductCategory(id: number): void {
+    if (this.category == null && id !== null) {
+      this.categoryService.getCategory(id)
+        .subscribe(category => this.category = category);
+    }
   }
 
 }

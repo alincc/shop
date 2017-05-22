@@ -1,0 +1,30 @@
+.breadcrumbs {
+  background: #fbfbfb;
+  padding: 10px 0;
+  margin: 20px 0;
+  color: #888;
+
+  a {
+    color: inherit;
+  }
+
+  ul {
+    list-style: none;
+    overflow: hidden;
+
+    li {
+      float: left;
+
+      a, span, i {
+        margin: 0 5px;
+      }
+
+      &.home {
+        span {
+          color: #0ab3a3;
+        }
+      }
+    }
+  }
+
+}

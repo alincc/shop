@@ -1,5 +1,23 @@
 <div class="product-details" *ngIf="product">
 
+  <div *ngIf="category">
+    <div class="breadcrumbs">
+      <ul>
+        <li class="home">
+          <span class="fa fa-home"></span>
+          <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+          <a routerLink="/products">Category</a>
+          <i class="fa fa-angle-right"></i>
+        </li>
+        <li class="active">
+          <span>{{ category.name }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
   <div class="row">
 
     <div class="large-image col-md-6">
