@@ -4,6 +4,8 @@
 @import 'assets/style/breadcrumb.scss';
 @import 'assets/style/forms.scss';
 @import 'assets/style/messages.scss';
+@import 'assets/style/boxes.scss';
+@import 'assets/style/tables.scss';
 
 /*
 font-family: 'Roboto', sans-serif;
@@ -17,7 +19,7 @@ $menuBgColor: #fff;
 $pageWidth: 1200px;
 $pageBgColor: #fff;
 
-$baseFontColor: #333;
+$baseFontColor: #555;
 $baseLighterColor: #888;
 $baseLinkColor: $baseFontColor;
 

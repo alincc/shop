@@ -1,0 +1,26 @@
+$defaultBg: #FAFAFA;
+$defaultTitleBg: #81A9B3;
+
+.box {
+  background: $defaultBg;
+  margin-bottom: 20px;
+
+  .title {
+    background: $defaultTitleBg;
+    padding: 15px;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #fff;
+
+    i {
+      margin-right: 10px;
+      font-size: 24px;
+      line-height: 24px;
+    }
+  }
+
+  .content {
+    padding: 15px;
+  }
+}
