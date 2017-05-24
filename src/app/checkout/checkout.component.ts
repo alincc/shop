@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CartProduct } from '../model/CartProduct';
+import { Customer } from '../model/Customer';
+import { Product } from '../model/product';
 import { CartService } from '../services/cart.service';
+import { CheckoutService } from '../services/checkout.service';
+import { CustomerService } from '../services/customer.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-checkout',
@@ -12,12 +17,41 @@ export class CheckoutComponent implements OnInit {
   products: CartProduct[];
   private selectedShippingCost: number = 0;
   private subtotal: number = 0;
+  private form = {};
 
-  constructor(private cartService: CartService) { }
+  constructor(
+    private cartService: CartService,
+    private checkoutService: CheckoutService,
+    private customerService: CustomerService
+  ) { }
 
   ngOnInit() {
     this.loadProducts();
     this.calculateSubTotal();
+  }
+
+  onSubmit() {
+    // TODO: fields should be fetched from the form instead of hardcoded
+    const inputCustomer: Customer = {
+      phone: "phone",
+      country: "country",
+      postnumber: "postnumber",
+      address: "address",
+      lastname: "lastname",
+      firstname: "firstname",
+    }
+
+    this.customerService.create(inputCustomer).flatMap(res => {
+      console.log('data x ', res);
+
+      return this.checkoutService.createOrder(
+        res.data,
+        this.products.map(p => p.product),
+        this.total());
+
+    }).subscribe(data => {
+      console.log(data);
+    });
   }
 
   loadProducts(): void {

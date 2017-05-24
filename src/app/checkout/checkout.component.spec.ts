@@ -1,14 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CartService } from '../services/cart.service';
+import { CheckoutService } from '../services/checkout.service';
 import { CartProduct } from '../model/CartProduct';
 import { CheckoutComponent } from './checkout.component';
 import { CheckoutItemsComponent } from '../checkout-items/checkout-items.component';
 import { RouterLinkStubDirective }   from '../../testing/router-stubs';
+import { FormsModule } from '@angular/forms';
 
 const MOCK_PRODUCT_1 = {
   product: {
-    id: 1,
-    category_id: 1,
+    _id: "1",
+    category_id: "1",
     name: "First product",
     description: "Description",
     image: "Image",
@@ -19,8 +21,8 @@ const MOCK_PRODUCT_1 = {
 
 const MOCK_PRODUCT_2 = {
   product: {
-    id: 2,
-    category_id: 1,
+    _id: "2",
+    category_id: "1",
     name: "Second product",
     description: "Description",
     image: "Image",
@@ -41,6 +43,10 @@ describe('CheckoutComponent', () => {
       declarations: [ CheckoutComponent, CheckoutItemsComponent, RouterLinkStubDirective ],
       providers: [
         CartService,
+        CheckoutService,
+      ],
+      imports: [
+        FormsModule,
       ],
     })
     .compileComponents();

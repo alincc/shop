@@ -1,6 +1,6 @@
 <div class="product-details" *ngIf="product">
 
-  <div *ngIf="category">
+  <div *ngIf="product.category">
     <div class="breadcrumbs">
       <ul>
         <li class="home">
@@ -12,7 +12,7 @@
           <i class="fa fa-angle-right"></i>
         </li>
         <li class="active">
-          <span>{{ category.name }}</span>
+          <span>{{ product.category.name }}</span>
         </li>
       </ul>
     </div>
@@ -21,7 +21,7 @@
   <div class="row">
 
     <div class="large-image col-md-6">
-      <img [src]="product.image" alt="Large image"/>
+      <img [src]="product.image" *ngIf="product.image" alt="Large image"/>
     </div>
 
     <div class="right-info col-md-6">

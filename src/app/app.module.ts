@@ -14,7 +14,9 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductComponent } from './product/product.component';
 import { ProductService } from './services/product.service';
 import { CartService } from './services/cart.service';
+import { CheckoutService } from './services/checkout.service';
 import { CategoryService } from './services/category.service';
+import { CustomerService } from './services/customer.service';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
@@ -52,7 +54,9 @@ import { CheckoutItemsComponent } from './checkout-items/checkout-items.componen
   ],
   providers: [
     ProductService,
+    CustomerService,
     CartService,
+    CheckoutService,
     CategoryService,
   ],
   bootstrap: [AppComponent]

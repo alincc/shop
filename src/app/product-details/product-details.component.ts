@@ -29,25 +29,13 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.route.params
-      .switchMap((params: Params) => this.productService.getProduct(+params['id']))
-      .subscribe(product => {
-        this.product = product;
-
-        // Load the category
-        this.getProductCategory(product.category_id);
-      });
+      .switchMap((params: Params) => this.productService.getProduct(params['id']))
+      .subscribe(product => this.product = product);
   }
 
   addToCart(): void {
     this.toastr.success('The product was added to your cart', 'Added!');
     this.cartService.add(this.product);
-  }
-
-  getProductCategory(id: number): void {
-    if (this.category == null && id !== null) {
-      this.categoryService.getCategory(id)
-        .subscribe(category => this.category = category);
-    }
   }
 
 }

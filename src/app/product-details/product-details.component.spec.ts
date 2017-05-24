@@ -71,10 +71,4 @@ describe('ProductDetailsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('getProductCategory()', () => {
-    it ('should get the product category', () => {
-      component.getProductCategory(1);
-      expect(component.category).toBe(MOCK_CATEGORY);
-    });
-  });
 });

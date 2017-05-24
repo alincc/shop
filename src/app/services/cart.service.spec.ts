@@ -6,8 +6,9 @@ import { CartProduct } from '../model/CartProduct';
 
 describe('CartService', () => {
   let fakeProductData: Product = {
-    id: 1,
-    category_id: 1,
+    _id: "1",
+    category: null,
+    category_id: "1",
     name: "name",
     description: "desc",
     image: "img",
@@ -15,8 +16,9 @@ describe('CartService', () => {
   };
 
   let fakeProductData2: Product = {
-    id: 2,
-    category_id: 3,
+    _id: "2",
+    category: null,
+    category_id: "3",
     name: "name",
     description: "desc",
     image: "img",

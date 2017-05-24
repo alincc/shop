@@ -11,7 +11,7 @@ export class CartService {
   add(product: Product): void {
     if (this.contains(product)) {
       this.items.map(item => {
-        if (item.product.id === product.id) {
+        if (item.product._id === product._id) {
           item.quantity += 1;
         }
         return item;
@@ -23,11 +23,11 @@ export class CartService {
   }
 
   contains(product: Product): boolean {
-    return this.items.filter(item => item.product.id === product.id).length > 0;
+    return this.items.filter(item => item.product._id === product._id).length > 0;
   }
 
   delete(product: Product): void {
-    this.items = this.items.filter(item => item.product.id !== product.id);
+    this.items = this.items.filter(item => item.product._id !== product._id);
   }
 
   clear(): void {
@@ -45,7 +45,7 @@ export class CartService {
   }
 
   getItem(product: Product): CartProduct {
-    return this.items.find(item => item.product.id === product.id);
+    return this.items.find(item => item.product._id === product._id);
   }
 
 }

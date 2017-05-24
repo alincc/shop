@@ -1,3 +1,16 @@
+@mixin input {
+  width: 100%;
+  font-family: 'Ubuntu', sans-serif;
+  padding: .6em 1em;
+  background: #fff;
+  border: 1px solid rgba(34,36,38,.15);
+  color: rgba(0,0,0,.87);
+  line-height: 1.6em;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 .form {
   .field {
     margin: 15px 0;
@@ -9,18 +22,13 @@
     }
 
     input, textarea {
-      width: 100%;
-      font-family: 'Ubuntu', sans-serif;
-      padding: .6em 1em;
-      background: #fff;
-      border: 1px solid rgba(34,36,38,.15);
-      color: rgba(0,0,0,.87);
-      line-height: 1.6em;
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
-      box-sizing: border-box;
+      @include input;
     }
   }
+}
+
+.input {
+  @include input;
 }
 
 *::-webkit-input-placeholder {

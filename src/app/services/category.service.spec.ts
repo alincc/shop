@@ -41,7 +41,7 @@ describe('CategoryService', () => {
           // Arrange
           let categories = null;
           backend.connections.subscribe((c: MockConnection) => {
-              expect(c.request.url).toEqual('http://localhost:9000/category');
+              expect(c.request.url).toEqual('http://localhost:9000/api/category');
               c.mockRespond(new Response(new ResponseOptions({body: JSON.stringify(mockResponse)})));
           });
 
@@ -58,7 +58,7 @@ describe('CategoryService', () => {
   it('should get a single category', inject([ConnectionBackend, CategoryService],
       (backend: MockBackend, service: CategoryService) => {
         const mockResponse = {
-          id: 0,
+          id: "0",
           name: "Category 1",
           image: "Image"
         };
@@ -66,12 +66,12 @@ describe('CategoryService', () => {
         // Arrange
         let category = null;
         backend.connections.subscribe((c: MockConnection) => {
-            expect(c.request.url).toEqual('http://localhost:9000/category/1');
+            expect(c.request.url).toEqual('http://localhost:9000/api/category/1');
             c.mockRespond(new Response(new ResponseOptions({body: JSON.stringify(mockResponse)})));
         });
 
         // Act
-        service.getCategory(1).subscribe((q) => {
+        service.getCategory("1").subscribe((q) => {
           category = q;
         });
 

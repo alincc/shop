@@ -6,7 +6,7 @@ import { Category } from '../model/Category'
 
 @Injectable()
 export class CategoryService {
-  private url = 'http://localhost:9000/category'
+  private url = 'http://localhost:9000/api/category'
 
   constructor(private http: Http) { }
 
@@ -16,7 +16,7 @@ export class CategoryService {
                     .catch(this.handleError);
   }
 
-  getCategory(id: number): Observable<Category> {
+  getCategory(id: String): Observable<Category> {
     return this.http.get(this.url + '/' + id)
                     .map(res => res.json())
                     .catch(this.handleError);
