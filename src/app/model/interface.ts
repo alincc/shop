@@ -28,14 +28,39 @@ interface OrderLine {
   quantity: number;
 }
 
-interface Order {
+export enum ShippingStatus {
+  Pending = 0,
+  AwaitingShipment = 1,
+  Shipped = 2,
+  Completed = 4,
+}
+
+class Order {
   _id: String;
-  // updatedAt: String;
-  // createdAt: String;
+  updatedAt: String;
+  createdAt: String;
   total: number;
-  // items: Product[],
-  items: OrderLine;
+  status?: ShippingStatus;
+  items: OrderLine[];
   customer?: Customer; // TODO: should not be optional
+  shipping?: Shipping;
+
+  constructor(order: Order) {
+    this._id = order._id;
+    this.updatedAt = order.updatedAt;
+    this.createdAt = order.createdAt;
+    this.total = order.total;
+    this.status = order.status ? order.status : null;
+    this.items = order.items ? order.items : [];
+    this.customer = order.customer ? order.customer : null;
+    this.shipping = order.shipping ? order.shipping : null;
+  }
+
+  calculateSubTotal() {
+    return this.items.reduce((sum, item) => {
+      return sum + (item.product.price * item.quantity);
+    }, 0);
+  }
 }
 
 class Product {
@@ -48,6 +73,13 @@ class Product {
   price: number;
 }
 
+class Shipping {
+  _id: String;
+  name: String;
+  price: Number;
+  description?: String;
+}
+
 export {
   Category,
   CartProduct,
@@ -55,5 +87,6 @@ export {
   Customer,
   OrderLine,
   Order,
+  Shipping,
   Product,
 }

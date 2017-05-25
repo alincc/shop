@@ -14,6 +14,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductComponent } from './product/product.component';
 import { ProductService } from './services/product.service';
 import { CartService } from './services/cart.service';
+import { ShippingService } from './services/shipping.service';
 import { CheckoutService } from './services/checkout.service';
 import { CategoryService } from './services/category.service';
 import { CustomerService } from './services/customer.service';
@@ -26,6 +27,7 @@ import { CategoryListComponent } from './category-list/category-list.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CheckoutItemsComponent } from './checkout-items/checkout-items.component';
+import { OrderComponent } from './order/order.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { CheckoutItemsComponent } from './checkout-items/checkout-items.componen
     ContactFormComponent,
     CheckoutComponent,
     CheckoutItemsComponent,
+    OrderComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -56,6 +59,7 @@ import { CheckoutItemsComponent } from './checkout-items/checkout-items.componen
     ProductService,
     CustomerService,
     CartService,
+    ShippingService,
     CheckoutService,
     CategoryService,
   ],

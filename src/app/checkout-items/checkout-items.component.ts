@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CartProduct } from '../model/interface';
+import { OrderLine, Shipping } from '../model/interface';
 
 @Component({
   selector: 'app-checkout-items',
@@ -7,15 +7,14 @@ import { CartProduct } from '../model/interface';
   styleUrls: ['./checkout-items.component.scss']
 })
 export class CheckoutItemsComponent implements OnInit {
-  @Input() items: CartProduct[];
-  @Input() shippingCost: number;
+  @Input() items: OrderLine[];
+  @Input() shipping: Shipping;
   @Input() subtotal: number;
   @Input() grandTotal: number;
 
   constructor() { }
 
   ngOnInit() {
-
   }
 
 }

@@ -1,5 +1,5 @@
 <div class="product-item row" *ngIf="product">
-  <div class="image col-md-6">
+  <div class="image col-md-6 col-xs-4">
 
     <a [routerLink]="['/product', product._id]" *ngIf="product.image">
       <img [src]="product.image" alt="">
@@ -7,7 +7,7 @@
 
   </div>
 
-  <div class="information col-md-6">
+  <div class="information col-md-6 col-xs-8">
     <h3><a [routerLink]="['/product', product._id]">{{ product.name }}</a></h3>
     <div class="price">{{ product.price }} SEK</div>
 

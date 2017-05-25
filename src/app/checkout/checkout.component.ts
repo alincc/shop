@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderLine, Product, Customer } from '../model/interface';
+import { OrderLine, Product, Customer, Shipping } from '../model/interface';
 import { CartService } from '../services/cart.service';
 import { CheckoutService } from '../services/checkout.service';
 import { CustomerService } from '../services/customer.service';
+import { ShippingService } from '../services/shipping.service';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -13,18 +14,21 @@ import { Observable } from 'rxjs/Observable';
 export class CheckoutComponent implements OnInit {
 
   products: OrderLine[];
-  private selectedShippingCost = 0;
+  private shipping: Shipping[];
+  private selectedShipping: Shipping;
   private subtotal = 0;
   private form = {};
 
   constructor(
     private cartService: CartService,
     private checkoutService: CheckoutService,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private shippingService: ShippingService
   ) { }
 
   ngOnInit() {
     this.loadProducts();
+    this.loadShipping();
     this.calculateSubTotal();
   }
 
@@ -40,7 +44,7 @@ export class CheckoutComponent implements OnInit {
     };
 
     this.customerService.create(inputCustomer).flatMap(res =>
-      this.checkoutService.createOrder(res.data, this.products, this.total())
+      this.checkoutService.createOrder(res.data, this.products, this.total(), this.selectedShipping)
     ).subscribe(data => {
       console.log(data);
     });
@@ -50,8 +54,17 @@ export class CheckoutComponent implements OnInit {
     this.products = this.cartService.getItems();
   }
 
+  loadShipping(): void {
+    this.shippingService.getAllShipping()
+      .subscribe(data => this.shipping = data);
+  }
+
   getProducts(): OrderLine[] {
     return this.products;
+  }
+
+  getShipping(): Shipping[] {
+    return this.shipping;
   }
 
   setProducts(products: OrderLine[]): void {
@@ -62,17 +75,13 @@ export class CheckoutComponent implements OnInit {
     return this.cartService.getTotalPrice();
   }
 
-  getTotalWithShipping(): number {
-    return this.total() + this.selectedShippingCost;
-  }
-
   calculateSubTotal(): number {
     this.subtotal = this.cartService.getTotalPrice();
     return this.subtotal;
   }
 
-  setShippingCost(price: number) {
-    this.selectedShippingCost = price;
+  setSelectedShipping(shipping: Shipping) {
+    this.selectedShipping = shipping;
   }
 
 }

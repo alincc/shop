@@ -2,12 +2,15 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CartService } from '../services/cart.service';
 import { CheckoutService } from '../services/checkout.service';
 import { CustomerService } from '../services/customer.service';
+import { ShippingService } from '../services/shipping.service';
+import { ShippingServiceMock } from '../../testing/ShippingServiceMock';
 import { CartProduct } from '../model/interface';
 import { CheckoutComponent } from './checkout.component';
 import { CheckoutItemsComponent } from '../checkout-items/checkout-items.component';
 import { RouterLinkStubDirective }   from '../../testing/router-stubs';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { MOCK_SHIPPINGS } from '../../testing/mock/mocks';
 
 const MOCK_PRODUCT_1 = {
   product: {
@@ -47,6 +50,10 @@ describe('CheckoutComponent', () => {
         CartService,
         CheckoutService,
         CustomerService,
+        {
+          provide: ShippingService,
+          useClass: ShippingServiceMock,
+        },
       ],
       imports: [
         HttpModule,
@@ -87,5 +94,13 @@ describe('CheckoutComponent', () => {
       component.setProducts(MOCK_CART_ITEMS);
       expect(component.total()).toEqual(50);
     });
+  });
+
+  describe('loadShipping()', () => {
+    it ('should assign the shipping methods', () => {
+      component.loadShipping();
+
+      expect(component.getShipping()).toBe(MOCK_SHIPPINGS);
+    })
   });
 });
