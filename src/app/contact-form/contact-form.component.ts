@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ContactMessage } from '../model/ContactMessage';
+import { ContactMessage } from '../model/interface';
 
 @Component({
   selector: 'app-contact-form',
@@ -13,7 +13,7 @@ export class ContactFormComponent implements OnInit {
     text: '',
   };
 
-  form: ContactMessage = new ContactMessage("", "", "");
+  form: ContactMessage = new ContactMessage('', '', '');
 
   constructor() { }
 
@@ -21,7 +21,7 @@ export class ContactFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("Form submitted with = " + this.form); // TODO: implement
+    console.log('Form submitted with = ' + this.form); // TODO: implement
     this.message = {
       title: 'Thank you',
       text: 'Your message was sent. We will get back to you shortly.',

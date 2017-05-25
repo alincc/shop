@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
-import { Product } from '../model/product'
+import { Product } from '../model/interface';
 import { CartService } from '../services/cart.service';
 
 @Component({
@@ -25,5 +25,4 @@ export class ProductComponent implements OnInit {
     this.toastr.success('The product was added to your cart', 'Added');
     this.cartService.add(this.product);
   }
-
 }

@@ -3,7 +3,7 @@ import {MockBackend, MockConnection} from '@angular/http/testing';
 import {Response, ResponseOptions, Http, ConnectionBackend, BaseRequestOptions, RequestOptions} from '@angular/http';
 
 import { CategoryService } from './category.service';
-import { Category } from '../model/Category';
+import { Category } from '../model/interface';
 
 describe('CategoryService', () => {
   beforeEach(() => {
@@ -28,13 +28,13 @@ describe('CategoryService', () => {
          const mockResponse = [
            {
              id: 0,
-             name: "Category 1",
-             image: "Image"
+             name: 'Category 1',
+             image: 'Image'
            },
            {
              id: 1,
-             name: "Category 2",
-             image: "Image"
+             name: 'Category 2',
+             image: 'Image'
            }
          ];
 
@@ -58,9 +58,9 @@ describe('CategoryService', () => {
   it('should get a single category', inject([ConnectionBackend, CategoryService],
       (backend: MockBackend, service: CategoryService) => {
         const mockResponse = {
-          id: "0",
-          name: "Category 1",
-          image: "Image"
+          id: '0',
+          name: 'Category 1',
+          image: 'Image'
         };
 
         // Arrange
@@ -71,7 +71,7 @@ describe('CategoryService', () => {
         });
 
         // Act
-        service.getCategory("1").subscribe((q) => {
+        service.getCategory('1').subscribe((q) => {
           category = q;
         });
 

@@ -1,32 +1,31 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { CartService } from './cart.service';
-import { Product } from '../model/product';
-import { CartProduct } from '../model/CartProduct';
+import { Product } from '../model/interface';
 
 describe('CartService', () => {
-  let fakeProductData: Product = {
-    _id: "1",
+  const fakeProductData: Product = {
+    _id: '1',
     category: null,
-    category_id: "1",
-    name: "name",
-    description: "desc",
-    image: "img",
+    category_id: '1',
+    name: 'name',
+    description: 'desc',
+    image: 'img',
     price: 100,
   };
 
-  let fakeProductData2: Product = {
-    _id: "2",
+  const fakeProductData2: Product = {
+    _id: '2',
     category: null,
-    category_id: "3",
-    name: "name",
-    description: "desc",
-    image: "img",
+    category_id: '3',
+    name: 'name',
+    description: 'desc',
+    image: 'img',
     price: 200,
   };
 
-  let fakeProduct: Product = fakeProductData;
-  let fakeProduct2: Product = fakeProductData2;
+  const fakeProduct: Product = fakeProductData;
+  const fakeProduct2: Product = fakeProductData2;
 
   beforeEach(() => {
     TestBed.configureTestingModule({

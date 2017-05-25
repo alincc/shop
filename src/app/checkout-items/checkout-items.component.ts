@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CartProduct } from '../model/CartProduct';
+import { CartProduct } from '../model/interface';
 
 @Component({
   selector: 'app-checkout-items',

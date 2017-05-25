@@ -6,14 +6,14 @@ import { Observable } from 'rxjs/Rx';
 
 const testCategory1 = {
   id: 0,
-  name: "Category 1",
-  image: "Image",
+  name: 'Category 1',
+  image: 'Image',
 };
 
 const testCategory2 = {
   id: 1,
-  name: "Category 2",
-  image: "Image",
+  name: 'Category 2',
+  image: 'Image',
 };
 
 const testCategories = [
@@ -47,7 +47,7 @@ describe('CategoryListComponent', () => {
     fixture.detectChanges();
 
     categoryService = TestBed.get(CategoryService);
-    spyOn(categoryService, 'getCategories').and.returnValue(Observable.of(testCategories))
+    spyOn(categoryService, 'getCategories').and.returnValue(Observable.of(testCategories));
   }));
 
   it('should be created', () => {

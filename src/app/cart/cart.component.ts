@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 import { CartService } from '../services/cart.service';
-import { Product } from '../model/product';
-import { CartProduct } from '../model/CartProduct';
+import { OrderLine, Product } from '../model/interface';
 
 
 @Component({
@@ -13,7 +12,7 @@ import { CartProduct } from '../model/CartProduct';
 })
 export class CartComponent implements OnInit {
 
-  private products: CartProduct[];
+  private products: OrderLine[];
 
   constructor(
     private cartService: CartService,
@@ -29,8 +28,16 @@ export class CartComponent implements OnInit {
     this.products = this.cartService.getItems();
   }
 
-  removeItem(cartProduct: CartProduct): void {
-    this.cartService.delete(cartProduct.product);
+  getProducts(): OrderLine[] {
+    return this.products;
+  }
+
+  contains(orderLine: OrderLine): boolean {
+    return this.cartService.contains(orderLine.product);
+  }
+
+  removeItem(orderLine: OrderLine): void {
+    this.cartService.delete(orderLine.product);
     this.products = this.cartService.getItems();
 
     this.toastr.success('Product was removed from your cart', 'Success');

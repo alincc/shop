@@ -6,8 +6,7 @@ import 'rxjs/add/operator/switchMap';
 import { ProductService } from '../services/product.service';
 import { CategoryService } from '../services/category.service';
 import { CartService } from '../services/cart.service';
-import { Product } from '../model/product';
-import { Category }from '../model/Category';
+import { Product, Category } from '../model/interface';
 
 
 @Component({

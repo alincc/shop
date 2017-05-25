@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Customer } from '../model/Customer';
-import { Product } from '../model/product';
+import { Order, OrderLine, Customer } from '../model/interface';
 
 @Injectable()
 export class CheckoutService {
 
-  private url = 'http://localhost:9000/api/order'
+  private url = 'http://localhost:9000/api/order';
 
   constructor(private http: Http) { }
 
-  createOrder(customer: Customer, items: Product[], total: number) {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+  createOrder(customer: Customer, items: OrderLine[], total: number) {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
 
-    let body = JSON.stringify({
+    const body = JSON.stringify({
       customer: customer,
       total: total,
       items: items,

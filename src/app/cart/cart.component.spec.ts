@@ -1,7 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { ToastModule, ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { CartService } from '../services/cart.service';
-import { Product } from '../model/product';
+import { CartServiceMock, MOCK_ITEMS, PRODUCT_NOT_IN_CART } from '../../testing/CartServiceMock';
+import { ToastsManagerMock } from '../../testing/ToastsManagerMock';
+import { Product, OrderLine } from '../model/interface';
 
 import { CartComponent } from './cart.component';
 
@@ -13,10 +15,14 @@ describe('CartComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ CartComponent ],
       providers: [
-        CartService,
+        {
+          provide: CartService,
+          useClass: CartServiceMock
+        },
+        {provide: ToastsManager, useClass: ToastsManagerMock}
       ],
       imports: [
-        ToastModule.forRoot()
+        ToastModule
       ],
     })
     .compileComponents();
@@ -31,4 +37,39 @@ describe('CartComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('removeItem()', () => {
+    it('should remove the item', () => {
+      let currentItems = component.getProducts();
+
+      if (currentItems[0] != null) {
+        const itemToRemove = currentItems[0];
+        const lengthBefore = component.getProducts().length;
+
+        component.removeItem(currentItems[0]);
+
+        expect(component.getProducts().length).toBeLessThan(lengthBefore);
+        expect(component.contains(itemToRemove)).toBe(false);
+      }
+    });
+  })
+
+  describe('contains()', () => {
+    it ('should return true if item exists', () => {
+      let orderLine = component.getProducts()[0];
+      expect(component.contains(orderLine)).toBe(true);
+    });
+
+    it ('should return false if item does not exists', () => {
+      expect(component.contains(PRODUCT_NOT_IN_CART)).toBe(false);
+    });
+  });
+
+  describe('loadProducts()', () => {
+    it ('should set the products to the data from cart service', () => {
+      component.loadProducts();
+      expect(component.getProducts()).toBe(MOCK_ITEMS);
+    });
+  });
+
 });

@@ -4,11 +4,11 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import { Product } from '../model/product'
+import { Product } from '../model/interface';
 
 @Injectable()
 export class ProductService {
-  private url = 'http://localhost:9000/api/product'
+  private url = 'http://localhost:9000/api/product';
 
   constructor(private http: Http) { }
 

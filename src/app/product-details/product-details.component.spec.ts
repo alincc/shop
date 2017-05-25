@@ -23,17 +23,17 @@ describe('ProductDetailsComponent', () => {
   let component: ProductDetailsComponent;
   let fixture: ComponentFixture<ProductDetailsComponent>;
   let routerStub;
-  let activatedRoute = new ActivatedRouteStub();
+  const activatedRoute = new ActivatedRouteStub();
   let categoryService: CategoryService;
 
-  let MOCK_CATEGORY = {
+  const MOCK_CATEGORY = {
     id: 0,
-    name: "Category 1",
-    image: "Image",
+    name: 'Category 1',
+    image: 'Image',
   };
 
   beforeEach(async(() => {
-    activatedRoute.testParams = { id: 99999 }
+    activatedRoute.testParams = { id: 99999 };
 
     routerStub = {
       navigate: jasmine.createSpy('navigate')

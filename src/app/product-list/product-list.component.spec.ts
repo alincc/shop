@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ProductListComponent } from './product-list.component'
+import { ProductListComponent } from './product-list.component';
 import { ProductComponent } from '../product/product.component';
 import { CategoryListComponent } from '../category-list/category-list.component';
-import { ProductService } from '../services/product.service'
-import { CategoryService } from '../services/category.service'
+import { ProductService } from '../services/product.service';
+import { CategoryService } from '../services/category.service';
 import { RouterLinkStubDirective }   from '../../testing/router-stubs';
 import { RouterOutletStubComponent } from '../../testing/router-stubs';
 import { HttpModule } from '@angular/http';

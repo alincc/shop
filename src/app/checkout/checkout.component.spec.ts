@@ -1,35 +1,37 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CartService } from '../services/cart.service';
 import { CheckoutService } from '../services/checkout.service';
-import { CartProduct } from '../model/CartProduct';
+import { CustomerService } from '../services/customer.service';
+import { CartProduct } from '../model/interface';
 import { CheckoutComponent } from './checkout.component';
 import { CheckoutItemsComponent } from '../checkout-items/checkout-items.component';
 import { RouterLinkStubDirective }   from '../../testing/router-stubs';
 import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 const MOCK_PRODUCT_1 = {
   product: {
-    _id: "1",
-    category_id: "1",
-    name: "First product",
-    description: "Description",
-    image: "Image",
+    _id: '1',
+    category_id: '1',
+    name: 'First product',
+    description: 'Description',
+    image: 'Image',
     price: 10,
   },
   quantity: 1
-}
+};
 
 const MOCK_PRODUCT_2 = {
   product: {
-    _id: "2",
-    category_id: "1",
-    name: "Second product",
-    description: "Description",
-    image: "Image",
+    _id: '2',
+    category_id: '1',
+    name: 'Second product',
+    description: 'Description',
+    image: 'Image',
     price: 20,
   },
   quantity: 2
-}
+};
 
 const MOCK_CART_ITEMS = [MOCK_PRODUCT_1, MOCK_PRODUCT_2];
 
@@ -44,8 +46,10 @@ describe('CheckoutComponent', () => {
       providers: [
         CartService,
         CheckoutService,
+        CustomerService,
       ],
       imports: [
+        HttpModule,
         FormsModule,
       ],
     })

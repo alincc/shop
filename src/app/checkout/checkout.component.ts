@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CartProduct } from '../model/CartProduct';
-import { Customer } from '../model/Customer';
-import { Product } from '../model/product';
+import { OrderLine, Product, Customer } from '../model/interface';
 import { CartService } from '../services/cart.service';
 import { CheckoutService } from '../services/checkout.service';
 import { CustomerService } from '../services/customer.service';
@@ -14,9 +12,9 @@ import { Observable } from 'rxjs/Observable';
 })
 export class CheckoutComponent implements OnInit {
 
-  products: CartProduct[];
-  private selectedShippingCost: number = 0;
-  private subtotal: number = 0;
+  products: OrderLine[];
+  private selectedShippingCost = 0;
+  private subtotal = 0;
   private form = {};
 
   constructor(
@@ -33,23 +31,17 @@ export class CheckoutComponent implements OnInit {
   onSubmit() {
     // TODO: fields should be fetched from the form instead of hardcoded
     const inputCustomer: Customer = {
-      phone: "phone",
-      country: "country",
-      postnumber: "postnumber",
-      address: "address",
-      lastname: "lastname",
-      firstname: "firstname",
-    }
+      phone: 'phone',
+      country: 'country',
+      postnumber: 'postnumber',
+      address: 'address',
+      lastname: 'lastname',
+      firstname: 'firstname',
+    };
 
-    this.customerService.create(inputCustomer).flatMap(res => {
-      console.log('data x ', res);
-
-      return this.checkoutService.createOrder(
-        res.data,
-        this.products.map(p => p.product),
-        this.total());
-
-    }).subscribe(data => {
+    this.customerService.create(inputCustomer).flatMap(res =>
+      this.checkoutService.createOrder(res.data, this.products, this.total())
+    ).subscribe(data => {
       console.log(data);
     });
   }
@@ -58,11 +50,11 @@ export class CheckoutComponent implements OnInit {
     this.products = this.cartService.getItems();
   }
 
-  getProducts(): CartProduct[] {
+  getProducts(): OrderLine[] {
     return this.products;
   }
 
-  setProducts(products: CartProduct[]): void {
+  setProducts(products: OrderLine[]): void {
     this.products = products;
   }
 
