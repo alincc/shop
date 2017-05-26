@@ -41,6 +41,7 @@ export class CheckoutComponent implements OnInit {
       address: 'address',
       lastname: 'lastname',
       firstname: 'firstname',
+      orders: [],
     };
 
     this.customerService.create(inputCustomer).flatMap(res =>

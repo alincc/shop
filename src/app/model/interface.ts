@@ -1,3 +1,13 @@
+interface User {
+  _id: String,
+  admin: boolean;
+  username: String;
+  password: String;
+  email: String;
+  customer?: Customer;
+  ip: String;
+}
+
 interface Category {
   _id: String;
   name: String;
@@ -21,6 +31,7 @@ interface Customer {
   address: String;
   lastname: String;
   firstname: String;
+  orders: Order[];
 }
 
 interface OrderLine {
@@ -35,7 +46,18 @@ export enum ShippingStatus {
   Completed = 4,
 }
 
-class Order {
+interface IOrder {
+  _id: String;
+  updatedAt: String;
+  createdAt: String;
+  total: number;
+  status?: ShippingStatus;
+  items: OrderLine[];
+  customer?: Customer; // TODO: should not be optional
+  shipping?: Shipping;
+}
+
+class Order implements IOrder {
   _id: String;
   updatedAt: String;
   createdAt: String;
@@ -45,7 +67,7 @@ class Order {
   customer?: Customer; // TODO: should not be optional
   shipping?: Shipping;
 
-  constructor(order: Order) {
+  constructor(order: IOrder) {
     this._id = order._id;
     this.updatedAt = order.updatedAt;
     this.createdAt = order.createdAt;
@@ -56,7 +78,7 @@ class Order {
     this.shipping = order.shipping ? order.shipping : null;
   }
 
-  calculateSubTotal() {
+  public calculateSubTotal(): number {
     return this.items.reduce((sum, item) => {
       return sum + (item.product.price * item.quantity);
     }, 0);
@@ -86,7 +108,9 @@ export {
   ContactMessage,
   Customer,
   OrderLine,
+  IOrder,
   Order,
+  User,
   Shipping,
   Product,
 }

@@ -28,7 +28,7 @@ export class OrderComponent implements OnInit {
       .switchMap((params: Params) => this.checkoutService.getOrder(params['id']))
       .subscribe(order => {
         if (order) {
-          this.order = new Order(order)
+          this.order = new Order(order);
         }
       });
   }

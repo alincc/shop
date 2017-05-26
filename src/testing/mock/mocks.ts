@@ -1,4 +1,14 @@
-import { Order, OrderLine, Customer, Product, Shipping } from '../../app/model/interface';
+import {
+  Order,
+  OrderLine,
+  Customer,
+  Product,
+  User,
+  Shipping,
+  ShippingStatus
+} from '../../app/model/interface';
+
+
 
 export const FAKE_PRODUCT1: Product = {
   _id: "1",
@@ -36,16 +46,18 @@ export const MOCK_CUSTOMER1: Customer = {
   address: "address",
   lastname: "lastname",
   firstname: "firstname",
-}
+  orders: [],
+};
 
-export const MOCK_ORDER1: Order = {
-  _id: "100",
+export const FAKE_USER1: User = {
+  _id: "1",
+  admin: false,
+  username: "john",
+  password: "doe",
+  email: "johndoe@email.com",
+  ip: "212.213.12.2",
   customer: MOCK_CUSTOMER1,
-  total: 100,
-  updatedAt: "0000",
-  createdAt: "0000",
-  items: MOCK_ITEMS,
-}
+};
 
 export const MOCK_SHIPPING1: Shipping = {
   _id: "100",
@@ -53,5 +65,17 @@ export const MOCK_SHIPPING1: Shipping = {
   description: "description",
   price: 100,
 }
+
+export const MOCK_ORDER1 = new Order({
+    _id: "100",
+    updatedAt: "0000",
+    createdAt: "0000",
+    total: 100,
+    status: ShippingStatus.Pending,
+    items: MOCK_ITEMS,
+    customer: MOCK_CUSTOMER1,
+    shipping: MOCK_SHIPPING1
+});
+
 
 export const MOCK_SHIPPINGS: Shipping[] = [MOCK_SHIPPING1];
