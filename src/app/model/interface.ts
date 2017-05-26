@@ -3,7 +3,7 @@ interface User {
   admin: boolean;
   username: String;
   password: String;
-  email: String;
+  email: string;
   customer?: Customer;
   ip: String;
 }
@@ -23,11 +23,13 @@ class ContactMessage {
   constructor(public name: String, public email: String, public message: String) { }
 }
 
-interface Customer {
+class Customer {
   _id?: String;
   phone: String;
   country: String;
+  email: string;
   postnumber: String;
+  city: String;
   address: String;
   lastname: String;
   firstname: String;

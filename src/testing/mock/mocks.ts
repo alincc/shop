@@ -42,6 +42,8 @@ export const MOCK_CUSTOMER1: Customer = {
   _id: "1",
   phone: "phone",
   country: "country",
+  email: 'email',
+  city: 'city',
   postnumber: "postnumber",
   address: "address",
   lastname: "lastname",

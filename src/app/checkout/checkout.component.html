@@ -6,61 +6,10 @@
 
       <div class="col-md-4">
 
-        <div class="box">
-          <div class="title">
-            <i class="fa fa-home"></i>
-            Billing Address
-          </div>
-
-          <div class="content">
-
-            <div class="row">
-
-              <div class="field col-md-6">
-                <label for="firstname">Firstname</label>
-                <input type="text" name="firstname" placeholder="First name" id="firstname" [(ngModel)]="form.firstname">
-              </div>
-
-              <div class="field col-md-6">
-                <label for="lastname">Last name</label>
-                <input type="text" name="lastname" placeholder="Last name" id="lastname" [(ngModel)]="form.lastname">
-              </div>
-
-              <div class="field col-md-12">
-                <label for="email">Email</label>
-                <input type="email" name="email" placeholder="your@email.com" id="email" [(ngModel)]="form.email">
-              </div>
-
-              <div class="field col-md-12">
-                <label for="address">Address</label>
-                <input type="address" name="address" placeholder="Address" id="address" [(ngModel)]="form.address">
-              </div>
-
-              <div class="field col-md-12">
-                <label for="country">Country</label>
-                <input type="country" name="country" placeholder="Country" id="country" [(ngModel)]="form.country">
-              </div>
-
-              <div class="field col-md-6">
-                <label for="postcode">Postal Code</label>
-                <input type="postcode" name="postcode" placeholder="Postal Code" id="postcode" [(ngModel)]="form.postcode">
-              </div>
-
-              <div class="field col-md-6">
-                <label for="city">City</label>
-                <input type="city" name="city" placeholder="City" id="city" [(ngModel)]="form.city">
-              </div>
-
-              <div class="field col-md-12">
-                <label for="phone">Telephone</label>
-                <input type="phone" name="phone" placeholder="Telephone" id="phone" [(ngModel)]="form.phone">
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
+        <app-checkout-form
+          [form]="form" 
+          [customer]="getCustomer()">
+        </app-checkout-form>
 
       </div>
 

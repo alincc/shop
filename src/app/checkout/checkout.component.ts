@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { OrderLine, Product, Customer, Shipping } from '../model/interface';
-import { CartService, CheckoutService, CustomerService, ShippingService } from '../services';
+import { CartService, CheckoutService, CustomerService, ShippingService, AuthService } from '../services';
 import { Observable } from 'rxjs/Observable';
+import { CheckoutFormComponent } from '../checkout-form/checkout-form.component';
 
 @Component({
   selector: 'app-checkout',
@@ -9,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
+  @ViewChild(CheckoutFormComponent) formComponent: CheckoutFormComponent;
 
   products: OrderLine[];
   private shipping: Shipping[];
@@ -20,7 +22,8 @@ export class CheckoutComponent implements OnInit {
     private cartService: CartService,
     private checkoutService: CheckoutService,
     private customerService: CustomerService,
-    private shippingService: ShippingService
+    private shippingService: ShippingService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -30,18 +33,9 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmit() {
-    // TODO: fields should be fetched from the form instead of hardcoded
-    const inputCustomer: Customer = {
-      phone: 'phone',
-      country: 'country',
-      postnumber: 'postnumber',
-      address: 'address',
-      lastname: 'lastname',
-      firstname: 'firstname',
-      orders: [],
-    };
+    let customer: Customer = this.formComponent.form;
 
-    this.customerService.create(inputCustomer).flatMap(res =>
+    this.customerService.create(customer).flatMap(res =>
       this.checkoutService.createOrder(res.data, this.products, this.total(), this.selectedShipping)
     ).subscribe(data => {
       console.log(data);
@@ -63,6 +57,21 @@ export class CheckoutComponent implements OnInit {
 
   getShipping(): Shipping[] {
     return this.shipping;
+  }
+
+  getCustomer(): Customer {
+    let user = this.authService.getAuthedUser();
+
+    if (user && user.customer) {
+      return user.customer;
+    }
+    return null;
+  }
+
+  getEmail(): string {
+    let user = this.authService.getAuthedUser();
+
+    return user.email || "";
   }
 
   setProducts(products: OrderLine[]): void {

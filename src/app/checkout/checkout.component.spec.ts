@@ -5,11 +5,14 @@ import {
 import { ShippingServiceMock } from '../../testing/ShippingServiceMock';
 import { CartProduct } from '../model/interface';
 import { CheckoutComponent } from './checkout.component';
+import { CheckoutFormComponent } from '../checkout-form/checkout-form.component';
 import { CheckoutItemsComponent } from '../checkout-items/checkout-items.component';
 import { RouterLinkStubDirective }   from '../../testing/router-stubs';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MOCK_SHIPPINGS } from '../../testing/mock/mocks';
+import { AuthService } from '../services';
+import { AuthServiceMock } from '../../testing/AuthServiceMock';
 
 const MOCK_PRODUCT_1 = {
   product: {
@@ -44,7 +47,7 @@ describe('CheckoutComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CheckoutComponent, CheckoutItemsComponent, RouterLinkStubDirective ],
+      declarations: [ CheckoutComponent, CheckoutItemsComponent, RouterLinkStubDirective, CheckoutFormComponent ],
       providers: [
         CartService,
         CheckoutService,
@@ -53,6 +56,7 @@ describe('CheckoutComponent', () => {
           provide: ShippingService,
           useClass: ShippingServiceMock,
         },
+        { provide: AuthService, useClass: AuthServiceMock },
       ],
       imports: [
         HttpModule,

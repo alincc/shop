@@ -35,6 +35,7 @@ import { OrderComponent } from './order/order.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
+import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { AuthGuard } from './guards/auth.guard';
     OrderComponent,
     LoginComponent,
     ProfileComponent,
+    CheckoutFormComponent,
   ],
   imports: [
     AppRoutingModule,
