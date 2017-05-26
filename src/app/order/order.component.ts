@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params }   from '@angular/router';
 import { Order, ShippingStatus } from '../model/interface';
-import { CheckoutService } from '../services/checkout.service';
+import { CheckoutService } from '../services';
 import { Observable } from 'rxjs/Observable';
 
 @Component({

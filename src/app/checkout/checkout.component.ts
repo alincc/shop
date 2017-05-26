@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderLine, Product, Customer, Shipping } from '../model/interface';
-import { CartService } from '../services/cart.service';
-import { CheckoutService } from '../services/checkout.service';
-import { CustomerService } from '../services/customer.service';
-import { ShippingService } from '../services/shipping.service';
+import { CartService, CheckoutService, CustomerService, ShippingService } from '../services';
 import { Observable } from 'rxjs/Observable';
 
 @Component({

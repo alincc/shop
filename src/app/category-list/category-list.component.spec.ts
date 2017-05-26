@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed, inject, fakeAsync } from '@angular/core/testing';
-import { CategoryService } from '../services/category.service';
+import { CategoryService } from '../services';
 import { CategoryListComponent } from './category-list.component';
 import { Http, Response, HttpModule } from '@angular/http';
 import { Observable } from 'rxjs/Rx';

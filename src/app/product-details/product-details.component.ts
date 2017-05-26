@@ -3,9 +3,7 @@ import { ActivatedRoute, Params }   from '@angular/router';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import 'rxjs/add/operator/switchMap';
 
-import { ProductService } from '../services/product.service';
-import { CategoryService } from '../services/category.service';
-import { CartService } from '../services/cart.service';
+import { ProductService, CategoryService, CartService } from '../services';
 import { Product, Category } from '../model/interface';
 
 

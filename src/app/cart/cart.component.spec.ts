@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ToastModule, ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { CartService } from '../services/cart.service';
+import { CartService } from '../services';
 import { CartServiceMock, MOCK_ITEMS, PRODUCT_NOT_IN_CART } from '../../testing/CartServiceMock';
 import { ToastsManagerMock } from '../../testing/ToastsManagerMock';
 import { Product, OrderLine } from '../model/interface';

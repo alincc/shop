@@ -3,7 +3,7 @@ import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { RouterLinkStubDirective }   from '../../testing/router-stubs';
 import { RouterOutletStubComponent } from '../../testing/router-stubs';
 import { ProductComponent } from './product.component';
-import { CartService } from '../services/cart.service';
+import { CartService } from '../services';
 
 describe('ProductComponent', () => {
   let component: ProductComponent;

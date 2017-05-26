@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CartService } from '../services/cart.service';
-import { CheckoutService } from '../services/checkout.service';
-import { CustomerService } from '../services/customer.service';
-import { ShippingService } from '../services/shipping.service';
+import {
+  CartService, CheckoutService, CustomerService, ShippingService
+} from '../services';
 import { ShippingServiceMock } from '../../testing/ShippingServiceMock';
 import { CartProduct } from '../model/interface';
 import { CheckoutComponent } from './checkout.component';

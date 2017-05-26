@@ -4,7 +4,7 @@ import { OrderComponent } from './order.component';
 import { ActivatedRoute, ActivatedRouteStub } from '../../testing/router-stubs';
 import { MOCK_ORDER1 } from '../../testing/mock/mocks';
 import { CheckoutServiceMock } from '../../testing/CheckoutServiceMock';
-import { CheckoutService } from '../services/checkout.service';
+import { CheckoutService } from '../services';
 import { CheckoutItemsComponent } from '../checkout-items/checkout-items.component';
 import { RouterLinkStubDirective }   from '../../testing/router-stubs';
 

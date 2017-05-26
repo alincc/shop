@@ -1,9 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProductDetailsComponent } from './product-details.component';
-import { ProductService } from '../services/product.service';
-import { CartService } from '../services/cart.service';
-import { CategoryService } from '../services/category.service';
+import { ProductService, CartService, CategoryService } from '../services';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { routes } from '../app-routing.module';

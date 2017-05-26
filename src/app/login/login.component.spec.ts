@@ -5,7 +5,7 @@ import { ToastModule, ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 import { Router, RouterStub } from '../../testing/router-stubs';
 import { ToastsManagerMock } from '../../testing/ToastsManagerMock';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services';
 import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {

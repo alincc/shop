@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
-import { CartService } from '../services/cart.service';
+import { CartService } from '../services';
 import { OrderLine, Product } from '../model/interface';
 
 

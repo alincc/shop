@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 import { Product } from '../model/interface';
-import { CartService } from '../services/cart.service';
+import { CartService } from '../services';
 
 @Component({
   selector: 'app-product',
