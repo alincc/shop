@@ -19,4 +19,13 @@ export class CustomerService {
       .catch((err: any) => Observable.throw(err.json().error));
   }
 
+  update(id: string, customer: Customer): Observable<any> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http.put(this.url + '/' + customer._id, JSON.stringify(customer), options)
+      .map((res: Response) => res.json())
+      .catch((err:any) => Observable.throw(err.json().error));
+  }
+
 }

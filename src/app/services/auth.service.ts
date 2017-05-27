@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
+import { tokenNotExpired } from 'angular2-jwt';
 
 import { User } from '../model/interface';
 
@@ -11,7 +11,6 @@ export class AuthService {
   public token: string;
   private auth: User = null;
   private url = 'http://localhost:9000/api/auth';
-  private jwtHelper: JwtHelper = new JwtHelper();
 
   constructor(private http: Http) {
     let user = this.getAuthedUser();
@@ -21,7 +20,6 @@ export class AuthService {
   validate(email: String, password: String): Observable<boolean> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
-
     let body = JSON.stringify({
       email,
       password,
@@ -45,17 +43,28 @@ export class AuthService {
       });
   }
 
-  authSuccess(token: string) {
-    localStorage.setItem('token', JSON.stringify(token));
-    this.auth = this.jwtHelper.decodeToken(token);
+  getUserInfo(): Observable<User> {
+    let headers = new Headers({ 'authorization': 'Bearer ' + localStorage.getItem('token') });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.get(this.url + '/userinfo', options)
+      .map((res: Response) => res.json())
+      .catch((err: any) => Observable.throw(err.json().error));
   }
 
-  getAuthedUser(): User {
-    let token = localStorage.getItem('token');
-    if (token == null) {
+  authSuccess(token: string) {
+    localStorage.setItem('token', token);
+
+    this.getUserInfo()
+      .subscribe(userInfo => this.auth = userInfo);
+  }
+
+  getAuthedUser(): Observable<User> {
+    if (!this.isAuthed()) {
       return null;
     }
-    return this.jwtHelper.decodeToken(token);
+
+    return this.getUserInfo();
   }
 
   logout(): void {

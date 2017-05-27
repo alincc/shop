@@ -17,6 +17,9 @@ export class CheckoutComponent implements OnInit {
   private selectedShipping: Shipping;
   private subtotal = 0;
   private form = {};
+  private customer: Customer;
+  private isFinished = false;
+  private orderCreated = false;
 
   constructor(
     private cartService: CartService,
@@ -27,6 +30,7 @@ export class CheckoutComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.loadCustomer();
     this.loadProducts();
     this.loadShipping();
     this.calculateSubTotal();
@@ -35,11 +39,54 @@ export class CheckoutComponent implements OnInit {
   onSubmit() {
     let customer: Customer = this.formComponent.form;
 
-    this.customerService.create(customer).flatMap(res =>
-      this.checkoutService.createOrder(res.data, this.products, this.total(), this.selectedShipping)
-    ).subscribe(data => {
-      console.log(data);
-    });
+    if (this.authService.getAuthedUser() === null) {
+      this.customerService.create(customer).subscribe(newCustomer => {
+        this.createOrder(newCustomer, this.products, this.total(), this.selectedShipping);
+      })
+
+      return null;
+    }
+
+    this.authService.getAuthedUser()
+      .subscribe(auth => {
+        // If user is authed and have customer information
+        if (auth && auth.customer) {
+          // Check if customer data differs from the one entered
+          if (auth.customer.differs(customer)) {
+            // TODO: should display a dialog asking user if he wants to update customer data
+            this.customerService.update(auth.customer._id, customer)
+              .subscribe((res) => {
+                this.createOrder(res.data, this.products, this.total(), this.selectedShipping);
+              });
+          }
+
+          this.createOrder(auth.customer, this.products, this.total(), this.selectedShipping);
+        }
+      })
+  }
+
+  createOrder(customer: Customer, items: OrderLine[], total: number, shipping: Shipping) {
+    this.checkoutService.createOrder(customer, this.products, this.total(), this.selectedShipping)
+      .subscribe(
+        () => this.orderCreated = true,
+        (err) => console.log(err)
+      )
+  }
+
+  customerDiffers(customer: Customer, other: Customer): boolean {
+    if (customer.phone !== other.phone ||
+      customer.country !== other.country ||
+      customer.email !== other.email ||
+      customer.postnumber !== other.postnumber ||
+      customer.city !== other.city ||
+      customer.address !== other.address ||
+      customer.lastname !== other.lastname ||
+      customer.firstname !== other.firstname
+    ) {
+      return true;
+    }
+
+    return false;
   }
 
   loadProducts(): void {
@@ -59,19 +106,17 @@ export class CheckoutComponent implements OnInit {
     return this.shipping;
   }
 
-  getCustomer(): Customer {
-    let user = this.authService.getAuthedUser();
-
-    if (user && user.customer) {
-      return user.customer;
+  loadCustomer(): void {
+    if (this.authService.getAuthedUser() == null) {
+      this.isFinished = true;
+      return null;
     }
-    return null;
-  }
-
-  getEmail(): string {
-    let user = this.authService.getAuthedUser();
-
-    return user.email || "";
+    this.authService.getAuthedUser()
+      .subscribe(
+        user => this.customer = user && user.customer,
+        error => console.log(error),
+        () => this.isFinished = true,
+      );
   }
 
   setProducts(products: OrderLine[]): void {

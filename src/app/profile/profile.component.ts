@@ -10,6 +10,7 @@ import { User, ShippingStatus } from '../model/interface';
 })
 export class ProfileComponent implements OnInit {
 
+  private isFinished: boolean = false;
   private user: User
   private ShippingStatus: typeof ShippingStatus = ShippingStatus;
 
@@ -19,7 +20,14 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.setUser(this.authService.getAuthedUser());
+    this.authService.getAuthedUser()
+      .subscribe(
+        user => {
+          this.setUser(user);
+        },
+        error => console.log(error),
+        () => this.isFinished = true
+      );
   }
 
   private setUser(user: User): void {

@@ -1,14 +1,18 @@
 <div class="checkout">
 
-  <form class="form" (ngSubmit)="onSubmit()" #checkoutForm="ngForm">
+  <h1>Secure Checkout</h1>
+
+  <p *ngIf="!authService.isAuthed()">Already have an account? Click <a routerLink="/login">here</a> to login</p>
+
+  <form class="form" (ngSubmit)="onSubmit()" #checkoutForm="ngForm" *ngIf="isFinished">
 
     <div class="row"> <!-- .row -->
 
       <div class="col-md-4">
 
         <app-checkout-form
-          [form]="form" 
-          [customer]="getCustomer()">
+          [form]="form"
+          [customer]="customer">
         </app-checkout-form>
 
       </div>

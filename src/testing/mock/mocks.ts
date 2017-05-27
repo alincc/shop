@@ -38,7 +38,7 @@ export const PRODUCT_NOT_IN_CART: OrderLine = {
 };
 export const MOCK_ITEMS: OrderLine[] = [{ product: FAKE_PRODUCT1, quantity: 1 }, { product: FAKE_PRODUCT2, quantity: 2 }];
 
-export const MOCK_CUSTOMER1: Customer = {
+export const MOCK_CUSTOMER1: Customer = new Customer({
   _id: "1",
   phone: "phone",
   country: "country",
@@ -49,7 +49,20 @@ export const MOCK_CUSTOMER1: Customer = {
   lastname: "lastname",
   firstname: "firstname",
   orders: [],
-};
+});
+
+export const MOCK_CUSTOMER2: Customer = new Customer({
+  _id: "1",
+  phone: "phone 2",
+  country: "country 2",
+  email: 'email 2',
+  city: 'city 2',
+  postnumber: "postnumber 2",
+  address: "address 2",
+  lastname: "lastname 2",
+  firstname: "firstname 2",
+  orders: [],
+});
 
 export const FAKE_USER1: User = {
   _id: "1",

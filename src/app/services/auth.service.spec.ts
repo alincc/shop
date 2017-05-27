@@ -56,10 +56,10 @@ describe('AuthService', () => {
         });
     });
 
-    it ('should set the value of user to the authed user', () => {
+    it ('should set the token', () => {
       service.validate('johndoe@email.com', 'doe')
         .subscribe(resp => {
-          expect(service.getAuthedUser().email).toEqual("johndoe@email.com");
+          expect(service.token).not.toBeNull;
         });
     });
   });
