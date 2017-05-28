@@ -7,6 +7,7 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent} from './contact/contact.component';
 import { CartComponent} from './cart/cart.component';
 import { CheckoutComponent} from './checkout/checkout.component';
+import { RegisterComponent} from './register/register.component';
 import { OrderComponent} from './order/order.component';
 import { LoginComponent} from './login/login.component';
 import { ProfileComponent} from './profile/profile.component';
@@ -22,6 +23,7 @@ export const routes: Routes = [
   { path: 'order/:id', component: OrderComponent },
   { path: 'products', component: ProductListComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }
 ];
 

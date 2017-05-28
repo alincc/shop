@@ -1,0 +1,16 @@
+<div class="register">
+
+  <h1>Sign up</h1>
+
+  <app-register-form
+    *ngIf="!submitted"
+    (formSubmit)="handleFormSubmit($event)">
+  </app-register-form>
+
+  <div *ngIf="submitted">
+    <div class="message positive">
+      You are now registered. Click <a routerLink="/login">here</a> to login.
+    </div>
+  </div>
+
+</div>

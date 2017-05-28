@@ -79,4 +79,27 @@ export class AuthService {
   isAuthed(): boolean {
     return tokenNotExpired();
   }
+
+  create(user: User): Observable<User> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+    let body = JSON.stringify(user);
+
+    return this.http.post(this.url + '/register', body, options)
+      .map((res: Response) => res.json().data)
+      .catch((err: any) => Observable.throw(err.json().error));
+  }
+
+  update(user: any): void {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'authorization': 'Bearer ' + localStorage.getItem('token')
+    });
+    const options = new RequestOptions({ headers: headers });
+    const body = JSON.stringify(user);
+
+    this.getUserInfo()
+      .switchMap(data => this.http.put(this.url + '/userinfo', body, options))
+      .subscribe(() => true);
+  }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { OrderLine, Product, Customer, Shipping } from '../model/interface';
 import { CartService, CheckoutService, CustomerService, ShippingService, AuthService } from '../services';
+import { FAKE_USER1 } from '../../testing/mock/mocks';
 import { Observable } from 'rxjs/Observable';
 import { CheckoutFormComponent } from '../checkout-form/checkout-form.component';
 
@@ -41,7 +42,7 @@ export class CheckoutComponent implements OnInit {
 
     if (this.authService.getAuthedUser() === null) {
       this.customerService.create(customer).subscribe(newCustomer => {
-        this.createOrder(newCustomer, this.products, this.total(), this.selectedShipping);
+        this.createOrder(newCustomer.data, this.products, this.total(), this.selectedShipping);
       })
 
       return null;
@@ -61,6 +62,12 @@ export class CheckoutComponent implements OnInit {
           }
 
           this.createOrder(auth.customer, this.products, this.total(), this.selectedShipping);
+        }
+        else if (auth) {
+          this.customerService.create(customer).subscribe(newCustomer => {
+            this.authService.update({ customer: newCustomer.data });
+            this.createOrder(newCustomer.data, this.products, this.total(), this.selectedShipping);
+          })
         }
       })
   }

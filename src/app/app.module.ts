@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -36,6 +37,8 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
+import { RegisterComponent } from './register/register.component';
+import { RegisterFormComponent } from './register-form/register-form.component';
 
 @NgModule({
   declarations: [
@@ -56,12 +59,15 @@ import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
     LoginComponent,
     ProfileComponent,
     CheckoutFormComponent,
+    RegisterComponent,
+    RegisterFormComponent,
   ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
     ToastModule.forRoot(),
     BrowserModule,
+    ReactiveFormsModule,
     FormsModule,
     HttpModule,
     RouterModule,

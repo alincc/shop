@@ -1,3 +1,4 @@
+$errorColor: #9f3a38;
 @mixin input {
   width: 100%;
   font-family: 'Ubuntu', sans-serif;
@@ -24,6 +25,21 @@
     input, textarea {
       @include input;
     }
+
+    &.error {
+      color: $errorColor;
+
+      input {
+        color: $errorColor;
+        border-color: #e0b4b4;
+        background: #fff6f6;
+      }
+    }
+  }
+
+  .errors {
+    font-size: 0.7em;
+    margin-top: 10px;
   }
 }
 

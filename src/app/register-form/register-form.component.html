@@ -1,0 +1,34 @@
+<form [formGroup]="registerForm" class="form" (ngSubmit)="onSubmit()" novalidate>
+
+  <div class="field" [ngClass]="{'error': formErrors.email}">
+    <label for="email">Email address</label>
+    <input formControlName="email" placeholder="your@email.com">
+
+    <div *ngIf="formErrors.email" class="errors">{{ formErrors.email }}</div>
+  </div>
+
+  <div class="field" [ngClass]="{'error': formErrors.username}">
+    <label for="username">Username</label>
+    <input formControlName="username" placeholder="Username">
+
+    <div *ngIf="formErrors.username" class="errors">{{ formErrors.username }}</div>
+  </div>
+
+  <div formGroupName="passwords">
+    <div class="field" [ngClass]="{'error': formErrors.passwords.password}">
+      <label for="password">Password</label>
+      <input formControlName="password" placeholder="Password">
+
+      <div *ngIf="formErrors.passwords.password" class="errors">{{ formErrors.passwords.password }}</div>
+    </div>
+
+    <div class="field" [ngClass]="{'error': formErrors.passwords.confirmPassword}">
+      <label for="confirmPassword">Confirm password</label>
+      <input formControlName="confirmPassword" placeholder="Confirm password">
+
+      <div *ngIf="formErrors.passwords.confirmPassword" class="errors">{{ formErrors.passwords.confirmPassword }}</div>
+    </div>
+  </div>
+
+  <button type="submit" class="button" [disabled]="!registerForm.valid">Register</button>
+</form>

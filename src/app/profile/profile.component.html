@@ -1,5 +1,5 @@
 <div class="profile">
-  <!-- <spinner [size]="20" [tickness]="1" [color]="#ff66ff"></spinner> -->
+
   <div class="message negative" *ngIf="!user && isFinished">User not found</div>
 
   <div *ngIf="user && isFinished">
@@ -9,10 +9,11 @@
     <div class="widget">
       <h3>Your orders</h3>
 
+      <div class="message info" *ngIf="!user.customer?.orders">
+        You have not placed any orders yet
+      </div>
+
       <div *ngIf="user.customer">
-        <div class="message info" *ngIf="!user.customer.orders">
-          You have not placed any orders yet
-        </div>
 
         <table class="table" *ngIf="user.customer.orders">
           <thead>
