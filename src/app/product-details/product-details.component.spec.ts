@@ -52,15 +52,22 @@ describe('ProductDetailsComponent', () => {
         CartService,
         CategoryService,
       ],
-    })
-    .compileComponents();
+    });
+
+    TestBed.overrideComponent(ProductDetailsComponent, {
+      set: {
+        template: `Overridden ProductDetailsComponent`,
+      },
+    });
+
+    TestBed.compileComponents().then(() => {
+      fixture = TestBed.createComponent(ProductDetailsComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProductDetailsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-
     categoryService = TestBed.get(CategoryService);
     spyOn(categoryService, 'getCategory').and.returnValue(Observable.of(MOCK_CATEGORY));
   });

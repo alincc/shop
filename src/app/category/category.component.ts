@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Category, ErrorResponse } from '../model/interface';
+import { Category, ErrorResponse, Message } from '../model/interface';
 import { CategoryService } from '../services';
 
 @Component({
@@ -10,7 +10,7 @@ import { CategoryService } from '../services';
 })
 export class CategoryComponent implements OnInit {
 
-  private errorMsg: string;
+  private errorMsg: Message;
   private category: Category = null;
   isFinished: boolean = false;
 
@@ -32,14 +32,14 @@ export class CategoryComponent implements OnInit {
   }
 
   handleError(error: ErrorResponse) {
-    this.errorMsg = error.message;
+    this.errorMsg = new Message('negative', error.message, 'Ooops..');
   }
 
   getCategory() {
     return this.category;
   }
 
-  getErrorMsg(): string {
+  getErrorMsg(): Message {
     return this.errorMsg;
   }
 

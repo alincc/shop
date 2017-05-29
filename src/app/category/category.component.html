@@ -1,9 +1,6 @@
 <div class="category">
 
-  <div *ngIf="errorMsg" class="message negative">
-    <h3 class="title">Ooops..</h3>
-    <p>{{ errorMsg }}</p>
-  </div>
+  <app-message *ngIf="errorMsg" [data]="errorMsg"></app-message>
 
   <div *ngIf="category && isFinished">
 

@@ -19,6 +19,10 @@ interface CartProduct {
   quantity: number;
 }
 
+class Message {
+  constructor(public type: string, public message: string, public title?: string) { }
+}
+
 interface ErrorResponse {
   status: number;
   message: string;
@@ -172,6 +176,7 @@ export {
   CartProduct,
   ContactMessage,
   Customer,
+  Message,
   ErrorResponse,
   SuccessResponse,
   OrderLine,
