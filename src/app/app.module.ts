@@ -35,6 +35,7 @@ import { OrderComponent } from './order/order.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
+import { AlreadyAuthedGuard } from './guards/already-authed.guard';
 import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
 import { RegisterComponent } from './register/register.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
@@ -73,6 +74,7 @@ import { RegisterFormComponent } from './register-form/register-form.component';
   ],
   providers: [
     AuthGuard,
+    AlreadyAuthedGuard,
     ProductService,
     CustomerService,
     CartService,

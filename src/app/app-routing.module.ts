@@ -12,6 +12,7 @@ import { OrderComponent} from './order/order.component';
 import { LoginComponent} from './login/login.component';
 import { ProfileComponent} from './profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
+import { AlreadyAuthedGuard } from './guards/already-authed.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,8 +23,8 @@ export const routes: Routes = [
   { path: 'product/:id', component: ProductDetailsComponent },
   { path: 'order/:id', component: OrderComponent },
   { path: 'products', component: ProductListComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent, canActivate: [AlreadyAuthedGuard] },
+  { path: 'register', component: RegisterComponent, canActivate: [AlreadyAuthedGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }
 ];
 
