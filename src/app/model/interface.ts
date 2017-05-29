@@ -23,6 +23,16 @@ class ContactMessage {
   constructor(public name: String, public email: String, public message: String) { }
 }
 
+export class DropdownValue {
+  value: string;
+  label: string;
+
+  constructor(value:string, label:string) {
+    this.value = value;
+    this.label = label;
+  }
+}
+
 class ICustomer {
   _id?: string;
   phone: String;

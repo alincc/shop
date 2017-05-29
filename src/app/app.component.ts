@@ -1,6 +1,7 @@
 import { Component, ViewContainerRef } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { DropdownComponent, DropdownValue } from './dropdown/dropdown.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
+import { DropdownValue } from './model/interface';
 import { AuthService } from './services';
 
 @Component({

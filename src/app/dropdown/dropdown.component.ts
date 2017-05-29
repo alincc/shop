@@ -1,14 +1,5 @@
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
-
-export class DropdownValue {
-  value: string;
-  label: string;
-
-  constructor(value:string, label:string) {
-    this.value = value;
-    this.label = label;
-  }
-}
+import { DropdownValue } from '../model/interface';
 
 @Component({
   selector: 'app-dropdown',
