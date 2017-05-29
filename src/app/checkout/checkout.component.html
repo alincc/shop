@@ -1,10 +1,15 @@
 <div class="checkout">
 
-  <h1>Secure Checkout</h1>
+  <div class="message positive" *ngIf="orderCreated">
+    <h3 class="title">Thank you!</h3>
+    <p>Your order was created and you will receive an email confirmation in a moment</p>
+    <p>Click <a routerLink="/products">here</a> to continue browsing our products</p>
+  </div>
 
-  <p *ngIf="!authService.isAuthed()">Already have an account? Click <a routerLink="/login">here</a> to login</p>
+  <form class="form" (ngSubmit)="onSubmit()" #checkoutForm="ngForm" *ngIf="isFinished && !orderCreated">
+    <h1>Secure Checkout</h1>
 
-  <form class="form" (ngSubmit)="onSubmit()" #checkoutForm="ngForm" *ngIf="isFinished">
+    <p *ngIf="!authService.isAuthed()">Already have an account? Click <a routerLink="/login">here</a> to login</p>
 
     <div class="row"> <!-- .row -->
 

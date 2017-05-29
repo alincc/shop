@@ -37,6 +37,10 @@ export class AuthServiceMock {
     return Observable.of(FAKE_USER1);
   }
 
+  create(user: any) {
+    return Observable.of(FAKE_USER1);
+  }
+
   isAuthed(): boolean {
     // return tokenNotExpired();
     return false;

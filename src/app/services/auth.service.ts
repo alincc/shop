@@ -61,7 +61,7 @@ export class AuthService {
 
   getAuthedUser(): Observable<User> {
     if (!this.isAuthed()) {
-      return null;
+      return Observable.of(null);
     }
 
     return this.getUserInfo();
@@ -90,7 +90,7 @@ export class AuthService {
       .catch((err: any) => Observable.throw(err.json().error));
   }
 
-  update(user: any): void {
+  update(user: any): Observable<User> {
     let headers = new Headers({
       'Content-Type': 'application/json',
       'authorization': 'Bearer ' + localStorage.getItem('token')
@@ -98,8 +98,9 @@ export class AuthService {
     const options = new RequestOptions({ headers: headers });
     const body = JSON.stringify(user);
 
-    this.getUserInfo()
+    return this.getUserInfo()
       .switchMap(data => this.http.put(this.url + '/userinfo', body, options))
-      .subscribe(() => true);
+      // .subscribe(() => true);
+      .map(res => res.json());
   }
 }

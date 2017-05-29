@@ -40,44 +40,50 @@ export class CheckoutComponent implements OnInit {
   onSubmit() {
     let customer: Customer = this.formComponent.form;
 
-    if (this.authService.getAuthedUser() === null) {
-      this.customerService.create(customer).subscribe(newCustomer => {
-        this.createOrder(newCustomer.data, this.products, this.total(), this.selectedShipping);
-      })
-
-      return null;
-    }
-
     this.authService.getAuthedUser()
       .subscribe(auth => {
-        // If user is authed and have customer information
-        if (auth && auth.customer) {
-          // Check if customer data differs from the one entered
-          if (auth.customer.differs(customer)) {
-            // TODO: should display a dialog asking user if he wants to update customer data
-            this.customerService.update(auth.customer._id, customer)
-              .subscribe((res) => {
-                this.createOrder(res.data, this.products, this.total(), this.selectedShipping);
-              });
-          }
+        // If user is authed
+        if (auth) {
+          // If authed user have customer information
+          if (auth.customer) {
+            let customerData = new Customer(auth.customer);
 
-          this.createOrder(auth.customer, this.products, this.total(), this.selectedShipping);
+            // Check if customer data differs from the one entered
+            if (customerData.differs(customer)) {
+              // TODO: should display a dialog asking user if he wants to update customer data
+              this.customerService.update(customerData._id, customer)
+                .switchMap((res) => this.checkoutService.createOrder(res.data, this.products, this.total(), this.selectedShipping))
+                .subscribe(
+                  res => this.orderCreatedSuccess(),
+                  err => console.log(err)
+                );
+            }
+          }
+          else {
+            // If authed but no customer information exists
+            this.customerService.create(customer)
+              .switchMap(newCustomer => this.authService.update({ customer: newCustomer.data }))
+              .switchMap(user => this.checkoutService.createOrder(user.customer, this.products, this.total(), this.selectedShipping))
+              .subscribe(
+                res => this.orderCreatedSuccess(),
+                err => console.log(err)
+              );
+          }
         }
-        else if (auth) {
-          this.customerService.create(customer).subscribe(newCustomer => {
-            this.authService.update({ customer: newCustomer.data });
-            this.createOrder(newCustomer.data, this.products, this.total(), this.selectedShipping);
-          })
+        else {
+          // If user is not authenticated
+          this.customerService.create(customer)
+            .switchMap(newCustomer => this.checkoutService.createOrder(newCustomer.data, this.products, this.total(), this.selectedShipping))
+            .subscribe(
+              res => this.orderCreatedSuccess(),
+              err => console.log(err)
+            );
         }
       })
   }
 
-  createOrder(customer: Customer, items: OrderLine[], total: number, shipping: Shipping) {
-    this.checkoutService.createOrder(customer, this.products, this.total(), this.selectedShipping)
-      .subscribe(
-        () => this.orderCreated = true,
-        (err) => console.log(err)
-      )
+  private orderCreatedSuccess() {
+    this.orderCreated = true;
   }
 
   customerDiffers(customer: Customer, other: Customer): boolean {

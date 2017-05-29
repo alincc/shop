@@ -5,6 +5,7 @@ import { RegisterComponent } from './register.component';
 import { RegisterFormComponent } from '../register-form/register-form.component';
 import { AuthService } from '../services';
 import { AuthServiceMock } from '../../testing/AuthServiceMock';
+import { FAKE_USER1 } from '../../testing/mock/mocks';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -47,8 +48,7 @@ describe('RegisterComponent', () => {
   });
 
   it ('should set submitted value to true after submitting', () => {
-    // TODO: test
-    // component.handleFormSubmit();
-    // expect(component.submitted).toBe(true);
+    component.handleFormSubmit(FAKE_USER1);
+    expect(component.submitted).toBe(true);
   });
 });
