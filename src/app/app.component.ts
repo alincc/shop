@@ -1,5 +1,7 @@
 import { Component, ViewContainerRef } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { DropdownComponent, DropdownValue } from './dropdown/dropdown.component';
+import { AuthService } from './services';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +11,21 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 export class AppComponent {
   constructor(
     public toastr: ToastsManager,
+    private authService: AuthService,
     vcr: ViewContainerRef,
   ) {
     this.toastr.setRootViewContainerRef(vcr);
   }
-  title = 'app works!';
+
+  getDropdownValues(): DropdownValue[] {
+    if (this.authService.isAuthed()) {
+      return [
+        new DropdownValue("profile", "Profile"),
+      ];
+    }
+    return [
+      new DropdownValue("login", "Login"),
+      new DropdownValue("register", "Register"),
+    ];
+  }
 }

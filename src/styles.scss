@@ -6,6 +6,7 @@
 @import 'assets/style/messages.scss';
 @import 'assets/style/boxes.scss';
 @import 'assets/style/tables.scss';
+@import 'assets/style/dropdown.scss';
 
 /*
 font-family: 'Roboto', sans-serif;
@@ -51,7 +52,7 @@ p {
   margin: 60px auto;
   background: $pageBgColor;
   padding: 20px;
-  
+
   @media screen and (min-width: 1200px) {
     width: $pageWidth;
   }

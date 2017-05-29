@@ -1,0 +1,29 @@
+.dropdown {
+  display: inline-block;
+  position: relative;
+
+  .icon {
+    cursor: pointer; 
+  }
+
+  .label {
+
+  }
+
+  .menu {
+    background: #fff;
+    position: absolute;
+    width: 100px;
+    border: 1px solid rgba(34,36,38,.15);
+    top: 30px;
+
+    .item {
+      padding: 10px;
+      display: block;;
+
+      &:hover {
+        background: rgba(0,0,0,.05);
+      }
+    }
+  }
+}

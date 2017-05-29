@@ -13,6 +13,7 @@ describe('AlreadyAuthedGuard', () => {
       providers: [
         AlreadyAuthedGuard,
 
+        HttpModule,
         { provide: AuthService, useClass: AuthServiceMock },
         { provide: Router, useClass: RouterStub },
       ]
