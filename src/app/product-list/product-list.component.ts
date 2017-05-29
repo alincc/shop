@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../model/interface';
-import { ProductService } from '../services';
 import { ProductComponent } from '../product/product.component';
 
 @Component({
@@ -10,20 +9,10 @@ import { ProductComponent } from '../product/product.component';
 })
 export class ProductListComponent implements OnInit {
   errorMessage: string;
-  products: Product[];
+  @Input() products: Product[];
 
-  constructor(private productService: ProductService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.getProducts();
   }
-
-  getProducts(): void {
-    this.productService.getProducts()
-      .subscribe(
-        products => this.products = products,
-        error => this.errorMessage = <any>error
-      );
-  }
-
 }

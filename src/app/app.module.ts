@@ -40,6 +40,8 @@ import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
 import { RegisterComponent } from './register/register.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
+import { CategoryComponent } from './category/category.component';
+import { ProductsContainerComponent } from './products-container/products-container.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,8 @@ import { DropdownComponent } from './dropdown/dropdown.component';
     RegisterComponent,
     RegisterFormComponent,
     DropdownComponent,
+    CategoryComponent,
+    ProductsContainerComponent,
   ],
   imports: [
     AppRoutingModule,

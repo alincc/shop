@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed, inject, fakeAsync } from '@angular/core/testing';
 import { CategoryService } from '../services';
 import { CategoryListComponent } from './category-list.component';
+import { RouterLinkStubDirective } from '../../testing/router-stubs';
 import { Http, Response, HttpModule } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
@@ -28,7 +29,7 @@ describe('CategoryListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CategoryListComponent ],
+      declarations: [ CategoryListComponent, RouterLinkStubDirective ],
       providers: [
         CategoryService,
       ],

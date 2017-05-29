@@ -4,24 +4,23 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import { Product } from '../model/interface';
+import { Product } from '../app/model/interface';
+import { FAKE_PRODUCTS, FAKE_PRODUCT1 } from './mock/mocks';
+
+export { ProductService } from '../app/services';
 
 @Injectable()
-export class ProductService {
+export class ProductServiceMock {
   private url = 'http://localhost:9000/api/product';
 
   constructor(private http: Http) { }
 
   getProducts(): Observable<Product[]> {
-    return this.http.get(this.url)
-                    .map(res => res.json())
-                    .catch(this.handleError);
+    return Observable.of(FAKE_PRODUCTS);
   }
 
   getProduct(id: String): Observable<Product> {
-    return this.http.get(this.url + '/' + id)
-                    .map(res => res.json())
-                    .catch(this.handleError);
+    return Observable.of(FAKE_PRODUCT1);
   }
 
   private handleError (error: Response | any) {

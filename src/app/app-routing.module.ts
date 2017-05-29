@@ -13,6 +13,8 @@ import { LoginComponent} from './login/login.component';
 import { ProfileComponent} from './profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AlreadyAuthedGuard } from './guards/already-authed.guard';
+import { CategoryComponent } from './category/category.component';
+import { ProductsContainerComponent } from './products-container/products-container.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,8 +23,9 @@ export const routes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'product/:id', component: ProductDetailsComponent },
+  { path: 'category/:id', component: CategoryComponent },
   { path: 'order/:id', component: OrderComponent },
-  { path: 'products', component: ProductListComponent },
+  { path: 'products', component: ProductsContainerComponent },
   { path: 'login', component: LoginComponent, canActivate: [AlreadyAuthedGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [AlreadyAuthedGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }

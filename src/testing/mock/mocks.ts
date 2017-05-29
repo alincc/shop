@@ -5,10 +5,24 @@ import {
   Product,
   User,
   Shipping,
-  ShippingStatus
+  ShippingStatus,
+  Category
 } from '../../app/model/interface';
 
 
+export const FAKE_CATEGORY1: Category = {
+  _id: "1",
+  name: "Category 1",
+  image: "Image 1",
+};
+
+export const FAKE_CATEGORY2: Category = {
+  _id: "2",
+  name: "Category 2",
+  image: "Image 2",
+};
+
+export const FAKE_CATEGORIES: Category[] = [FAKE_CATEGORY1, FAKE_CATEGORY2];
 
 export const FAKE_PRODUCT1: Product = {
   _id: "1",
@@ -25,6 +39,8 @@ export const FAKE_PRODUCT2: Product = {
   image: "Image 2",
   price: 100,
 };
+
+export const FAKE_PRODUCTS: Product[] = [FAKE_PRODUCT1, FAKE_PRODUCT2];
 
 export const PRODUCT_NOT_IN_CART: OrderLine = {
   product: {

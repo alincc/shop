@@ -19,6 +19,18 @@ interface CartProduct {
   quantity: number;
 }
 
+interface ErrorResponse {
+  status: number;
+  message: string;
+  data: any;
+}
+
+interface SuccessResponse {
+  status: number;
+  message: string;
+  data: any;
+}
+
 class ContactMessage {
   constructor(public name: String, public email: String, public message: String) { }
 }
@@ -160,6 +172,8 @@ export {
   CartProduct,
   ContactMessage,
   Customer,
+  ErrorResponse,
+  SuccessResponse,
   OrderLine,
   IOrder,
   Order,

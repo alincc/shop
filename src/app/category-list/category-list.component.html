@@ -2,7 +2,7 @@
 
   <div *ngIf="categories.length">
     <div *ngFor="let category of categories">
-      {{ category.name }}
+      <a [routerLink]="['/category', category._id]">{{ category.name }}</a>
     </div>
   </div>
 

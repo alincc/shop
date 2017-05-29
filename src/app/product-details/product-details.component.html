@@ -8,11 +8,15 @@
           <i class="fa fa-angle-right"></i>
         </li>
         <li>
-          <a routerLink="/products">Category</a>
+          <a routerLink="/products">Browse</a>
+          <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+          <a [routerLink]="['/category', product.category._id]">{{ product.category.name }}</a>
           <i class="fa fa-angle-right"></i>
         </li>
         <li class="active">
-          <span>{{ product.category.name }}</span>
+          <span>{{ product.name }}</span>
         </li>
       </ul>
     </div>

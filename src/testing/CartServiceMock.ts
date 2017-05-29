@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Product, OrderLine } from '../app/model/interface';
 
+export { CartService } from '../app/services';
+
 const FAKE_PRODUCT1: Product = {
   _id: "1",
   name: "Product 1",
