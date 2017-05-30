@@ -43,6 +43,7 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import { CategoryComponent } from './category/category.component';
 import { ProductsContainerComponent } from './products-container/products-container.component';
 import { MessageComponent } from './message/message.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { MessageComponent } from './message/message.component';
     CategoryComponent,
     ProductsContainerComponent,
     MessageComponent,
+    SpinnerComponent,
   ],
   imports: [
     AppRoutingModule,

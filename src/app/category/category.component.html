@@ -1,6 +1,8 @@
 <div class="category">
 
-  <app-message *ngIf="errorMsg" [data]="errorMsg"></app-message>
+  <app-message *ngIf="errorMsg && isFinished" [data]="errorMsg"></app-message>
+
+  <app-spinner *ngIf="!isFinished"></app-spinner>
 
   <div *ngIf="category && isFinished">
 

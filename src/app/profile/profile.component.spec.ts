@@ -11,7 +11,10 @@ describe('ProfileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProfileComponent, RouterLinkStubDirective ],
+      declarations: [
+        ProfileComponent,
+        RouterLinkStubDirective
+      ],
       providers: [
         { provide: Router, useClass: RouterStub },
         { provide: AuthService, useClass: AuthServiceMock }
@@ -19,15 +22,20 @@ describe('ProfileComponent', () => {
       imports: [
         HttpModule,
       ],
-    })
-    .compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ProfileComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    TestBed.overrideComponent(ProfileComponent, {
+      set: {
+        template: `Overriden ProfileComponent`,
+      },
+    });
+
+    TestBed.compileComponents().then(() => {
+      fixture = TestBed.createComponent(ProfileComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+  }));
 
   it('should be created', () => {
     expect(component).toBeTruthy();

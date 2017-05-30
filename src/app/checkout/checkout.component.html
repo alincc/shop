@@ -6,6 +6,8 @@
     <p>Click <a routerLink="/products">here</a> to continue browsing our products</p>
   </div>
 
+  <app-spinner *ngIf="!isFinished"></app-spinner>
+
   <form class="form" (ngSubmit)="onSubmit()" #checkoutForm="ngForm" *ngIf="isFinished && !orderCreated">
     <h1>Secure Checkout</h1>
 

@@ -47,7 +47,10 @@ describe('CheckoutComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CheckoutComponent, CheckoutItemsComponent, RouterLinkStubDirective, CheckoutFormComponent ],
+      declarations: [
+        CheckoutComponent, 
+        RouterLinkStubDirective
+      ],
       providers: [
         CartService,
         CheckoutService,
@@ -63,13 +66,21 @@ describe('CheckoutComponent', () => {
         FormsModule,
       ],
     })
-    .compileComponents();
+
+    TestBed.overrideComponent(CheckoutComponent, {
+      set: {
+        template: `Overriden CheckoutComponent`,
+      },
+    });
+
+    TestBed.compileComponents().then(() => {
+      fixture = TestBed.createComponent(CheckoutComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CheckoutComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
     cartService = TestBed.get(CartService);
 
     spyOn(cartService, 'getTotalPrice').and.returnValue(50);
