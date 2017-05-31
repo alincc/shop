@@ -34,7 +34,6 @@ export class CheckoutComponent implements OnInit {
     this.loadCustomer();
     this.loadProducts();
     this.loadShipping();
-    this.calculateSubTotal();
   }
 
   onSubmit() {
@@ -103,7 +102,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   loadProducts(): void {
-    this.products = this.cartService.getItems();
+    this.setProducts(this.cartService.getItems());
   }
 
   loadShipping(): void {
@@ -133,11 +132,12 @@ export class CheckoutComponent implements OnInit {
   }
 
   removeProduct(line: OrderLine): void {
-    this.products = this.cartService.delete(line.product);
+    this.setProducts(this.cartService.delete(line.product));
   }
 
   setProducts(products: OrderLine[]): void {
     this.products = products;
+    this.calculateSubTotal();
   }
 
   total(): number {

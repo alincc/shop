@@ -23,13 +23,17 @@ export class CheckoutService {
 
     return this.http.post(this.url, body, options)
       .map((res: Response) => res.json())
-      .catch((err: any) => Observable.throw(err.json().error));
+      .catch(this.handleError);
   }
 
   getOrder(id: String): Observable<Order> {
     return this.http.get(this.url + '/' + id)
       .map((res: Response) => res.json())
-      .catch((err: any) => Observable.throw(err.json().error));
+      .catch(this.handleError);
+  }
+
+  private handleError (error: Response | any) {
+    return Observable.throw(error.json() || 'Server error');
   }
 
 }

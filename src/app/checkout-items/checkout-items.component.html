@@ -40,14 +40,14 @@
   <tfoot>
 
     <tr>
-      <td colspan="2" class="total-heading">Subtotal</td>
+      <td colspan="5" class="total-heading">Subtotal</td>
       <td>
         <span class="price">${{ subtotal }}</span>
       </td>
     </tr>
 
     <tr>
-      <td colspan="2" class="total-heading">Shipping</td>
+      <td colspan="5" class="total-heading">Shipping</td>
       <td>
         <span class="price" *ngIf="shipping">${{ shipping.price || 0 }}</span>
         <span class="price" *ngIf="!shipping">Select shipping</span>
@@ -55,7 +55,7 @@
     </tr>
 
     <tr>
-      <td colspan="2" class="total-heading">Grand total</td>
+      <td colspan="5" class="total-heading">Grand total</td>
       <td>
         <span class="price">${{ grandTotal }}</span>
       </td>

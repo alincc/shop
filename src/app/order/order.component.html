@@ -1,10 +1,10 @@
 <div class="order">
 
-  <div class="message negative" *ngIf="!order">
-    Oops.. This order was not found.
-  </div>
+  <app-message *ngIf="errorMsg && isFinished" [data]="errorMsg"></app-message>
 
-  <div *ngIf="order">
+  <app-spinner *ngIf="!isFinished"></app-spinner>
+
+  <div *ngIf="order && isFinished">
     <h1>Order: {{ order._id }}</h1>
 
     <table>

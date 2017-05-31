@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params }   from '@angular/router';
-import { Order, ShippingStatus } from '../model/interface';
+import { Order, ShippingStatus, ErrorResponse, Message } from '../model/interface';
 import { CheckoutService } from '../services';
 import { Observable } from 'rxjs/Observable';
 
@@ -12,6 +12,8 @@ import { Observable } from 'rxjs/Observable';
 export class OrderComponent implements OnInit {
   @Input() order: Order;
 
+  private isFinished: boolean = false;
+  private errorMsg: Message;
   private ShippingStatus: typeof ShippingStatus = ShippingStatus
 
   constructor(
@@ -25,12 +27,18 @@ export class OrderComponent implements OnInit {
 
   fetchOrder(): void {
     this.route.params
-      .switchMap((params: Params) => this.checkoutService.getOrder(params['id']))
-      .subscribe(order => {
-        if (order) {
-          this.order = new Order(order);
-        }
-      });
+      .switchMap((params: Params) =>
+        this.checkoutService.getOrder(params['id'])
+          .finally(() => this.isFinished = true)
+      )
+      .subscribe(
+        order => this.order = order,
+        err => this.handleError(err),
+      )
+  }
+
+  handleError(error: ErrorResponse) {
+    this.errorMsg = new Message('negative', error.message, 'Ooops..');
   }
 
 }
