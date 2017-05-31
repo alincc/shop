@@ -5,3 +5,4 @@ export { CheckoutService } from './checkout.service';
 export { CustomerService } from './customer.service';
 export { ProductService } from './product.service';
 export { ShippingService } from './shipping.service';
+export { SearchService } from './search.service';

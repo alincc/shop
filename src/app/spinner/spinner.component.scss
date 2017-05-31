@@ -29,6 +29,13 @@ html, body {
   background-color: $c-bg;
 }
 
+.small-loader {
+  background: url('/assets/img/small-loader.gif');
+  width: 110px;
+  height: 110px;
+  background-position: center;
+}
+
 .loader {
   width: $anim-width;
   height: $anim-height;

@@ -60,6 +60,7 @@ p {
 
 .header {
   margin-bottom: 40px;
+  position: relative;
 
   .menu {
     background: $menuBgColor;
@@ -77,6 +78,10 @@ p {
 
   .top-bar {
     text-align: right;
+
+    i {
+      cursor: pointer;
+    }
   }
 }
 

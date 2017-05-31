@@ -3,16 +3,16 @@ import { HttpModule } from '@angular/http';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { AppComponent } from './app.component';
 import { RouterLinkStubDirective, RouterOutletStubComponent } from '../testing/router-stubs';
-import { DropdownComponent } from './dropdown/dropdown.component';
-import { DropdownValue } from './model/interface';
 import { AuthService } from './services';
 import { AuthServiceMock } from '../testing/AuthServiceMock';
 
 describe('AppComponent', () => {
+  let app;
+  let fixture;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        DropdownComponent,
         AppComponent,
         RouterOutletStubComponent,
         RouterLinkStubDirective,
@@ -24,12 +24,21 @@ describe('AppComponent', () => {
       providers: [
         { provide: AuthService, useClass: AuthServiceMock },
       ]
-    }).compileComponents();
+    });
+
+    TestBed.overrideComponent(AppComponent, {
+      set: {
+        template: `Overriden AppComponent`,
+      },
+    });
+
+    TestBed.compileComponents().then(() => {
+      fixture = TestBed.createComponent(AppComponent);
+      app = fixture.debugElement.componentInstance;
+    });
   }));
 
   it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));
 });

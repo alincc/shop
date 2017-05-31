@@ -19,7 +19,8 @@ import { CartService,
   CheckoutService,
   CategoryService,
   CustomerService,
-  ProductService
+  ProductService,
+  SearchService,
 } from './services';
 
 import { ProductDetailsComponent } from './product-details/product-details.component';
@@ -44,6 +45,7 @@ import { CategoryComponent } from './category/category.component';
 import { ProductsContainerComponent } from './products-container/products-container.component';
 import { MessageComponent } from './message/message.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { SearchBoxComponent } from './search-box/search-box.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
     ProductsContainerComponent,
     MessageComponent,
     SpinnerComponent,
+    SearchBoxComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -92,6 +95,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
     AuthService,
     CheckoutService,
     CategoryService,
+    SearchService,
   ],
   bootstrap: [AppComponent]
 })
