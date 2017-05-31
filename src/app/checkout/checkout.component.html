@@ -72,7 +72,9 @@
 
               <app-checkout-items
                 *ngIf="products.length"
+                (deleteEmitter)="removeProduct($event)"
                 [items]="products"
+                [editable]="true"
                 [subtotal]="subtotal"
                 [shipping]="selectedShipping"
                 [grandTotal]="subtotal + (selectedShipping ? selectedShipping.price : 0)">

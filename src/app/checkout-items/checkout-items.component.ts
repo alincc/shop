@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { OrderLine, Shipping } from '../model/interface';
 
 @Component({
@@ -11,10 +11,20 @@ export class CheckoutItemsComponent implements OnInit {
   @Input() shipping: Shipping;
   @Input() subtotal: number;
   @Input() grandTotal: number;
+  @Input() editable: boolean = false;
+
+  @Output()
+  deleteEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onDelete(product: OrderLine): void {
+    if (this.editable) {
+      this.deleteEmitter.emit(product);
+    }
   }
 
 }

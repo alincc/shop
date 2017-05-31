@@ -25,8 +25,9 @@ export class CartService {
     return this.items.filter(item => item.product._id === product._id).length > 0;
   }
 
-  delete(product: Product): void {
+  delete(product: Product): OrderLine[] {
     this.items = this.items.filter(item => item.product._id !== product._id);
+    return this.items;
   }
 
   clear(): void {

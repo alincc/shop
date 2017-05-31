@@ -33,4 +33,11 @@
   .total-heading {
     text-align: right;
   }
+
+  i {
+    &:hover {
+      cursor: pointer;
+      color: #0ab3a3;
+    }
+  }
 }
