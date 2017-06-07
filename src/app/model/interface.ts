@@ -19,6 +19,13 @@ interface CartProduct {
   quantity: number;
 }
 
+class Payment {
+  _id: string;
+  name: string;
+  image?: string;
+  active: boolean;
+}
+
 class Message {
   constructor(public type: string, public message: string, public title?: string) { }
 }
@@ -124,6 +131,7 @@ interface IOrder {
   items: OrderLine[];
   customer?: Customer; // TODO: should not be optional
   shipping?: Shipping;
+  payment?: Payment;
 }
 
 class Order implements IOrder {
@@ -135,6 +143,7 @@ class Order implements IOrder {
   items: OrderLine[];
   customer?: Customer; // TODO: should not be optional
   shipping?: Shipping;
+  payment?: Payment;
 
   constructor(order: IOrder) {
     this._id = order._id;
@@ -145,6 +154,7 @@ class Order implements IOrder {
     this.items = order.items ? order.items : [];
     this.customer = order.customer ? order.customer : null;
     this.shipping = order.shipping ? order.shipping : null;
+    this.payment = order.payment ? order.payment : null;
   }
 
   public calculateSubTotal(): number {
@@ -175,6 +185,7 @@ export {
   Category,
   CartProduct,
   ContactMessage,
+  Payment,
   Customer,
   Message,
   ErrorResponse,

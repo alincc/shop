@@ -55,7 +55,7 @@
               </div>
               <div class="content">
 
-                <img src="/assets/img/paypal.png" alt="Paypal">
+                <app-payment-list [payments]="payments" [selectedPayment]="selectedPayment" (paymentEmitter)="onSelectPayment($event)"></app-payment-list>
 
               </div>
             </div>
@@ -108,7 +108,7 @@
 
           <div class="col-md-6"> <!-- .col-md-6 -->
 
-            <button class="button" [disabled]="!selectedShipping" type="submit">Place Order</button>
+            <button class="button" [disabled]="!selectedShipping || !selectedPayment" type="submit">Place Order</button>
 
           </div> <!-- /.col-md-6 -->
 

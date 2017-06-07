@@ -3,6 +3,7 @@ import {
   CartService, CheckoutService, CustomerService, ShippingService
 } from '../services';
 import { ShippingServiceMock } from '../../testing/ShippingServiceMock';
+import { PaymentServiceMock, PaymentService } from '../../testing/PaymentServiceMock';
 import { StorageServiceMock, StorageService } from '../../testing/StorageServiceMock';
 import { CartProduct } from '../model/interface';
 import { CheckoutComponent } from './checkout.component';
@@ -62,6 +63,7 @@ describe('CheckoutComponent', () => {
         },
         { provide: AuthService, useClass: AuthServiceMock },
         { provide: StorageService, useClass: StorageServiceMock },
+        { provide: PaymentService, useClass: PaymentServiceMock },
       ],
       imports: [
         HttpModule,

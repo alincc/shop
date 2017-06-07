@@ -32,7 +32,7 @@ export class OrderComponent implements OnInit {
           .finally(() => this.isFinished = true)
       )
       .subscribe(
-        order => this.order = order,
+        order => this.order = new Order(order),
         err => this.handleError(err),
       )
   }

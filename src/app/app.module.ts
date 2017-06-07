@@ -22,6 +22,7 @@ import { CartService,
   ProductService,
   SearchService,
   StorageService,
+  PaymentService,
 } from './services';
 
 import { ProductDetailsComponent } from './product-details/product-details.component';
@@ -47,6 +48,7 @@ import { ProductsContainerComponent } from './products-container/products-contai
 import { MessageComponent } from './message/message.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
+import { PaymentListComponent } from './payment-list/payment-list.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +77,7 @@ import { SearchBoxComponent } from './search-box/search-box.component';
     MessageComponent,
     SpinnerComponent,
     SearchBoxComponent,
+    PaymentListComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -98,6 +101,7 @@ import { SearchBoxComponent } from './search-box/search-box.component';
     CategoryService,
     SearchService,
     StorageService,
+    PaymentService,
   ],
   bootstrap: [AppComponent]
 })

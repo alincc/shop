@@ -1,0 +1,18 @@
+$activeColor: #099b8d;
+
+.payment-list {
+  .payment {
+    display: inline-block;
+    margin: 0 10px;
+    cursor: pointer;
+    border: transparent 2px solid;
+
+    &.active {
+      border: $activeColor 2px solid;
+    }
+
+    img {
+      max-width: 68px;
+    }
+  }
+}

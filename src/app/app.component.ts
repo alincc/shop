@@ -1,4 +1,4 @@
-import { Component, ViewContainerRef, Output, EventEmitter } from '@angular/core';
+import { Component, ViewContainerRef } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { DropdownValue } from './model/interface';

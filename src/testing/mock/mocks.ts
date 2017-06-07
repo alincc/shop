@@ -6,9 +6,25 @@ import {
   User,
   Shipping,
   ShippingStatus,
-  Category
+  Category,
+  Payment,
 } from '../../app/model/interface';
 
+export const FAKE_PAYMENT1: Payment = {
+  _id: "1",
+  name: "Payment 1",
+  image: "Image 1",
+  active: true,
+};
+
+export const FAKE_PAYMENT2: Payment = {
+  _id: "2",
+  name: "Payment 2",
+  image: "Image 2",
+  active: false,
+};
+
+export const FAKE_PAYMENTS: Payment[] = [FAKE_PAYMENT1, FAKE_PAYMENT2];
 
 export const FAKE_CATEGORY1: Category = {
   _id: "1",

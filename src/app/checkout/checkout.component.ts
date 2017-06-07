@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { OrderLine, Product, Customer, Shipping } from '../model/interface';
-import { CartService, CheckoutService, CustomerService, ShippingService, AuthService } from '../services';
+import { OrderLine, Product, Customer, Shipping, Payment } from '../model/interface';
+import { CartService, CheckoutService, CustomerService, ShippingService, AuthService, PaymentService } from '../services';
 import { FAKE_USER1 } from '../../testing/mock/mocks';
 import { Observable } from 'rxjs/Observable';
 import { CheckoutFormComponent } from '../checkout-form/checkout-form.component';
@@ -21,19 +21,23 @@ export class CheckoutComponent implements OnInit {
   private customer: Customer;
   private isFinished = false;
   private orderCreated = false;
+  private selectedPayment: Payment;
+  private payments: Payment[];
 
   constructor(
     private cartService: CartService,
     private checkoutService: CheckoutService,
     private customerService: CustomerService,
     private shippingService: ShippingService,
-    private authService: AuthService
+    private authService: AuthService,
+    private paymentService: PaymentService,
   ) { }
 
   ngOnInit() {
     this.loadCustomer();
     this.loadProducts();
     this.loadShipping();
+    this.loadPayments();
   }
 
   onSubmit() {
@@ -51,7 +55,14 @@ export class CheckoutComponent implements OnInit {
             if (customerData.differs(customer)) {
               // TODO: should display a dialog asking user if he wants to update customer data
               this.customerService.update(customerData._id, customer)
-                .switchMap((res) => this.checkoutService.createOrder(res.data, this.products, this.total(), this.selectedShipping))
+                .switchMap((res) => this.checkoutService.createOrder(res.data, this.products, this.total(), this.selectedShipping, this.selectedPayment))
+                .subscribe(
+                  res => this.orderCreatedSuccess(),
+                  err => console.log(err)
+                );
+            }
+            else {
+              this.checkoutService.createOrder(customerData, this.products, this.total(), this.selectedShipping, this.selectedPayment)
                 .subscribe(
                   res => this.orderCreatedSuccess(),
                   err => console.log(err)
@@ -62,7 +73,7 @@ export class CheckoutComponent implements OnInit {
             // If authed but no customer information exists
             this.customerService.create(customer)
               .switchMap(newCustomer => this.authService.update({ customer: newCustomer.data }))
-              .switchMap(user => this.checkoutService.createOrder(user.customer, this.products, this.total(), this.selectedShipping))
+              .switchMap(user => this.checkoutService.createOrder(user.customer, this.products, this.total(), this.selectedShipping, this.selectedPayment))
               .subscribe(
                 res => this.orderCreatedSuccess(),
                 err => console.log(err)
@@ -72,7 +83,7 @@ export class CheckoutComponent implements OnInit {
         else {
           // If user is not authenticated
           this.customerService.create(customer)
-            .switchMap(newCustomer => this.checkoutService.createOrder(newCustomer.data, this.products, this.total(), this.selectedShipping))
+            .switchMap(newCustomer => this.checkoutService.createOrder(newCustomer.data, this.products, this.total(), this.selectedShipping, this.selectedPayment))
             .subscribe(
               res => this.orderCreatedSuccess(),
               err => console.log(err)
@@ -81,24 +92,13 @@ export class CheckoutComponent implements OnInit {
       })
   }
 
-  private orderCreatedSuccess() {
-    this.orderCreated = true;
+  onSelectPayment(payment): void {
+    this.selectedPayment = payment;
   }
 
-  customerDiffers(customer: Customer, other: Customer): boolean {
-    if (customer.phone !== other.phone ||
-      customer.country !== other.country ||
-      customer.email !== other.email ||
-      customer.postnumber !== other.postnumber ||
-      customer.city !== other.city ||
-      customer.address !== other.address ||
-      customer.lastname !== other.lastname ||
-      customer.firstname !== other.firstname
-    ) {
-      return true;
-    }
-
-    return false;
+  orderCreatedSuccess() {
+    this.orderCreated = true;
+    this.cartService.clear();
   }
 
   loadProducts(): void {
@@ -108,6 +108,11 @@ export class CheckoutComponent implements OnInit {
   loadShipping(): void {
     this.shippingService.getAllShipping()
       .subscribe(data => this.shipping = data);
+  }
+
+  loadPayments(): void {
+    this.paymentService.getActivePayments()
+      .subscribe(payments => this.payments = payments);
   }
 
   getProducts(): OrderLine[] {

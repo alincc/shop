@@ -16,7 +16,7 @@ export class CustomerService {
 
     return this.http.post(this.url, JSON.stringify(customer), options)
       .map((res: Response) => res.json())
-      .catch((err: any) => Observable.throw(err.json().error));
+      .catch(this.handleError);
   }
 
   update(id: string, customer: Customer): Observable<any> {
@@ -25,7 +25,17 @@ export class CustomerService {
 
     return this.http.put(this.url + '/' + customer._id, JSON.stringify(customer), options)
       .map((res: Response) => res.json())
-      .catch((err:any) => Observable.throw(err.json().error));
+      .catch(this.handleError);
+  }
+
+  get(id: string): Observable<Customer> {
+    return this.http.get(`${this.url}/${id}`)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
+
+  private handleError (error: Response | any) {
+    return Observable.throw(error.json() || 'Server error');
   }
 
 }
