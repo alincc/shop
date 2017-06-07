@@ -8,7 +8,7 @@ import { routes } from '../app-routing.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { Observable } from 'rxjs/Rx';
-
+import { StorageServiceMock, StorageService } from '../../testing/StorageServiceMock';
 import { ProductListComponent } from '../product-list/product-list.component';
 import { HomeComponent } from '../home/home.component';
 import { AboutComponent } from '../about/about.component';
@@ -48,6 +48,7 @@ describe('ProductDetailsComponent', () => {
       ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRoute },
+        { provide: StorageService, useClass: StorageServiceMock },
         ProductService,
         CartService,
         CategoryService,

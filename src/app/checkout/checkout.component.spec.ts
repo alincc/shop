@@ -3,6 +3,7 @@ import {
   CartService, CheckoutService, CustomerService, ShippingService
 } from '../services';
 import { ShippingServiceMock } from '../../testing/ShippingServiceMock';
+import { StorageServiceMock, StorageService } from '../../testing/StorageServiceMock';
 import { CartProduct } from '../model/interface';
 import { CheckoutComponent } from './checkout.component';
 import { CheckoutFormComponent } from '../checkout-form/checkout-form.component';
@@ -48,7 +49,7 @@ describe('CheckoutComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        CheckoutComponent, 
+        CheckoutComponent,
         RouterLinkStubDirective
       ],
       providers: [
@@ -60,6 +61,7 @@ describe('CheckoutComponent', () => {
           useClass: ShippingServiceMock,
         },
         { provide: AuthService, useClass: AuthServiceMock },
+        { provide: StorageService, useClass: StorageServiceMock },
       ],
       imports: [
         HttpModule,

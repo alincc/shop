@@ -4,6 +4,7 @@ import { RouterLinkStubDirective }   from '../../testing/router-stubs';
 import { RouterOutletStubComponent } from '../../testing/router-stubs';
 import { ProductComponent } from './product.component';
 import { CartService } from '../services';
+import { StorageServiceMock, StorageService } from '../../testing/StorageServiceMock';
 
 describe('ProductComponent', () => {
   let component: ProductComponent;
@@ -18,6 +19,7 @@ describe('ProductComponent', () => {
       ],
       providers: [
         CartService,
+        { provide: StorageService, useClass: StorageServiceMock },
       ],
       imports: [
         ToastModule.forRoot(),

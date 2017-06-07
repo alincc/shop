@@ -5,6 +5,7 @@ import { ToastModule, ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 import { Router, RouterStub } from '../../testing/router-stubs';
 import { ToastsManagerMock } from '../../testing/ToastsManagerMock';
+import { StorageServiceMock, StorageService } from '../../testing/StorageServiceMock';
 import { AuthService } from '../services';
 import { LoginComponent } from './login.component';
 
@@ -20,21 +21,27 @@ describe('LoginComponent', () => {
 
         { provide: Router, useClass: RouterStub },
         { provide: ToastsManager, useClass: ToastsManagerMock },
+        { provide: StorageService, useClass: StorageServiceMock },
       ],
       imports: [
         HttpModule,
         FormsModule,
         ToastModule,
       ],
-    })
-    .compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    TestBed.overrideComponent(LoginComponent, {
+      set: {
+        template: `Overridden LoginComponent`,
+      },
+    });
+
+    TestBed.compileComponents().then(() => {
+      fixture = TestBed.createComponent(LoginComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+  }));
 
   it('should be created', () => {
     expect(component).toBeTruthy();

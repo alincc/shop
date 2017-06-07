@@ -1,5 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
+import { StorageServiceMock, StorageService } from '../../testing/StorageServiceMock';
 import { CartService } from './cart.service';
 import { Product } from '../model/interface';
 
@@ -29,7 +30,10 @@ describe('CartService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CartService]
+      providers: [
+        CartService,
+        { provide: StorageService, useClass: StorageServiceMock },
+      ]
     });
   });
 

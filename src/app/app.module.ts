@@ -21,6 +21,7 @@ import { CartService,
   CustomerService,
   ProductService,
   SearchService,
+  StorageService,
 } from './services';
 
 import { ProductDetailsComponent } from './product-details/product-details.component';
@@ -96,6 +97,7 @@ import { SearchBoxComponent } from './search-box/search-box.component';
     CheckoutService,
     CategoryService,
     SearchService,
+    StorageService,
   ],
   bootstrap: [AppComponent]
 })

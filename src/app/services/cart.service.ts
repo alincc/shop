@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Product, OrderLine } from '../model/interface';
+import { StorageService } from './storage.service';
 
 @Injectable()
 export class CartService {
   private items: OrderLine[] = [];
 
-  constructor() { }
+  constructor(private storageService: StorageService) {
+    if (this.storageService.getItem('cart') !== null) {
+      this.items = JSON.parse(this.storageService.getItem('cart'));
+    }
+  }
 
   add(product: Product): void {
     if (this.contains(product)) {
@@ -19,6 +24,12 @@ export class CartService {
     else {
       this.items.push({ product: product, quantity: 1 });
     }
+
+    this.updateStorage();
+  }
+
+  updateStorage() {
+    this.storageService.setItem('cart', JSON.stringify(this.items));
   }
 
   contains(product: Product): boolean {
@@ -27,11 +38,15 @@ export class CartService {
 
   delete(product: Product): OrderLine[] {
     this.items = this.items.filter(item => item.product._id !== product._id);
+
+    this.updateStorage();
     return this.items;
   }
 
   clear(): void {
     this.items = [];
+
+    this.updateStorage();
   }
 
   getItems(): OrderLine[] {

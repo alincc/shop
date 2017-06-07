@@ -1,7 +1,6 @@
-import {TestBed, inject, tick} from '@angular/core/testing';
-import {MockBackend, MockConnection} from '@angular/http/testing';
-import {Response, ResponseOptions, Http, ConnectionBackend, BaseRequestOptions, RequestOptions} from '@angular/http';
-
+import { TestBed, inject, tick } from '@angular/core/testing';
+import { MockBackend, MockConnection } from '@angular/http/testing';
+import { Response, ResponseOptions, Http, ConnectionBackend, BaseRequestOptions, RequestOptions } from '@angular/http';
 import { CategoryService } from './category.service';
 import { Category } from '../model/interface';
 
@@ -10,10 +9,9 @@ describe('CategoryService', () => {
     TestBed.configureTestingModule({
       providers: [
         CategoryService,
-        {provide: RequestOptions, useClass: BaseRequestOptions},
-        {provide: ConnectionBackend, useClass: MockBackend},
+        { provide: RequestOptions, useClass: BaseRequestOptions },
+        { provide: ConnectionBackend, useClass: MockBackend },
         Http,
-
       ]
     });
   });

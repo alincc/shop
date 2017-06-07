@@ -34,15 +34,20 @@ describe('OrderComponent', () => {
       imports: [
         HttpModule
       ],
-    })
-    .compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(OrderComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    TestBed.overrideComponent(OrderComponent, {
+      set: {
+        template: `Overridden OrderComponent`,
+      },
+    });
+
+    TestBed.compileComponents().then(() => {
+      fixture = TestBed.createComponent(OrderComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+  }));
 
   it('should be created', () => {
     expect(component).toBeTruthy();

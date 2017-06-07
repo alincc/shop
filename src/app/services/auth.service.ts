@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { tokenNotExpired } from 'angular2-jwt';
+import { StorageService } from './storage.service';
 
 import { User } from '../model/interface';
 
@@ -12,9 +13,11 @@ export class AuthService {
   private auth: User = null;
   private url = 'http://localhost:9000/api/auth';
 
-  constructor(private http: Http) {
+  constructor(private http: Http,
+    private storageService: StorageService,
+  ) {
     let user = this.getAuthedUser();
-    this.token = localStorage.getItem('token');
+    this.token = this.storageService.getItem('token');
   }
 
   validate(email: String, password: String): Observable<boolean> {
@@ -44,7 +47,7 @@ export class AuthService {
   }
 
   getUserInfo(): Observable<User> {
-    let headers = new Headers({ 'authorization': 'Bearer ' + localStorage.getItem('token') });
+    let headers = new Headers({ 'authorization': 'Bearer ' + this.storageService.getItem('token') });
     let options = new RequestOptions({ headers: headers });
 
     return this.http.get(this.url + '/userinfo', options)
@@ -53,7 +56,7 @@ export class AuthService {
   }
 
   authSuccess(token: string) {
-    localStorage.setItem('token', token);
+    this.storageService.setItem('token', token);
 
     this.getUserInfo()
       .subscribe(userInfo => this.auth = userInfo);
@@ -69,7 +72,7 @@ export class AuthService {
 
   logout(): void {
     this.token = null;
-    localStorage.removeItem('token');
+    this.storageService.removeItem('token');
   }
 
   authenticate(email: String, password: String): Observable<boolean> {
@@ -93,14 +96,13 @@ export class AuthService {
   update(user: any): Observable<User> {
     let headers = new Headers({
       'Content-Type': 'application/json',
-      'authorization': 'Bearer ' + localStorage.getItem('token')
+      'authorization': 'Bearer ' + this.storageService.getItem('token')
     });
     const options = new RequestOptions({ headers: headers });
     const body = JSON.stringify(user);
 
     return this.getUserInfo()
       .switchMap(data => this.http.put(this.url + '/userinfo', body, options))
-      // .subscribe(() => true);
       .map(res => res.json());
   }
 }

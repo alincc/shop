@@ -3,6 +3,7 @@ import { ToastModule, ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { CartService } from '../services';
 import { CartServiceMock, MOCK_ITEMS, PRODUCT_NOT_IN_CART } from '../../testing/CartServiceMock';
 import { ToastsManagerMock } from '../../testing/ToastsManagerMock';
+import { StorageServiceMock, StorageService } from '../../testing/StorageServiceMock';
 import { Product, OrderLine } from '../model/interface';
 
 import { CartComponent } from './cart.component';
@@ -19,7 +20,8 @@ describe('CartComponent', () => {
           provide: CartService,
           useClass: CartServiceMock
         },
-        {provide: ToastsManager, useClass: ToastsManagerMock}
+        { provide: ToastsManager, useClass: ToastsManagerMock },
+        { provide: StorageService, useClass: StorageServiceMock },
       ],
       imports: [
         ToastModule
