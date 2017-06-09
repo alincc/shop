@@ -5,7 +5,11 @@
     [ngClass]="{'active': this.selectedPayment?._id == payment._id}">
 
     <img [src]="payment.image" [alt]="payment.name">
-    
+
   </div>
 
+</div>
+
+<div class="message info" *ngIf="!payments">
+  No payment methods available
 </div>
