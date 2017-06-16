@@ -22,7 +22,13 @@ export class CartService {
       });
     }
     else {
-      this.items.push({ product: product, quantity: 1 });
+      const orderLine: OrderLine = new OrderLine({
+        product: product,
+        quantity: 1,
+        price: product.price,
+      });
+
+      this.items.push(orderLine);
     }
 
     this.updateStorage();

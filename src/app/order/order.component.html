@@ -49,10 +49,10 @@
 
       <div class="col-md-6 col-xs-12" *ngIf="order.shipping"> <!-- .col -->
         <h4>Shipping method</h4>
-        {{ order.shipping.name }} <br/>
-        {{ order.customer.firstname }} {{ order.customer.lastname }} <br/>
-        {{ order.customer.address }} <br/>
-        {{ order.customer.postnumber }} {{ order.customer.city }}
+        {{ order.shipping.value.name }} <br/>
+        {{ order.shippingAddress.firstname }} {{ order.shippingAddress.lastname }} <br/>
+        {{ order.shippingAddress.address }} <br/>
+        {{ order.shippingAddress.postnumber }} {{ order.shippingAddress.city }}
       </div> <!-- /.col -->
 
     </div> <!-- ./row -->

@@ -5,7 +5,7 @@ import { FAKE_PRODUCT1, FAKE_PRODUCT2, PRODUCT_NOT_IN_CART } from './mock/mocks'
 export { PRODUCT_NOT_IN_CART } from './mock/mocks';
 export { CartService } from '../app/services';
 
-export const MOCK_ITEMS = [{ product: FAKE_PRODUCT1, quantity: 1 }, { product: FAKE_PRODUCT2, quantity: 2 }];
+export const MOCK_ITEMS = [{ product: FAKE_PRODUCT1, quantity: 1, price: FAKE_PRODUCT1.price }, { product: FAKE_PRODUCT2, quantity: 2, price: FAKE_PRODUCT2.price }];
 
 @Injectable()
 export class CartServiceMock {
@@ -25,7 +25,7 @@ export class CartServiceMock {
       });
     }
     else {
-      this.items.push({ product: product, quantity: 1 });
+      this.items.push({ product: product, quantity: 1, price: product.price });
     }
   }
 

@@ -152,9 +152,26 @@ class Customer implements ICustomer {
   }
 }
 
-interface OrderLine {
+class IOrderLine {
   product: Product;
   quantity: number;
+  price: number;
+}
+
+class OrderLine implements IOrderLine {
+  product: Product;
+  quantity: number;
+  price: number;
+
+  constructor(orderLine: IOrderLine) {
+    this.product = orderLine.product;
+    this.quantity = orderLine.quantity;
+    this.price = orderLine.price;
+  }
+
+  public getTotalPrice(): number {
+    return this.price * this.quantity;
+  }
 }
 
 export enum ShippingStatus {
@@ -267,7 +284,7 @@ class Order implements IOrder {
     this.total = order.total;
     this.status = order.status;
     this.statusLog = order.statusLog.map(item => new ShippingStatusEntry(item));
-    this.items = order.items ? order.items : [];
+    this.items = order.items ? order.items.map(item => new OrderLine(item)) : [];
     this.customer = order.customer ? new Customer(order.customer) : null;
     this.shipping = order.shipping ? order.shipping : null;
     this.payment = order.payment ? order.payment : null;

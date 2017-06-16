@@ -65,9 +65,10 @@ export const FAKE_PRODUCTS: Product[] = [FAKE_PRODUCT1, FAKE_PRODUCT2];
 
 export const PRODUCT_NOT_IN_CART: OrderLine = {
   product: FAKE_PRODUCT1,
-  quantity: 0
+  quantity: 0,
+  price: FAKE_PRODUCT1.price,
 };
-export const MOCK_ITEMS: OrderLine[] = [{ product: FAKE_PRODUCT1, quantity: 1 }, { product: FAKE_PRODUCT2, quantity: 2 }];
+export const MOCK_ITEMS: OrderLine[] = [{ product: FAKE_PRODUCT1, quantity: 1, price: FAKE_PRODUCT1.price }, { product: FAKE_PRODUCT2, quantity: 2, price: FAKE_PRODUCT2.price }];
 
 export const MOCK_CUSTOMER1: Customer = new Customer({
   _id: "1",

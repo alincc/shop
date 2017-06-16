@@ -26,10 +26,10 @@
 
       <td class="product-quantity">{{ item.quantity }}</td>
 
-      <td class="unit-price price">${{ item.product.price }}</td>
+      <td class="unit-price price">{{ item.price | currency:'USD':true }}</td>
 
       <td class="subtotal-column price">
-        ${{ item.quantity * item.product.price }}
+        {{ item.getTotalPrice() | currency:'USD':true }}
       </td>
 
       <td class="delete"><i class="fa fa-remove pointer" (click)="onDelete(item)" *ngIf="editable"></i></td>
