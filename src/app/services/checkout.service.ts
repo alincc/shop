@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Order, OrderLine, Customer, Shipping, Payment } from '../model/interface';
+import { Order, OrderLine, Customer, ShippingLine, Payment, ShippingAddress } from '../model/interface';
 
 @Injectable()
 export class CheckoutService {
@@ -10,7 +10,7 @@ export class CheckoutService {
 
   constructor(private http: Http) { }
 
-  createOrder(customer: Customer, items: OrderLine[], total: number, shipping: Shipping, payment: Payment) {
+  createOrder(customer: Customer, items: OrderLine[], total: number, shipping: ShippingLine, payment: Payment, shippingAddress: ShippingAddress) {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
 
@@ -20,6 +20,7 @@ export class CheckoutService {
       items: items,
       shipping: shipping,
       payment: payment,
+      shippingAddress: shippingAddress,
     });
 
     return this.http.post(this.url, body, options)

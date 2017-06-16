@@ -8,6 +8,7 @@ import {
   ShippingStatus,
   Category,
   Payment,
+  ShippingLine,
 } from '../../app/model/interface';
 
 export const FAKE_PAYMENT1: Payment = {
@@ -30,12 +31,14 @@ export const FAKE_CATEGORY1: Category = {
   _id: "1",
   name: "Category 1",
   image: "Image 1",
+  products: [],
 };
 
 export const FAKE_CATEGORY2: Category = {
   _id: "2",
   name: "Category 2",
   image: "Image 2",
+  products: [],
 };
 
 export const FAKE_CATEGORIES: Category[] = [FAKE_CATEGORY1, FAKE_CATEGORY2];
@@ -46,6 +49,7 @@ export const FAKE_PRODUCT1: Product = {
   description: "Description 1",
   image: "Image 1",
   price: 100,
+  active: true,
 };
 
 export const FAKE_PRODUCT2: Product = {
@@ -54,18 +58,13 @@ export const FAKE_PRODUCT2: Product = {
   description: "Description 2",
   image: "Image 2",
   price: 100,
+  active: true,
 };
 
 export const FAKE_PRODUCTS: Product[] = [FAKE_PRODUCT1, FAKE_PRODUCT2];
 
 export const PRODUCT_NOT_IN_CART: OrderLine = {
-  product: {
-    _id: "999",
-    name: "Product 999",
-    description: "Description 999",
-    image: "Image 999",
-    price: 999,
-  },
+  product: FAKE_PRODUCT1,
   quantity: 0
 };
 export const MOCK_ITEMS: OrderLine[] = [{ product: FAKE_PRODUCT1, quantity: 1 }, { product: FAKE_PRODUCT2, quantity: 2 }];
@@ -113,6 +112,13 @@ export const MOCK_SHIPPING1: Shipping = {
   price: 100,
 }
 
+export const FAKE_SHIPPING_LINE1: ShippingLine = {
+  value: MOCK_SHIPPING1,
+  trackingNumber: "01234",
+  price: 10,
+  weight: 20,
+}
+
 export const MOCK_ORDER1 = new Order({
     _id: "100",
     updatedAt: "0000",
@@ -121,7 +127,10 @@ export const MOCK_ORDER1 = new Order({
     status: ShippingStatus.Pending,
     items: MOCK_ITEMS,
     customer: MOCK_CUSTOMER1,
-    shipping: MOCK_SHIPPING1
+    shipping: FAKE_SHIPPING_LINE1,
+    shippingAddress: null,
+    statusLog: [],
+    payment: FAKE_PAYMENT1,
 });
 
 

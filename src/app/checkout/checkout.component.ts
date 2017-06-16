@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { OrderLine, Product, Customer, Shipping, Payment } from '../model/interface';
+import { OrderLine, Product, Customer, Shipping, ShippingAddress, Payment, ShippingLine } from '../model/interface';
 import { CartService, CheckoutService, CustomerService, ShippingService, AuthService, PaymentService } from '../services';
 import { FAKE_USER1 } from '../../testing/mock/mocks';
 import { Observable } from 'rxjs/Observable';
@@ -41,7 +41,25 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmit() {
-    let customer: Customer = this.formComponent.form;
+    const customer: Customer = this.formComponent.form;
+
+    const shippingAddress: ShippingAddress = new ShippingAddress({
+      email: customer.email,
+      phone: customer.phone,
+      firstname: customer.firstname,
+      lastname: customer.lastname,
+      postnumber: customer.postnumber,
+      address: customer.address,
+      country: customer.country,
+      city: customer.city,
+    });
+
+    const shipping: ShippingLine = new ShippingLine(
+      this.selectedShipping,
+      '',
+      this.selectedShipping.price,
+      0
+    );
 
     this.authService.getAuthedUser()
       .subscribe(auth => {
@@ -55,14 +73,14 @@ export class CheckoutComponent implements OnInit {
             if (customerData.differs(customer)) {
               // TODO: should display a dialog asking user if he wants to update customer data
               this.customerService.update(customerData._id, customer)
-                .switchMap((res) => this.checkoutService.createOrder(res.data, this.products, this.total(), this.selectedShipping, this.selectedPayment))
+                .switchMap((res) => this.checkoutService.createOrder(res.data, this.products, this.total(), shipping, this.selectedPayment, shippingAddress))
                 .subscribe(
                   res => this.orderCreatedSuccess(),
                   err => console.log(err)
                 );
             }
             else {
-              this.checkoutService.createOrder(customerData, this.products, this.total(), this.selectedShipping, this.selectedPayment)
+              this.checkoutService.createOrder(customerData, this.products, this.total(), shipping, this.selectedPayment, shippingAddress)
                 .subscribe(
                   res => this.orderCreatedSuccess(),
                   err => console.log(err)
@@ -73,7 +91,7 @@ export class CheckoutComponent implements OnInit {
             // If authed but no customer information exists
             this.customerService.create(customer)
               .switchMap(newCustomer => this.authService.update({ customer: newCustomer.data }))
-              .switchMap(user => this.checkoutService.createOrder(user.customer, this.products, this.total(), this.selectedShipping, this.selectedPayment))
+              .switchMap(user => this.checkoutService.createOrder(user.customer, this.products, this.total(), shipping, this.selectedPayment, shippingAddress))
               .subscribe(
                 res => this.orderCreatedSuccess(),
                 err => console.log(err)
@@ -83,7 +101,7 @@ export class CheckoutComponent implements OnInit {
         else {
           // If user is not authenticated
           this.customerService.create(customer)
-            .switchMap(newCustomer => this.checkoutService.createOrder(newCustomer.data, this.products, this.total(), this.selectedShipping, this.selectedPayment))
+            .switchMap(newCustomer => this.checkoutService.createOrder(newCustomer.data, this.products, this.total(), shipping, this.selectedPayment, shippingAddress))
             .subscribe(
               res => this.orderCreatedSuccess(),
               err => console.log(err)

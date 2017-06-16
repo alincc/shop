@@ -1,34 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Product, OrderLine } from '../app/model/interface';
 
+import { FAKE_PRODUCT1, FAKE_PRODUCT2, PRODUCT_NOT_IN_CART } from './mock/mocks';
+export { PRODUCT_NOT_IN_CART } from './mock/mocks';
 export { CartService } from '../app/services';
-
-const FAKE_PRODUCT1: Product = {
-  _id: "1",
-  name: "Product 1",
-  description: "Description 1",
-  image: "Image 1",
-  price: 100,
-};
-
-const FAKE_PRODUCT2: Product = {
-  _id: "2",
-  name: "Product 2",
-  description: "Description 2",
-  image: "Image 2",
-  price: 100,
-};
-
-export const PRODUCT_NOT_IN_CART: OrderLine = {
-  product: {
-    _id: "999",
-    name: "Product 999",
-    description: "Description 999",
-    image: "Image 999",
-    price: 999,
-  },
-  quantity: 0
-};
 
 export const MOCK_ITEMS = [{ product: FAKE_PRODUCT1, quantity: 1 }, { product: FAKE_PRODUCT2, quantity: 2 }];
 
