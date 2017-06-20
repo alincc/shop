@@ -26,7 +26,7 @@ export class CategoryComponent implements OnInit {
           .finally(() => this.isFinished = true)
       )
       .subscribe(
-        category => this.category = category,
+        category => this.category = new Category(category),
         err => this.handleError(err),
       )
   }

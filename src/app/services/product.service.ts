@@ -15,16 +15,26 @@ export class ProductService {
   getProducts(): Observable<Product[]> {
     return this.http.get(this.url)
                     .map(res => res.json())
+                    .map(products => products.filter(product => product.active === true))
                     .catch(this.handleError);
   }
 
   getProduct(id: String): Observable<Product> {
     return this.http.get(this.url + '/' + id)
                     .map(res => res.json())
+                    .map(product => {
+                      if (product.active === false) {
+                        throw Observable.throw({ message: 'No such product exists!'});
+                      }
+                      return product;
+                    })
                     .catch(this.handleError);
   }
 
   private handleError (error: Response | any) {
+    if (error.json === undefined) {
+      return Observable.throw(error.error);
+    }
     return Observable.throw(error.json() || 'Server error');
   }
 }

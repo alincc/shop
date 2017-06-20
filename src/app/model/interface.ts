@@ -42,7 +42,10 @@ class Category implements ICategory {
     this._id = category._id;
     this.name = category.name;
     this.image = category.image;
-    this.products = category.products;
+    this.products = category.products
+      .map(product => new Product(product))
+      .filter(product => product.active === true);
+
     this.description = category.description;
     this.active = category.active;
   }
