@@ -21,7 +21,7 @@ export class ProductsContainerComponent implements OnInit {
   getProducts(): void {
     this.productService.getProducts()
       .subscribe(
-        products => this.products = products,
+        products => this.products = products.map(product => new Product(product)),
         error => this.errorMessage = <any>error
       );
   }

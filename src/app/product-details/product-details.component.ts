@@ -15,7 +15,7 @@ import { Product, Category } from '../model/interface';
 export class ProductDetailsComponent implements OnInit {
   @Input() product: Product;
 
-  private errorMsg: Message;
+  errorMsg: Message;
   category: Category;
 
   constructor(
@@ -30,7 +30,7 @@ export class ProductDetailsComponent implements OnInit {
     this.route.params
       .switchMap((params: Params) => this.productService.getProduct(params['id']))
       .subscribe(
-        product => this.product = product,
+        product => this.product = new Product(product),
         err => this.handleError(err),
       );
   }

@@ -13,6 +13,8 @@ import { UserComponent } from './user/user.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductComponent } from './product/product.component';
 
+import { RouterLinkStubDirective, RouterOutletStubComponent } from '../testing/router-stubs';
+
 import { CartService,
   AuthService,
   ShippingService,
@@ -78,6 +80,8 @@ import { PaymentListComponent } from './payment-list/payment-list.component';
     SpinnerComponent,
     SearchBoxComponent,
     PaymentListComponent,
+    RouterLinkStubDirective,
+    RouterOutletStubComponent,
   ],
   imports: [
     AppRoutingModule,

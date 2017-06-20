@@ -1,15 +1,27 @@
 <div class="product-item row" *ngIf="product">
   <div class="image col-md-6 col-xs-4">
 
-    <a [routerLink]="['/product', product._id]" *ngIf="product.image">
-      <img [src]="product.image" alt="">
-    </a>
+    <div class="image thumb-wrapper">
+
+      <div class="sale onSale" *ngIf="product.onSale">On Sale!</div>
+      <div class="sale discount" *ngIf="product.getActiveDiscount()">{{ '-' + product.getActiveDiscount().value + '%' }}</div>
+
+      <a [routerLink]="['/product', product._id]" *ngIf="product.image">
+        <img [src]="product.image" alt="">
+      </a>
+
+    </div>
 
   </div>
 
   <div class="information col-md-6 col-xs-8">
     <h3><a [routerLink]="['/product', product._id]">{{ product.name }}</a></h3>
-    <div class="price">{{ product.price }} SEK</div>
+
+    <span class="price" [ngClass]="{'strike': product.getActiveDiscount()}">{{ product.price | currency:'USD':true }}</span>
+
+    <div class="has-discount" *ngIf="product.getActiveDiscount()">
+      <span class="price">{{ product.getCurrentPrice() | currency:'USD':true }}</span>
+    </div>
 
     <div>
       <button (click)="addToCart()" class="button add-to-cart">

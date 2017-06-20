@@ -19,6 +19,7 @@ export class CheckoutItemsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.items = this.items.map(item => new OrderLine(item));
   }
 
   onDelete(product: OrderLine): void {

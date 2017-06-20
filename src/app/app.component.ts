@@ -10,7 +10,7 @@ import { AuthService } from './services';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  private searchBoxVisible: boolean = false;
+  searchBoxVisible: boolean = false;
 
   constructor(
     public toastr: ToastsManager,

@@ -10,8 +10,8 @@ import { CategoryService } from '../services';
 })
 export class CategoryComponent implements OnInit {
 
-  private errorMsg: Message;
-  private category: Category = null;
+  errorMsg: Message;
+  category: Category = null;
   isFinished: boolean = false;
 
   constructor(

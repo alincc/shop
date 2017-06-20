@@ -10,7 +10,7 @@ import { AuthService } from '../services';
 })
 export class LoginComponent implements OnInit {
 
-  private loginForm: any = {
+  loginForm: any = {
     email: "",
     password: "",
   };

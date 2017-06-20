@@ -12,7 +12,7 @@ export class SearchBoxComponent implements OnInit {
   @Output()
   searchEmitter: EventEmitter<any> = new EventEmitter<any>();
 
-  private isFinished: boolean = false;
+  isFinished: boolean = false;
   term = new FormControl();
   items: Product[];
 

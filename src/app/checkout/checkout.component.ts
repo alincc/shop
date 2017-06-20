@@ -19,8 +19,8 @@ export class CheckoutComponent implements OnInit {
   private subtotal = 0;
   private form = {};
   private customer: Customer;
-  private isFinished = false;
-  private orderCreated = false;
+  isFinished = false;
+  orderCreated = false;
   private selectedPayment: Payment;
   private payments: Payment[];
 
@@ -164,7 +164,11 @@ export class CheckoutComponent implements OnInit {
   }
 
   total(): number {
-    return this.cartService.getTotalPrice();
+    if (!this.selectedShipping) {
+      return this.cartService.getTotalPrice();
+    }
+
+    return this.cartService.getTotalPrice() + this.selectedShipping.price;
   }
 
   calculateSubTotal(): number {

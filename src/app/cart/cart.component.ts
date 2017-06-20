@@ -12,7 +12,7 @@ import { OrderLine, Product } from '../model/interface';
 })
 export class CartComponent implements OnInit {
 
-  private products: OrderLine[];
+  products: OrderLine[];
 
   constructor(
     private cartService: CartService,

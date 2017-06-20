@@ -1,11 +1,51 @@
 .product-item {
   border: #ccc 1px solid;
   margin-bottom: 10px;
+
+  .thumb-wrapper {
+    position: relative;
+  }
+
   .image {
     max-width: 120px;
 
     img {
       max-width: 100%;
+    }
+
+    .sale {
+      position: absolute;
+      background-color: #f05050;
+      color: #fff;
+      font-weight: 700;
+      text-shadow: 0 1px 0 rgba(0,0,0,.2);
+      min-width: 10px;
+      padding: 6px 14px;
+      font-size: 14px;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: baseline;
+      border-radius: 10px;
+
+      &.discount {
+        top: 10%;
+        left: -20%;
+      }
+
+      &.onSale {
+        bottom: 10%;
+        left: -20%;
+        font-size: 12px;
+      }
+    }
+
+  }
+
+  .has-discount {
+    display: inline-block;
+
+    .price {
+      margin-left: 10px;
     }
   }
 }

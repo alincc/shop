@@ -32,6 +32,8 @@ export const FAKE_CATEGORY1: Category = {
   name: "Category 1",
   image: "Image 1",
   products: [],
+  description: 'description',
+  active: true,
 };
 
 export const FAKE_CATEGORY2: Category = {
@@ -39,6 +41,8 @@ export const FAKE_CATEGORY2: Category = {
   name: "Category 2",
   image: "Image 2",
   products: [],
+  description: 'description',
+  active: true,
 };
 
 export const FAKE_CATEGORIES: Category[] = [FAKE_CATEGORY1, FAKE_CATEGORY2];
@@ -50,6 +54,7 @@ export const FAKE_PRODUCT1: Product = {
   image: "Image 1",
   price: 100,
   active: true,
+  onSale: false,
 };
 
 export const FAKE_PRODUCT2: Product = {
@@ -59,16 +64,30 @@ export const FAKE_PRODUCT2: Product = {
   image: "Image 2",
   price: 100,
   active: true,
+  onSale: false,
 };
 
 export const FAKE_PRODUCTS: Product[] = [FAKE_PRODUCT1, FAKE_PRODUCT2];
 
-export const PRODUCT_NOT_IN_CART: OrderLine = {
+export const PRODUCT_NOT_IN_CART: OrderLine = new OrderLine({
   product: FAKE_PRODUCT1,
   quantity: 0,
   price: FAKE_PRODUCT1.price,
-};
-export const MOCK_ITEMS: OrderLine[] = [{ product: FAKE_PRODUCT1, quantity: 1, price: FAKE_PRODUCT1.price }, { product: FAKE_PRODUCT2, quantity: 2, price: FAKE_PRODUCT2.price }];
+});
+
+export const FAKE_ORDERLINE1 = new OrderLine({
+  product: FAKE_PRODUCT1,
+  quantity: 1,
+  price: FAKE_PRODUCT1.price,
+});
+
+export const FAKE_ORDERLINE2 = new OrderLine({
+  product: FAKE_PRODUCT2,
+  quantity: 1,
+  price: FAKE_PRODUCT2.price,
+});
+
+export const MOCK_ITEMS: OrderLine[] = [FAKE_ORDERLINE1, FAKE_ORDERLINE2];
 
 export const MOCK_CUSTOMER1: Customer = new Customer({
   _id: "1",
@@ -81,6 +100,7 @@ export const MOCK_CUSTOMER1: Customer = new Customer({
   lastname: "lastname",
   firstname: "firstname",
   orders: [],
+  createdAt: '',
 });
 
 export const MOCK_CUSTOMER2: Customer = new Customer({
@@ -94,6 +114,7 @@ export const MOCK_CUSTOMER2: Customer = new Customer({
   lastname: "lastname 2",
   firstname: "firstname 2",
   orders: [],
+  createdAt: '',
 });
 
 export const FAKE_USER1: User = {
@@ -111,6 +132,7 @@ export const MOCK_SHIPPING1: Shipping = {
   name: "name",
   description: "description",
   price: 100,
+  active: true,
 }
 
 export const FAKE_SHIPPING_LINE1: ShippingLine = {

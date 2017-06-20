@@ -9,8 +9,8 @@ import { Category } from '../model/interface';
   styleUrls: ['./category-list.component.scss']
 })
 export class CategoryListComponent implements OnInit {
-  private errorMessage: string;
-  private categories: Category[] = [];
+  errorMessage: string;
+  categories: Category[] = [];
 
   constructor(private categoryService: CategoryService) { }
 

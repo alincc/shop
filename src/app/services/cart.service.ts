@@ -10,6 +10,8 @@ export class CartService {
     if (this.storageService.getItem('cart') !== null) {
       this.items = JSON.parse(this.storageService.getItem('cart'));
     }
+
+    this.items = this.items.map(item => new OrderLine(item));
   }
 
   add(product: Product): void {
@@ -25,7 +27,7 @@ export class CartService {
       const orderLine: OrderLine = new OrderLine({
         product: product,
         quantity: 1,
-        price: product.price,
+        price: product.getCurrentPrice(),
       });
 
       this.items.push(orderLine);
@@ -61,7 +63,7 @@ export class CartService {
 
   getTotalPrice(): number {
     return this.items.reduce((sum, item) => {
-      return sum + (item.product.price * item.quantity);
+      return sum + (item.product.getCurrentPrice() * item.quantity);
     }, 0);
   }
 

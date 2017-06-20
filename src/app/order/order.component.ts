@@ -12,8 +12,8 @@ import { Observable } from 'rxjs/Observable';
 export class OrderComponent implements OnInit {
   @Input() order: Order;
 
-  private isFinished: boolean = false;
-  private errorMsg: Message;
+  isFinished: boolean = false;
+  errorMsg: Message;
   private ShippingStatus: typeof ShippingStatus = ShippingStatus
 
   constructor(

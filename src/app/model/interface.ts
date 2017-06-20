@@ -14,11 +14,20 @@ interface User {
   ip: String;
 }
 
+interface Discount {
+  value: number;
+  startDate: string;
+  endDate: string;
+  active: boolean;
+}
+
 interface ICategory {
   _id: string;
   name: string;
   image: string;
-  products: Product[],
+  products: Product[];
+  description: string;
+  active: boolean;
 }
 
 class Category implements ICategory {
@@ -26,12 +35,16 @@ class Category implements ICategory {
   name: string;
   image: string;
   products: Product[];
+  description: string;
+  active: boolean;
 
   constructor(category: ICategory) {
     this._id = category._id;
     this.name = category.name;
     this.image = category.image;
     this.products = category.products;
+    this.description = category.description;
+    this.active = category.active;
   }
 }
 
@@ -97,6 +110,7 @@ class ICustomer {
   orders: Order[];
   active?: boolean;
   note?: string;
+  createdAt: string;
 }
 class Customer implements ICustomer {
   _id?: string;
@@ -111,6 +125,7 @@ class Customer implements ICustomer {
   orders: Order[];
   active?: boolean;
   note?: string;
+  createdAt: string;
 
   constructor(customer: ICustomer) {
     this._id = customer._id;
@@ -125,6 +140,7 @@ class Customer implements ICustomer {
     this.orders = customer.orders;
     this.active = customer.active ? customer.active : true;
     this.note = customer.note;
+    this.createdAt = customer.createdAt;
   }
 
   public differs(other: Customer): boolean {
@@ -164,7 +180,7 @@ class OrderLine implements IOrderLine {
   price: number;
 
   constructor(orderLine: IOrderLine) {
-    this.product = orderLine.product;
+    this.product = new Product(orderLine.product);
     this.quantity = orderLine.quantity;
     this.price = orderLine.price;
   }
@@ -293,7 +309,7 @@ class Order implements IOrder {
 
   public calculateSubTotal(): number {
     return this.items.reduce((sum, item) => {
-      return sum + (item.product.price * item.quantity);
+      return sum + item.getTotalPrice();
     }, 0);
   }
 
@@ -302,7 +318,7 @@ class Order implements IOrder {
   }
 }
 
-class Product {
+interface IProduct {
   _id: string;
   category?: Category;
   category_id?: String;
@@ -312,6 +328,71 @@ class Product {
   quantity?: number;
   price: number;
   active: boolean;
+  onSale: boolean;
+  discount?: Discount;
+}
+
+class Product implements IProduct {
+  _id: string;
+  category?: Category;
+  category_id?: String;
+  name: String;
+  description: String;
+  image: String;
+  quantity?: number;
+  price: number;
+  active: boolean;
+  onSale: boolean;
+  discount?: Discount;
+
+  constructor (product: IProduct) {
+    this._id = product._id;
+    this.category = product.category;
+    this.category_id = product.category_id;
+    this.name = product.name;
+    this.description = product.description;
+    this.image = product.image;
+    this.quantity = product.quantity;
+    this.price = product.price;
+    this.active = product.active;
+    this.onSale = product.onSale;
+    this.discount = product.discount;
+  }
+
+  /**
+   * Get active discount if exists and current
+   * date is between the start and end date
+   * @return {Discount}   Active discount
+   */
+  public getActiveDiscount(): Discount {
+    if (this.discount.value <= 0 ||
+      this.discount.startDate === null ||
+      this.discount.endDate === null
+    ) {
+      return null;
+    }
+
+    const currentDate = new Date();
+
+    if (currentDate > new Date(this.discount.startDate) && currentDate < new Date(this.discount.endDate)) {
+      return this.discount;
+    }
+    return null;
+  }
+
+  /**
+   * Get the active price
+   * Return original price if no discount,
+   * else return the discounted price
+   * @return {number}   Current price
+   */
+  public getCurrentPrice(): number {
+    if (!this.getActiveDiscount()) {
+      return this.price;
+    }
+
+    return this.price - ((this.price * this.getActiveDiscount().value) / 100);
+  }
 }
 
 class Shipping {
@@ -319,6 +400,7 @@ class Shipping {
   name: string;
   price: number;
   description?: string;
+  active: boolean;
 }
 
 export {

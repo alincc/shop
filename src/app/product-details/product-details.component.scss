@@ -16,4 +16,16 @@
     margin: 20px 0;
   }
 
+  .has-discount {
+    display: inline-block;
+
+    .price {
+      margin-left: 20px;
+    }
+  }
+
+  .add-to-cart {
+    margin-top: 20px;
+  }
+
 }

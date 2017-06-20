@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Product, OrderLine } from '../app/model/interface';
 
-import { FAKE_PRODUCT1, FAKE_PRODUCT2, PRODUCT_NOT_IN_CART } from './mock/mocks';
+import { FAKE_PRODUCT1, FAKE_PRODUCT2, PRODUCT_NOT_IN_CART, FAKE_ORDERLINE1, FAKE_ORDERLINE2 } from './mock/mocks';
 export { PRODUCT_NOT_IN_CART } from './mock/mocks';
 export { CartService } from '../app/services';
 
-export const MOCK_ITEMS = [{ product: FAKE_PRODUCT1, quantity: 1, price: FAKE_PRODUCT1.price }, { product: FAKE_PRODUCT2, quantity: 2, price: FAKE_PRODUCT2.price }];
+export const MOCK_ITEMS = [FAKE_ORDERLINE1, FAKE_ORDERLINE2];
 
 @Injectable()
 export class CartServiceMock {
@@ -25,7 +25,7 @@ export class CartServiceMock {
       });
     }
     else {
-      this.items.push({ product: product, quantity: 1, price: product.price });
+      this.items.push(FAKE_ORDERLINE1);
     }
   }
 

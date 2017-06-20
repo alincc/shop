@@ -1,0 +1,17 @@
+$priceColor: #0ab3a3;
+
+.price {
+  color: $priceColor;
+  font-size: 1.2em;
+  font-weight: 300;
+
+  &.strike {
+    text-decoration: line-through;
+    color: #5c798f;
+  }
+
+  &.discount {
+    color: #f39d72;
+    font-size: 1.1em;
+  }
+}

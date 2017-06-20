@@ -39,12 +39,19 @@
         <li>Guarantee</li>
       </ul>
 
-      <div class="price">${{ product.price }}</div>
+      <span class="price" [ngClass]="{'strike': product.getActiveDiscount()}">{{ product.price | currency:'USD':true }}</span>
 
-      <button (click)="addToCart()" class="button add-to-cart">
-        <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
-        Add to cart
-      </button>
+      <div class="has-discount" *ngIf="product.getActiveDiscount()">
+        <span class="price">{{ product.getCurrentPrice() | currency:'USD':true }}</span>
+      </div>
+
+      <div>
+        <button (click)="addToCart()" class="button add-to-cart">
+          <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+          Add to cart
+        </button>
+      </div>
+      
     </div>
 
   </div>

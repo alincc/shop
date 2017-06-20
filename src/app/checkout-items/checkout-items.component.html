@@ -26,7 +26,9 @@
 
       <td class="product-quantity">{{ item.quantity }}</td>
 
-      <td class="unit-price price">{{ item.price | currency:'USD':true }}</td>
+      <td class="unit-price">
+        <span class="price">{{ item.price | currency:'USD':true }}</span>
+      </td>
 
       <td class="subtotal-column price">
         {{ item.getTotalPrice() | currency:'USD':true }}

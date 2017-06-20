@@ -10,8 +10,8 @@ import { User, ShippingStatus } from '../model/interface';
 })
 export class ProfileComponent implements OnInit {
 
-  private isFinished: boolean = false;
-  private user: User
+  isFinished: boolean = false;
+  user: User
   private ShippingStatus: typeof ShippingStatus = ShippingStatus;
 
   constructor(
