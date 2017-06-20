@@ -14,6 +14,7 @@ export class ShippingService {
   getAllShipping(): Observable<Shipping[]> {
     return this.http.get(this.url)
       .map((res: Response) => res.json())
+      .map(shipping => shipping.filter(item => item.active === true))
       .catch((err: any) => Observable.throw(err.json().error));
   }
 
