@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import * as _ from 'lodash';
+
 import { Product, OrderLine } from '../model/interface';
 import { StorageService } from './storage.service';
 
@@ -14,12 +16,21 @@ export class CartService {
     this.items = this.items.map(item => new OrderLine(item));
   }
 
-  add(product: Product): void {
-    if (this.contains(product)) {
+  add(product: Product, combination: any = []): void {
+    if (this.contains(product, combination)) {
       this.items.map(item => {
-        if (item.product._id === product._id) {
-          item.quantity += 1;
+
+        if (combination) {
+          if (item.product._id === product._id && _.isEqual(item.combination, combination)) {
+            item.quantity += 1;
+          }
         }
+        else {
+          if (item.product._id === product._id) {
+            item.quantity += 1;
+          }
+        }
+
         return item;
       });
     }
@@ -27,6 +38,7 @@ export class CartService {
       const orderLine: OrderLine = new OrderLine({
         product: product,
         quantity: 1,
+        combination: combination,
         price: product.getCurrentPrice(),
       });
 
@@ -40,12 +52,14 @@ export class CartService {
     this.storageService.setItem('cart', JSON.stringify(this.items));
   }
 
-  contains(product: Product): boolean {
-    return this.items.filter(item => item.product._id === product._id).length > 0;
+  contains(product: Product, combination: any = []): boolean {
+    return this.items.filter(item => item.product._id === product._id && _.isEqual(item.combination, combination)).length > 0;
   }
 
-  delete(product: Product): OrderLine[] {
-    this.items = this.items.filter(item => item.product._id !== product._id);
+  delete(line: OrderLine): OrderLine[] {
+    this.items = this.items.filter(item => {
+      return !(item.product._id === line.product._id && item.combination === line.combination)
+    });
 
     this.updateStorage();
     return this.items;

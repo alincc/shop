@@ -55,6 +55,7 @@ export const FAKE_PRODUCT1: Product = new Product({
   price: 100,
   active: true,
   onSale: false,
+  combinations: [],
 });
 
 export const FAKE_PRODUCT2: Product = new Product({
@@ -65,6 +66,7 @@ export const FAKE_PRODUCT2: Product = new Product({
   price: 100,
   active: true,
   onSale: false,
+  combinations: [],
 });
 
 export const FAKE_PRODUCTS: Product[] = [FAKE_PRODUCT1, FAKE_PRODUCT2];

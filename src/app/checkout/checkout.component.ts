@@ -155,7 +155,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   removeProduct(line: OrderLine): void {
-    this.setProducts(this.cartService.delete(line.product));
+    this.setProducts(this.cartService.delete(line));
   }
 
   setProducts(products: OrderLine[]): void {

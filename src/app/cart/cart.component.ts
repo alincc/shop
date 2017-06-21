@@ -37,7 +37,7 @@ export class CartComponent implements OnInit {
   }
 
   removeItem(orderLine: OrderLine): void {
-    this.products = this.cartService.delete(orderLine.product);
+    this.products = this.cartService.delete(orderLine);
 
     this.toastr.success('Product was removed from your cart', 'Success');
   }

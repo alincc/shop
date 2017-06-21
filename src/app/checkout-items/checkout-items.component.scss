@@ -20,6 +20,10 @@
         padding-top: 20px;
       }
     }
+
+    h5 {
+      margin-top: 0;
+    }
   }
 
   tfoot {
@@ -39,5 +43,12 @@
       cursor: pointer;
       color: #0ab3a3;
     }
+  }
+
+  .product-attributes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.8em;
   }
 }
