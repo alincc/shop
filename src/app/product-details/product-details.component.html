@@ -59,7 +59,11 @@
 
       </div>
 
-      <div>
+      <div *ngIf="!isInStock()">
+        Out of stock
+      </div>
+
+      <div *ngIf="isInStock()">
         <button (click)="addToCart()" class="button add-to-cart" [disabled]="!allAttributesSelected()">
           <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
           Add to cart

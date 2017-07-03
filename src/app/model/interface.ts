@@ -182,6 +182,7 @@ class IOrderLine {
       value: string;
     }
   }[];
+  selectedCombination?: Combination;
 }
 
 class OrderLine implements IOrderLine {
@@ -195,6 +196,7 @@ class OrderLine implements IOrderLine {
       value: string;
     }
   }[];
+  selectedCombination?: Combination;
 
   constructor(orderLine: IOrderLine) {
     this.product = new Product(orderLine.product);
@@ -204,6 +206,7 @@ class OrderLine implements IOrderLine {
       attribute: new Attribute(combination.attribute.name),
       value: combination.value,
     })) : [];
+    this.selectedCombination = orderLine.selectedCombination ? orderLine.selectedCombination : null;
   }
 
   public getTotalPrice(): number {
@@ -453,6 +456,32 @@ class Product implements IProduct {
 
     return this.price - ((this.price * this.getActiveDiscount().value) / 100);
   }
+
+    /**
+     * Whether or not the product has combinations
+     * @return {boolean} True if product has combinations, else false
+     */
+    public hasCombinations(): boolean {
+      return this.combinations.length > 0;
+    }
+
+    /**
+     * Get the quantity of the product, depending on
+     * whether the product has combinations
+     * @param  {Combination = null}        Get quantity for specific combination
+     * @return {number} Product quantity
+     */
+    public getQuantity(combination: Combination = null): number {
+      if (!this.hasCombinations()) {
+        return this.quantity;
+      }
+
+      if (combination !== null) {
+        return combination.quantity;
+      }
+
+      return this.combinations.reduce((sum, combination) => (sum + combination.quantity), 0);
+    }
 }
 
 class Shipping {

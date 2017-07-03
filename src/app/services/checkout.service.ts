@@ -23,6 +23,8 @@ export class CheckoutService {
       shippingAddress: shippingAddress,
     });
 
+    console.log(items);  
+
     return this.http.post(this.url, body, options)
       .map((res: Response) => res.json())
       .catch(this.handleError);

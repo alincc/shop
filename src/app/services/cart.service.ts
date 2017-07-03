@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 
-import { Product, OrderLine } from '../model/interface';
+import { Product, OrderLine, Combination } from '../model/interface';
 import { StorageService } from './storage.service';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class CartService {
     this.items = this.items.map(item => new OrderLine(item));
   }
 
-  add(product: Product, combination: any = []): void {
+  add(product: Product, combination: any = [], selectedCombination: Combination = null): void {
     if (this.contains(product, combination)) {
       this.items.map(item => {
 
@@ -39,6 +39,7 @@ export class CartService {
         product: product,
         quantity: 1,
         combination: combination,
+        selectedCombination: selectedCombination,
         price: product.getCurrentPrice(),
       });
 

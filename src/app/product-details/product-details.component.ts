@@ -20,6 +20,7 @@ export class ProductDetailsComponent implements OnInit {
   attributes: any[] = [];
   validCombinations: any[] = [];
   matchingCombinations: any[] = null;
+  selectedCombination: Combination;
 
   constructor(
     private productService: ProductService,
@@ -56,7 +57,11 @@ export class ProductDetailsComponent implements OnInit {
     );
 
     this.toastr.success('The product was added to your cart', 'Added!');
-    this.cartService.add(this.product, combinations);
+    this.cartService.add(this.product, combinations, this.selectedCombination);
+  }
+
+  isInStock(): boolean {
+    return this.product.getQuantity(this.selectedCombination) > 0;
   }
 
   allAttributesSelected(): boolean {
@@ -64,8 +69,12 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   getValidCombinations(): any[] {
-    return this.product.combinations.map(combination =>
-      combination.attributes.map(attribute => `${attribute.attribute.name}:${attribute.value.value}`));
+    return this.product.combinations.map(combination => {
+      return {
+        _id: combination._id,
+        data: combination.attributes.map(attribute => `${attribute.attribute.name}:${attribute.value.value}`)
+      }
+    });
   }
 
   mapAttributes(combinations: Combination[]): any[] {
@@ -104,7 +113,7 @@ export class ProductDetailsComponent implements OnInit {
     if (this.attributes.find(item => item.name == attribute.name && item.selected !== null)) return true;
 
     return this.matchingCombinations.reduce((flag, combination) =>
-      combination.find(item => item.includes(`${attribute.name}:${value.value}`)) ? true : flag, false);
+      combination.data.find(item => item.includes(`${attribute.name}:${value.value}`)) ? true : flag, false);
   }
 
   onAttributeChange(event, attribute) {
@@ -116,16 +125,14 @@ export class ProductDetailsComponent implements OnInit {
       .filter(attribute => attribute.selected !== null)
       .map(attribute => `${attribute.name}:${attribute.selected.value}`);
 
-    const matching = this.validCombinations.filter((combination, key) => {
-      const found = combination.filter(item => item.includes(`${attribute.name}:${event.value}`));
+    this.matchingCombinations = this.validCombinations.filter(combination => {
+      const found = _.intersection(combination.data, selectedValues);
 
-      return found.length > 0;
-    });
+      return found.length == selectedValues.length;
+    })
 
-    this.matchingCombinations = matching;
-
-    const valid = matching.reduce((flag, item) =>
-      _.intersection(item, selectedValues).length == selectedValues.length ? true : flag, false);
+    const valid = this.matchingCombinations.reduce((flag, item) =>
+      _.intersection(item.data, selectedValues).length == selectedValues.length ? true : flag, false);
 
     // If the values is not valid reset the
     // other values, except the one just changed
@@ -136,6 +143,15 @@ export class ProductDetailsComponent implements OnInit {
         item.selected = null;
         return item;
       });
+    }
+
+    // If there is only one matching combinations and all attributes
+    // are selected, make the attribute the selected on
+    if (this.matchingCombinations.length == 1 && this.allAttributesSelected()) {
+      this.selectedCombination = this.product.combinations.find(combination => combination._id === _.head(this.matchingCombinations)._id);
+    }
+    else {
+      this.selectedCombination = null;
     }
   }
 
