@@ -391,6 +391,7 @@ interface IProduct {
   onSale: boolean;
   discount?: Discount;
   combinations: Combination[];
+  deleted?: boolean;
 }
 
 class Product implements IProduct {
@@ -406,6 +407,7 @@ class Product implements IProduct {
   onSale: boolean;
   discount?: Discount;
   combinations: Combination[];
+  deleted?: boolean = false;
 
   constructor (product: IProduct) {
     this._id = product._id;
@@ -420,6 +422,7 @@ class Product implements IProduct {
     this.onSale = product.onSale;
     this.discount = product.discount;
     this.combinations = product.combinations;
+    this.deleted = product.deleted ? product.deleted : false;
   }
 
   /**

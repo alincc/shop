@@ -15,7 +15,7 @@ export class ProductService {
   getProducts(): Observable<Product[]> {
     return this.http.get(this.url)
                     .map(res => res.json())
-                    .map(products => products.filter(product => product.active === true))
+                    .map(products => products.filter(product => product.active === true && product.deleted === false))
                     .catch(this.handleError);
   }
 

@@ -1,6 +1,6 @@
 <app-message *ngIf="errorMsg" [data]="errorMsg"></app-message>
 
-<div class="product-details" *ngIf="product">
+<div class="product-details" *ngIf="product && !product.deleted">
 
   <div *ngIf="product.category">
     <div class="breadcrumbs">

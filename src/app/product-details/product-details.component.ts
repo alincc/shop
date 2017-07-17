@@ -37,6 +37,14 @@ export class ProductDetailsComponent implements OnInit {
         product => {
           this.product = new Product(product);
 
+          if (this.product.deleted) {
+            this.handleError({
+              status: 403,
+              message: 'This product have been removed',
+              data: null,
+            })
+          }
+
           this.attributes = this.mapAttributes(this.product.combinations);
           this.validCombinations = this.getValidCombinations();
         },
