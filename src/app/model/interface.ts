@@ -405,13 +405,21 @@ export class AttributeLine {
   ) {}
 }
 
+export interface ProductImage {
+  _id: string;
+  url: string;
+  label: string;
+  main: boolean;
+  createdAt?: string;
+}
+
 interface IProduct {
   _id: string;
   category?: Category;
   category_id?: String;
   name: String;
   description: String;
-  image: String;
+  images?: ProductImage[];
   quantity?: number;
   price: number;
   active: boolean;
@@ -427,7 +435,7 @@ class Product implements IProduct {
   category_id?: String;
   name: String;
   description: String;
-  image: String;
+  images?: ProductImage[];
   quantity?: number;
   price: number;
   active: boolean;
@@ -442,7 +450,7 @@ class Product implements IProduct {
     this.category_id = product.category_id;
     this.name = product.name;
     this.description = product.description;
-    this.image = product.image;
+    this.images = product.images;
     this.quantity = product.quantity;
     this.price = product.price;
     this.active = product.active;
@@ -487,31 +495,45 @@ class Product implements IProduct {
     return this.price - ((this.price * this.getActiveDiscount().value) / 100);
   }
 
-    /**
-     * Whether or not the product has combinations
-     * @return {boolean} True if product has combinations, else false
-     */
-    public hasCombinations(): boolean {
-      return this.combinations.length > 0;
+  /**
+   * Get the default image for the product
+   * @return {string} Image path as string
+   */
+  public get image(): string {
+    if (this.images.length <= 0) {
+      return null;
     }
 
-    /**
-     * Get the quantity of the product, depending on
-     * whether the product has combinations
-     * @param  {Combination = null}        Get quantity for specific combination
-     * @return {number} Product quantity
-     */
-    public getQuantity(combination: Combination = null): number {
-      if (!this.hasCombinations()) {
-        return this.quantity;
-      }
+    const defaultImage = this.images.find(image => image.main === true);
 
-      if (combination !== null) {
-        return combination.quantity;
-      }
+    return defaultImage ? defaultImage.url : this.images[0].url;
+  }
 
-      return this.combinations.reduce((sum, combination) => (sum + combination.quantity), 0);
+  /**
+   * Whether or not the product has combinations
+   * @return {boolean} True if product has combinations, else false
+   */
+  public hasCombinations(): boolean {
+    return this.combinations.length > 0;
+  }
+
+  /**
+   * Get the quantity of the product, depending on
+   * whether the product has combinations
+   * @param  {Combination = null}        Get quantity for specific combination
+   * @return {number} Product quantity
+   */
+  public getQuantity(combination: Combination = null): number {
+    if (!this.hasCombinations()) {
+      return this.quantity;
     }
+
+    if (combination !== null) {
+      return combination.quantity;
+    }
+
+    return this.combinations.reduce((sum, combination) => (sum + combination.quantity), 0);
+  }
 }
 
 class Shipping {
