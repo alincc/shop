@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
 
 import { Product, OrderLine, Combination } from '../model/interface';
@@ -16,7 +17,7 @@ export class CartService {
     this.items = this.items.map(item => new OrderLine(item));
   }
 
-  add(product: Product, combination: any = [], selectedCombination: Combination = null): void {
+  add(product: Product, combination: any = [], selectedCombination: Combination = null): Observable<OrderLine[]> {
     if (this.contains(product, combination)) {
       this.items.map(item => {
 
@@ -47,6 +48,8 @@ export class CartService {
     }
 
     this.updateStorage();
+
+    return Observable.of(this.items);
   }
 
   updateStorage() {
@@ -57,13 +60,14 @@ export class CartService {
     return this.items.filter(item => item.product._id === product._id && _.isEqual(item.combination, combination)).length > 0;
   }
 
-  delete(line: OrderLine): OrderLine[] {
+  delete(line: OrderLine): Observable<OrderLine[]> {
     this.items = this.items.filter(item => {
-      return !(item.product._id === line.product._id && item.combination === line.combination)
+      return !(item.product._id === line.product._id && _.isEqual(line.combination, item.combination))
     });
 
     this.updateStorage();
-    return this.items;
+
+    return Observable.of(this.items);
   }
 
   clear(): void {

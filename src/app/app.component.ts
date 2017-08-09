@@ -1,23 +1,31 @@
-import { Component, ViewContainerRef } from '@angular/core';
+import { Component, ViewContainerRef, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { DropdownComponent } from './dropdown/dropdown.component';
+
 import { DropdownValue } from './model/interface';
-import { AuthService } from './services';
+import { AuthService } from './auth/auth.service';
+import * as authActions from './auth/actions/auth';
+import * as fromAuth from './auth/reducers';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   searchBoxVisible: boolean = false;
 
   constructor(
     public toastr: ToastsManager,
     private authService: AuthService,
+    private store: Store<fromAuth.State>,
     vcr: ViewContainerRef,
   ) {
     this.toastr.setRootViewContainerRef(vcr);
+  }
+
+  ngOnInit() {
+    this.store.dispatch(new authActions.CheckAuthAction());
   }
 
   getDropdownValues(): DropdownValue[] {

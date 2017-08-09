@@ -1,81 +1,20 @@
+import { normalize, schema } from 'normalizr';
+import { Product } from '../products/product';
+import { Category } from '../category/category';
+import { Order } from '../order/order';
+import { User } from '../auth/user'
+
 export interface IOption {
   value: any;
   label: string;
   disabled?: boolean;
 }
 
-interface IUser {
-  _id: String,
-  admin: boolean;
-  username: String;
-  password: String;
-  email: string;
-  customer?: Customer;
-  ip: String;
-  image?: string;
-}
-
-class User implements IUser {
-  _id: String;
-  admin: boolean;
-  username: String;
-  password: String;
-  email: string;
-  customer?: Customer;
-  ip: String;
-  image?: string;
-
-  constructor(user: IUser) {
-    this._id = user._id;
-    this.admin = user.admin;
-    this.username = user.username;
-    this.password = user.password;
-    this.email = user.email;
-    this.customer = user.customer ? user.customer : null;
-    this.ip = user.ip;
-    this.image = user.image ? user.image : 'no-pic.png';
-  }
-
-  public getImagePath(): string {
-    return 'assets/img/' + this.image;
-  }
-}
-
-interface Discount {
+export interface Discount {
   value: number;
   startDate: string;
   endDate: string;
   active: boolean;
-}
-
-interface ICategory {
-  _id: string;
-  name: string;
-  image: string;
-  products: Product[];
-  description: string;
-  active: boolean;
-}
-
-class Category implements ICategory {
-  _id: string;
-  name: string;
-  image: string;
-  products: Product[];
-  description: string;
-  active: boolean;
-
-  constructor(category: ICategory) {
-    this._id = category._id;
-    this.name = category.name;
-    this.image = category.image;
-    this.products = category.products
-      .map(product => new Product(product))
-      .filter(product => product.active === true);
-
-    this.description = category.description;
-    this.active = category.active;
-  }
 }
 
 interface CartProduct {
@@ -248,28 +187,6 @@ export enum ShippingStatus {
   Completed = 4,
 }
 
-interface IShippingStatusEntry {
-  _id: string;
-  createdAt: string;
-  status: number;
-}
-
-class ShippingStatusEntry {
-  _id: string;
-  createdAt: string;
-  status: number;
-
-  constructor(shippingStatusEntry: IShippingStatusEntry) {
-    this._id = shippingStatusEntry._id;
-    this.createdAt = shippingStatusEntry.createdAt;
-    this.status = shippingStatusEntry.status;
-  }
-
-  public getShippingStatus(): string {
-    return ShippingStatus[this.status];
-  }
-}
-
 export class ShippingLine {
   constructor(
     public value: Shipping,
@@ -313,59 +230,6 @@ export class ShippingAddress {
 
   public getFullname(): string {
     return `${this.firstname} ${this.lastname}`;
-  }
-}
-
-interface IOrder {
-  _id: string;
-  updatedAt: String;
-  createdAt: String;
-  total: number;
-  status?: ShippingStatus;
-  statusLog: ShippingStatusEntry[];
-  items: OrderLine[];
-  customer?: Customer; // TODO: should not be optional
-  // shipping?: Shipping;
-  shipping?: ShippingLine;
-  shippingAddress?: ShippingAddress;
-  payment?: Payment;
-}
-
-class Order implements IOrder {
-  _id: string;
-  updatedAt: String;
-  createdAt: String;
-  total: number;
-  status?: ShippingStatus;
-  statusLog: ShippingStatusEntry[];
-  items: OrderLine[];
-  customer?: Customer; // TODO: should not be optional
-  shipping?: ShippingLine;
-  shippingAddress?: ShippingAddress;
-  payment?: Payment;
-
-  constructor(order: IOrder) {
-    this._id = order._id;
-    this.updatedAt = order.updatedAt;
-    this.createdAt = order.createdAt;
-    this.total = order.total;
-    this.status = order.status;
-    this.statusLog = order.statusLog.map(item => new ShippingStatusEntry(item));
-    this.items = order.items ? order.items.map(item => new OrderLine(item)) : [];
-    this.customer = order.customer ? new Customer(order.customer) : null;
-    this.shipping = order.shipping ? order.shipping : null;
-    this.payment = order.payment ? order.payment : null;
-    this.shippingAddress = order.shippingAddress ? new ShippingAddress(order.shippingAddress) : null;
-  }
-
-  public calculateSubTotal(): number {
-    return this.items.reduce((sum, item) => {
-      return sum + item.getTotalPrice();
-    }, 0);
-  }
-
-  public getShippingStatus(): string {
-    return ShippingStatus[this.status];
   }
 }
 
@@ -413,129 +277,6 @@ export interface ProductImage {
   createdAt?: string;
 }
 
-interface IProduct {
-  _id: string;
-  category?: Category;
-  category_id?: String;
-  name: String;
-  description: String;
-  images?: ProductImage[];
-  quantity?: number;
-  price: number;
-  active: boolean;
-  onSale: boolean;
-  discount?: Discount;
-  combinations: Combination[];
-  deleted?: boolean;
-}
-
-class Product implements IProduct {
-  _id: string;
-  category?: Category;
-  category_id?: String;
-  name: String;
-  description: String;
-  images?: ProductImage[];
-  quantity?: number;
-  price: number;
-  active: boolean;
-  onSale: boolean;
-  discount?: Discount;
-  combinations: Combination[];
-  deleted?: boolean = false;
-
-  constructor (product: IProduct) {
-    this._id = product._id;
-    this.category = product.category;
-    this.category_id = product.category_id;
-    this.name = product.name;
-    this.description = product.description;
-    this.images = product.images;
-    this.quantity = product.quantity;
-    this.price = product.price;
-    this.active = product.active;
-    this.onSale = product.onSale;
-    this.discount = product.discount;
-    this.combinations = product.combinations;
-    this.deleted = product.deleted ? product.deleted : false;
-  }
-
-  /**
-   * Get active discount if exists and current
-   * date is between the start and end date
-   * @return {Discount}   Active discount
-   */
-  public getActiveDiscount(): Discount {
-    if (this.discount.value <= 0 ||
-      this.discount.startDate === null ||
-      this.discount.endDate === null
-    ) {
-      return null;
-    }
-
-    const currentDate = new Date();
-
-    if (currentDate > new Date(this.discount.startDate) && currentDate < new Date(this.discount.endDate)) {
-      return this.discount;
-    }
-    return null;
-  }
-
-  /**
-   * Get the active price
-   * Return original price if no discount,
-   * else return the discounted price
-   * @return {number}   Current price
-   */
-  public getCurrentPrice(): number {
-    if (!this.getActiveDiscount()) {
-      return this.price;
-    }
-
-    return this.price - ((this.price * this.getActiveDiscount().value) / 100);
-  }
-
-  /**
-   * Get the default image for the product
-   * @return {string} Image path as string
-   */
-  public get image(): string {
-    if (this.images.length <= 0) {
-      return null;
-    }
-
-    const defaultImage = this.images.find(image => image.main === true);
-
-    return defaultImage ? defaultImage.url : this.images[0].url;
-  }
-
-  /**
-   * Whether or not the product has combinations
-   * @return {boolean} True if product has combinations, else false
-   */
-  public hasCombinations(): boolean {
-    return this.combinations.length > 0;
-  }
-
-  /**
-   * Get the quantity of the product, depending on
-   * whether the product has combinations
-   * @param  {Combination = null}        Get quantity for specific combination
-   * @return {number} Product quantity
-   */
-  public getQuantity(combination: Combination = null): number {
-    if (!this.hasCombinations()) {
-      return this.quantity;
-    }
-
-    if (combination !== null) {
-      return combination.quantity;
-    }
-
-    return this.combinations.reduce((sum, combination) => (sum + combination.quantity), 0);
-  }
-}
-
 class Shipping {
   _id: string;
   name: string;
@@ -554,7 +295,6 @@ export {
   ErrorResponse,
   SuccessResponse,
   OrderLine,
-  IOrder,
   Order,
   User,
   Shipping,

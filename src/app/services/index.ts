@@ -1,4 +1,3 @@
-export { AuthService } from './auth.service';
 export { CartService } from './cart.service';
 export { CategoryService } from './category.service';
 export { CheckoutService } from './checkout.service';

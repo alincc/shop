@@ -4,19 +4,27 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UserComponent } from './user/user.component';
-import { ProductListComponent } from './product-list/product-list.component';
-import { ProductComponent } from './product/product.component';
-
+import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core/core.module';
+import { ProductsModule } from './products/products.module';
+import { CategoryModule } from './category/category.module';
+import { CheckoutModule } from './checkout/checkout.module';
+import { OrderModule } from './order/order.module';
+import { AuthModule } from './auth/auth.module';
+import { ContactModule } from './contact/contact.module';
+import { AboutModule } from './about/about.module';
+import { HomeModule } from './home/home.module';
+import { reducers, developmentReducerFactory } from './reducers';
 import { RouterLinkStubDirective, RouterOutletStubComponent } from '../testing/router-stubs';
 
 import { CartService,
-  AuthService,
   ShippingService,
   CheckoutService,
   CategoryService,
@@ -27,80 +35,48 @@ import { CartService,
   PaymentService,
 } from './services';
 
-import { ProductDetailsComponent } from './product-details/product-details.component';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
-import { ContactComponent } from './contact/contact.component';
-import { CartComponent } from './cart/cart.component';
-import { CategoryListComponent } from './category-list/category-list.component';
-import { ContactFormComponent } from './contact-form/contact-form.component';
-import { CheckoutComponent } from './checkout/checkout.component';
-import { CheckoutItemsComponent } from './checkout-items/checkout-items.component';
-import { OrderComponent } from './order/order.component';
-import { LoginComponent } from './login/login.component';
-import { ProfileComponent } from './profile/profile.component';
-import { AuthGuard } from './guards/auth.guard';
-import { AlreadyAuthedGuard } from './guards/already-authed.guard';
-import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
-import { RegisterComponent } from './register/register.component';
-import { RegisterFormComponent } from './register-form/register-form.component';
-import { DropdownComponent } from './dropdown/dropdown.component';
-import { CategoryComponent } from './category/category.component';
-import { ProductsContainerComponent } from './products-container/products-container.component';
-import { MessageComponent } from './message/message.component';
-import { SpinnerComponent } from './spinner/spinner.component';
-import { SearchBoxComponent } from './search-box/search-box.component';
-import { PaymentListComponent } from './payment-list/payment-list.component';
-
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponent,
-    ProductListComponent,
-    ProductComponent,
-    ProductDetailsComponent,
-    HomeComponent,
-    AboutComponent,
-    ContactComponent,
-    CartComponent,
-    CategoryListComponent,
-    ContactFormComponent,
-    CheckoutComponent,
-    CheckoutItemsComponent,
-    OrderComponent,
-    LoginComponent,
-    ProfileComponent,
-    CheckoutFormComponent,
-    RegisterComponent,
-    RegisterFormComponent,
-    DropdownComponent,
-    CategoryComponent,
-    ProductsContainerComponent,
-    MessageComponent,
-    SpinnerComponent,
-    SearchBoxComponent,
-    PaymentListComponent,
     RouterLinkStubDirective,
     RouterOutletStubComponent,
   ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
+    SharedModule,
+    CoreModule,
+    ProductsModule,
+    CategoryModule,
+    CheckoutModule,
+    ContactModule,
+    OrderModule,
+    AuthModule,
+    AboutModule,
+    HomeModule,
     ToastModule.forRoot(),
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
     HttpModule,
     RouterModule,
+
+    StoreModule.forRoot(reducers, {
+      reducerFactory: developmentReducerFactory,
+      // reducerFactory: !environment.production
+        // ? developmentReducerFactory
+        // : undefined,
+    }),
+
+    StoreDevtoolsModule.instrument(),
+
+    EffectsModule.forRoot([]),
   ],
   providers: [
-    AuthGuard,
-    AlreadyAuthedGuard,
     ProductService,
     CustomerService,
     CartService,
     ShippingService,
-    AuthService,
     CheckoutService,
     CategoryService,
     SearchService,
