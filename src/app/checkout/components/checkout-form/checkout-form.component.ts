@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { Customer } from '../../../model/interface';
 
@@ -7,20 +7,22 @@ import { Customer } from '../../../model/interface';
   templateUrl: './checkout-form.component.html',
   styleUrls: ['./checkout-form.component.scss']
 })
-export class CheckoutFormComponent implements OnInit {
-
+export class CheckoutFormComponent implements OnInit, OnChanges {
   @Input() form: any;
   @Input() customer: Customer;
 
   constructor() { }
 
   ngOnInit() {
-    this.initializeForm(this.customer);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.customer && changes.customer.currentValue) {
+      this.initializeForm(changes.customer.currentValue);
+    }
   }
 
   initializeForm(customer: Customer): void {
-    this.form = {
-      ...customer,
-    };
+    this.form = customer;
   }
 }

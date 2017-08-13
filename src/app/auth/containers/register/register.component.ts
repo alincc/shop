@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { AuthService } from '../../auth.service';
-import { User } from '../../../model/interface';
+import { Register } from '../../user';
 
 @Component({
   selector: 'app-register',
@@ -9,15 +8,16 @@ import { User } from '../../../model/interface';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  @Output() register = new EventEmitter<Register>();
   submitted: boolean = false;
 
-  constructor(private authService: AuthService) { }
+  constructor() { }
 
   ngOnInit() {
   }
 
-  handleFormSubmit(user) {
-    this.authService.create(user)
-      .subscribe(res => this.submitted = true);
+  handleFormSubmit(user: Register) {
+    this.register.emit(user);
+    this.submitted = true;
   }
 }

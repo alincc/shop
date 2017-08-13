@@ -2,8 +2,7 @@ import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angu
 import { Observable } from 'rxjs/Observable';
 
 import { OrderLine, Product, Customer, Shipping, ShippingAddress, Payment, ShippingLine, User } from '../../../model/interface';
-import { CartService, CheckoutService, CustomerService } from '../../../services';
-import { AuthService } from '../../../auth/auth.service';
+import { CartService } from '../../../services';
 import { CreateOrder } from '../../cart';
 import { CheckoutFormComponent } from '../../components/checkout-form/checkout-form.component';
 
@@ -27,19 +26,13 @@ export class CheckoutComponent implements OnInit {
   @Output() selectCarrier = new EventEmitter<Shipping>();
   @Output() createOrder = new EventEmitter<CreateOrder>();
   private form = {};
-  private customer: Customer; // TODO: deprecate
-  isFinished = false;
   orderCreated = false;
 
   constructor(
     private cartService: CartService,
-    private checkoutService: CheckoutService,
-    private customerService: CustomerService,
-    private authService: AuthService,
   ) { }
 
   ngOnInit() {
-    this.loadCustomer();
   }
 
   onSubmit() {
@@ -83,20 +76,6 @@ export class CheckoutComponent implements OnInit {
 
   orderCreatedSuccess() {
     this.orderCreated = true;
-    this.cartService.clear();
-  }
-
-  loadCustomer(): void {
-    if (this.authService.getAuthedUser() == null) {
-      this.isFinished = true;
-      return null;
-    }
-    this.authService.getAuthedUser()
-      .subscribe(
-        user => this.customer = user && user.customer,
-        error => console.log(error),
-        () => this.isFinished = true,
-      );
   }
 
   removeProduct(line: OrderLine): void {

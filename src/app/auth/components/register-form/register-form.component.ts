@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Input, Output  } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 
+import { Register } from '../../user';
 import { Validation } from '../../../common/validation';
 
 @Component({
@@ -10,7 +11,7 @@ import { Validation } from '../../../common/validation';
 })
 export class RegisterFormComponent implements OnInit {
   @Output()
-  formSubmit: EventEmitter<any> = new EventEmitter<any>();
+  formSubmit: EventEmitter<Register> = new EventEmitter<Register>();
 
   registerForm: FormGroup;
   formErrors = {

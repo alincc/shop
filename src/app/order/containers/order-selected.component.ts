@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import * as fromOrders from '../reducers';
+import * as fromRoot from '../../reducers';
 import * as orderActions from '../actions/order';
 import * as collectionActions from '../actions/collection';
 import * as cartActions from '../../checkout/actions/cart';
@@ -24,7 +25,7 @@ export class OrderSelectedComponent {
   items$: Observable<OrderLine[]>;
 
   constructor(
-    private store: Store<fromOrders.State>,
+    private store: Store<fromRoot.State>,
   ) {
     this.order$ = store.select(fromOrders.getSelectedOrder);
     this.items$ = store.select(fromOrders.getOrderProducts);

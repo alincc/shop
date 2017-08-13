@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ProfileComponent } from './containers/profile.component';
 import { LoginComponent} from './containers/login/login.component';
-import { RegisterComponent} from './containers/register/register.component';
+import { RegisterPageComponent} from './containers/register-page.component';
 
 import { AuthGuard } from './guards/auth.guard';
 import { AlreadyAuthedGuard } from './guards/already-authed.guard';
@@ -11,7 +11,7 @@ import { AlreadyAuthedGuard } from './guards/already-authed.guard';
 const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'login', component: LoginComponent, canActivate: [AlreadyAuthedGuard] },
-  { path: 'register', component: RegisterComponent, canActivate: [AlreadyAuthedGuard] },
+  { path: 'register', component: RegisterPageComponent, canActivate: [AlreadyAuthedGuard] },
 ];
 
 @NgModule({
@@ -20,4 +20,4 @@ const routes: Routes = [
 })
 export class AuthRoutingModule { }
 
-export const routedComponents = [ProfileComponent, LoginComponent, RegisterComponent];
+export const routedComponents = [ProfileComponent, LoginComponent, RegisterPageComponent];

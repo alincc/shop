@@ -12,7 +12,7 @@ import { normalize, denormalize, schema } from 'normalizr';
 
 import { AuthService } from '../auth.service';
 import * as Auth from '../actions/auth';
-import { User, userSchema } from '../user';
+import { User, userSchema, Register } from '../user';
 import * as entities from '../../core/actions/entities';
 
 @Injectable()
@@ -31,6 +31,17 @@ export class AuthEffects {
           return new Auth.LoginFailure('Invalid credentials');
         })
         .catch(error => of(new Auth.LoginFailure(error)))
+    );
+
+  @Effect()
+  signup$ = this.actions$
+    .ofType(Auth.SIGNUP)
+    .map((action: Auth.SignupAction) => action.payload)
+    .exhaustMap((register: Register) =>
+      this.authService
+        .create(register)
+        .map(user => new Auth.SignupSuccessAction(user))
+        .catch(error => of(new Auth.SignupFailureAction(error)))
     );
 
   @Effect({ dispatch: false })

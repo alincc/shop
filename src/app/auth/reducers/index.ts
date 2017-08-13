@@ -47,7 +47,7 @@ export const getUserOrders = createSelector(
   getUser,
   fromEntities.getEntities,
   (user, entities) => {
-    if (!entities.orders) {
+    if (!entities.orders || !user) {
       return [];
     }
 

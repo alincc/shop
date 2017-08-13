@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
 
 import { User } from '../user';
 import { Order } from '../../order/order';
@@ -17,11 +17,11 @@ import { Order } from '../../order/order';
         <div class="widget">
           <h3>Your orders</h3>
 
-          <div class="message info" *ngIf="!user.customer?.orders">
+          <div class="message info" *ngIf="!orders.length">
             You have not placed any orders yet
           </div>
 
-          <div *ngIf="orders">
+          <div *ngIf="orders && orders.length">
 
             <app-order-table [orders]="orders"></app-order-table>
 
@@ -39,7 +39,7 @@ import { Order } from '../../order/order';
     }
   `],
 })
-export class ProfileDetailsComponent implements OnInit {
+export class ProfileDetailsComponent implements OnInit, OnChanges {
   isFinished: boolean = false;
   @Input() user: User;
   @Input() orders: Order[];
@@ -48,5 +48,11 @@ export class ProfileDetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.orders && changes.orders.currentValue) {
+      this.orders = changes.orders.currentValue;
+    }
   }
 }

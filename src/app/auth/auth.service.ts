@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { tokenNotExpired } from 'angular2-jwt';
 import { StorageService } from '../services/storage.service';
 
-import { User } from '../model/interface';
+import { User, Register } from './user';
 
 @Injectable()
 export class AuthService {
@@ -83,7 +83,7 @@ export class AuthService {
     return tokenNotExpired();
   }
 
-  create(user: User): Observable<User> {
+  create(user: Register): Observable<User> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
     let body = JSON.stringify(user);

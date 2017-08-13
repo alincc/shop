@@ -6,9 +6,7 @@
     <p>Click <a routerLink="/products">here</a> to continue browsing our products</p>
   </div>
 
-  <app-spinner *ngIf="!isFinished"></app-spinner>
-
-  <form class="form" (ngSubmit)="onSubmit()" #checkoutForm="ngForm" *ngIf="isFinished && !orderCreated">
+  <form class="form" (ngSubmit)="onSubmit()" #checkoutForm="ngForm" *ngIf="!orderCreated">
     <h1>Secure Checkout</h1>
 
     <p *ngIf="!auth">Already have an account? Click <a routerLink="/login">here</a> to login</p>
@@ -19,7 +17,7 @@
 
         <app-checkout-form
           [form]="form"
-          [customer]="customer">
+          [customer]="auth?.customer">
         </app-checkout-form>
 
       </div>

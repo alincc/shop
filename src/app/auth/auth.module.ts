@@ -7,6 +7,7 @@ import { OrderModule } from '../order/order.module';
 import { AuthRoutingModule, routedComponents } from './auth.routing';
 import { RegisterFormComponent} from './components/register-form/register-form.component';
 import { ProfileDetailsComponent} from './components/profile-details.component';
+import { RegisterComponent} from './containers/register/register.component';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { AlreadyAuthedGuard } from './guards/already-authed.guard';
@@ -24,6 +25,7 @@ import { reducers } from './reducers';
   ],
   declarations: [
     ProfileDetailsComponent,
+    RegisterComponent,
     RegisterFormComponent,
     routedComponents,
   ],

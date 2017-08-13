@@ -64,7 +64,6 @@ export class CheckoutContainerComponent implements OnInit {
   }
 
   createOrder(createOrder: CreateOrder): void {
-    console.log(createOrder);
     this.store.dispatch(new checkoutActions.CreateOrderAction(createOrder));
   }
 }
