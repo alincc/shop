@@ -10,10 +10,14 @@ import { Effect, Actions } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import { defer } from 'rxjs/observable/defer';
 import { of } from 'rxjs/observable/of';
+import { normalize, schema } from 'normalizr';
 
 import * as collection from '../actions/collection';
 import * as checkoutActions from '../../checkout/actions/checkout';
+import * as entitiesActions from '../../core/actions/entities';
+import * as authOrderActions from '../../auth/actions/order';
 import { CheckoutService } from '../../services/checkout.service';
+import { orderSchema } from '../order';
 
 @Injectable()
 export class CollectionEffects {
@@ -50,8 +54,14 @@ export class CollectionEffects {
   addOrderSuccess$ = this.actions$
     .ofType(collection.ADD_ORDER_SUCCESS)
     .map((action: collection.AddOrderSuccessAction) => action.payload)
-    .map((order) => {
-      return new checkoutActions.CreateOrderSuccessAction(order);
+    .mergeMap((order) => {
+      const normalized = normalize(order, orderSchema);
+
+      return [
+        new checkoutActions.CreateOrderSuccessAction(order),
+        new entitiesActions.LoadSuccessAction(normalized),
+        new authOrderActions.AddOrderAction(order._id),
+      ];
     })
 
   constructor(

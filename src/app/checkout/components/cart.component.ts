@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
-import { CartService } from '../../services';
-import { OrderLine, Product } from '../../model/interface';
+import { OrderLine } from '../../model/interface';
 
 @Component({
   selector: 'app-cart',

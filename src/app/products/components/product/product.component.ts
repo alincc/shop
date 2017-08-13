@@ -1,8 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { Product } from '../../../model/interface';
-import { CartService } from '../../../services';
+import { Product } from '../../product';
 
 @Component({
   selector: 'app-product',
@@ -10,19 +8,11 @@ import { CartService } from '../../../services';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
-
   @Input() product: Product;
+  @Output() addToCart = new EventEmitter<Product>();
 
-  constructor(
-    private cartService: CartService,
-    public toastr: ToastsManager,
-  ) { }
+  constructor() { }
 
   ngOnInit() {
-  }
-
-  addToCart(): void {
-    this.toastr.success('The product was added to your cart', 'Added');
-    this.cartService.add(this.product);
   }
 }

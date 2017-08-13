@@ -6,7 +6,7 @@
 
     <div class="products col-md-10 col-xs-12">
 
-      <app-product-list [products]="products"></app-product-list>
+      <app-product-list [products]="products" (addToCart)="addToCart.emit($event)"></app-product-list>
 
     </div>
 

@@ -7,6 +7,8 @@ import {
   Payment
 } from '../model/interface';
 
+export { orderSchema } from '../model/schema';
+
 export interface IOrder {
   _id: string;
   updatedAt: String;

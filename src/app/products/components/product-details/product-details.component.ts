@@ -1,9 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import * as _ from 'lodash';
 
 import { ErrorResponse, Message, Combination, Attribute } from '../../../model/interface';
-import { CartService } from '../../../services';
 import { Product, Category } from '../../../model/interface';
 import { AddProduct } from '../../../checkout/cart';
 
@@ -23,10 +21,7 @@ export class ProductDetailsComponent implements OnInit {
   matchingCombinations: any[] = null;
   selectedCombination: Combination;
 
-  constructor(
-    private cartService: CartService,
-    private toastr: ToastsManager,
-  ) { }
+  constructor() { }
 
   ngOnInit() {
     if (this.product) {
@@ -40,7 +35,6 @@ export class ProductDetailsComponent implements OnInit {
 
       this.attributes = this.mapAttributes(this.product.combinations);
       this.validCombinations = this.getValidCombinations();
-
     }
   }
 
@@ -58,8 +52,6 @@ export class ProductDetailsComponent implements OnInit {
 
     const addToCart: AddProduct = new AddProduct(this.product, combinations, this.selectedCombination);
     this.addToCart.emit(addToCart);
-    // this.toastr.success('The product was added to your cart', 'Added!');
-    // this.cartService.add(this.product, combinations, this.selectedCombination);
   }
 
   isInStock(): boolean {

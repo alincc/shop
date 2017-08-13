@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { Product } from '../../../model/interface';
 
 @Component({
@@ -8,6 +8,7 @@ import { Product } from '../../../model/interface';
 })
 export class ProductsContainerComponent implements OnInit, OnChanges {
   @Input() products: Product[];
+  @Output() addToCart = new EventEmitter<Product>();
 
   constructor() { }
 
@@ -19,4 +20,5 @@ export class ProductsContainerComponent implements OnInit, OnChanges {
       this.products = changes.products.currentValue.map(product => new Product(product));
     }
   }
+
 }

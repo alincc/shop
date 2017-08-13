@@ -2,6 +2,6 @@
   <div *ngIf="!products" class="message info">No products found</div>
 
   <div *ngFor="let product of products">
-    <app-product [product]="product"></app-product>
+    <app-product [product]="product" (addToCart)="addToCart.emit($event)"></app-product>
   </div>
 </div>

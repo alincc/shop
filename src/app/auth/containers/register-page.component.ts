@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 
 import * as fromAuth from '../reducers';
 import * as authActions from '../actions/auth';
-
 import { Register } from '../user';
 
 @Component({
