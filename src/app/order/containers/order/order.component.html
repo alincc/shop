@@ -1,61 +1,58 @@
 <div class="order">
 
-  <app-message *ngIf="errorMsg && isFinished" [data]="errorMsg"></app-message>
+  <app-message *ngIf="errorMsg" [data]="errorMsg"></app-message>
 
-  <app-spinner *ngIf="!isFinished"></app-spinner>
-
-  <div *ngIf="order && isFinished">
+  <div *ngIf="order">
     <h1>Order: {{ order._id }}</h1>
 
-    <table>
-      <tr>
-        <td>Ordernumber:</td>
-        <td>{{ order._id }}</td>
-      </tr>
-      <tr>
-        <td>Date created</td>
-        <td>{{ order.createdAt | date:'short' }}</td>
-      </tr>
-      <tr>
-        <td>Status</td>
-        <td>
-          <div [ngSwitch]="order.status">
-            <span *ngSwitchCase="ShippingStatus.Pending">Pending</span>
-            <span *ngSwitchCase="ShippingStatus.AwaitingShipment">Awaiting Shipment</span>
-            <span *ngSwitchCase="ShippingStatus.Shipped">Shipped</span>
-            <span *ngSwitchCase="ShippingStatus.Completed">Completed</span>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>Payment method</td>
-        <td>{{ order.payment.name }}</td>
-      </tr>
-      <tr>
-        <td>Invoice</td>
-        <td>[invoice]</td>
-      </tr>
-    </table>
-
-    <div class="customer-info row"> <!-- .row -->
+    <div class="row">
 
       <div class="col-md-6 col-xs-12"> <!-- .col -->
-        <h4>Customer</h4>
-        {{ order.customer.firstname }} {{ order.customer.lastname }} <br />
-        {{ order.customer.address }} <br />
-        {{ order.customer.postnumber }} {{ order.customer.city}} <br />
-        {{ order.customer.country }}
+        <table>
+          <tr>
+            <td>Ordernumber:</td>
+            <td>{{ order._id }}</td>
+          </tr>
+          <tr>
+            <td>Date created</td>
+            <td>{{ order.createdAt | date:'short' }}</td>
+          </tr>
+          <tr>
+            <td>Status</td>
+            <td>
+              <div [ngSwitch]="order.status">
+                <span *ngSwitchCase="ShippingStatus.Pending">Pending</span>
+                <span *ngSwitchCase="ShippingStatus.AwaitingShipment">Awaiting Shipment</span>
+                <span *ngSwitchCase="ShippingStatus.Shipped">Shipped</span>
+                <span *ngSwitchCase="ShippingStatus.Completed">Completed</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Payment method</td>
+            <td>{{ order.payment.name }}</td>
+          </tr>
+          <tr>
+            <td>Invoice</td>
+            <td>[invoice]</td>
+          </tr>
+        </table>
       </div> <!-- /.col -->
 
-      <div class="col-md-6 col-xs-12" *ngIf="order.shipping"> <!-- .col -->
-        <h4>Shipping method</h4>
-        {{ order.shipping.value.name }} <br/>
-        {{ order.shippingAddress.firstname }} {{ order.shippingAddress.lastname }} <br/>
-        {{ order.shippingAddress.address }} <br/>
-        {{ order.shippingAddress.postnumber }} {{ order.shippingAddress.city }}
+      <div class="col-md-6 col-xs-12"> <!-- .col -->
+        <div *ngIf="order.shipping">
+          <h4 class="m-b-xs m-t-xs">Shipping method</h4>
+          {{ order.shipping.value.name }} <br/>
+        </div>
+        <div *ngIf="order.shippingAddress">
+          <h4 class="m-b-xs">Delivery Address</h4>
+          {{ order.shippingAddress.firstname }} {{ order.shippingAddress.lastname }} <br/>
+          {{ order.shippingAddress.address }} <br/>
+          {{ order.shippingAddress.postnumber }} {{ order.shippingAddress.city }}
+        </div>
       </div> <!-- /.col -->
 
-    </div> <!-- ./row -->
+    </div>
 
     <div *ngIf="order.status == ShippingStatus.Shipped">
       <div class="message info">
@@ -65,9 +62,9 @@
     </div>
 
     <app-checkout-items
-      [items]="order.items"
+      [items]="items"
       [shipping]="order.shipping"
-      [subtotal]="order.calculateSubTotal()"
+      [subtotal]="subtotal"
       [grandTotal]="order.total">
     </app-checkout-items>
 

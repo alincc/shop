@@ -7,7 +7,15 @@ export interface State {
 }
 
 const initialState: State = {
-  entities: {},
+  entities: {
+    carriers: {},
+    payments: {},
+    categories: {},
+    products: {},
+    lines: {},
+    orders: {},
+    users: {},
+  },
   loading: false,
   loaded: false,
 };
@@ -28,9 +36,14 @@ export function reducer(state = initialState, action: entities.Actions): State {
         loading: false,
         loaded: true,
         entities: {
-          ...state.entities,
-          ...payload.entities,
-        }
+          carriers: {...state.entities.carriers, ...payload.entities.carriers,},
+          payments: {...state.entities.payments, ...payload.entities.payments},
+          categories: {...state.entities.categories, ...payload.entities.categories},
+          products: {...state.entities.products, ...payload.entities.products},
+          lines: {...state.entities.lines, ...payload.entities.lines},
+          orders: {...state.entities.orders, ...payload.entities.orders},
+          users: {...state.entities.users, ...payload.entities.users},
+        },
       };
     }
 

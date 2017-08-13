@@ -1,5 +1,5 @@
 import { Product } from '../products/product';
-import { Combination } from '../model/interface';
+import { Combination, Customer, OrderLine, ShippingLine, Payment, ShippingAddress } from '../model/interface';
 
 export interface IAddProduct {
   product: Product;
@@ -13,4 +13,14 @@ export class AddProduct implements IAddProduct {
     public combination: any[] = [],
     public selectedCombination = null
   ) {}
+}
+
+export interface CreateOrder {
+  // customer: Customer;
+  items: OrderLine[];
+  user: string | null;
+  total: number;
+  shipping: ShippingLine;
+  payment: Payment;
+  shippingAddress: ShippingAddress;
 }

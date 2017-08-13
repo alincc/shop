@@ -13,6 +13,8 @@ import * as fromSearch from './search';
 import * as fromOrders from './orders';
 import * as fromCollection from './collection';
 import * as fromRoot from '../../reducers';
+import { Order } from '../order';
+import { Product } from '../../products/product';
 
 export interface OrdersState {
   search: fromSearch.State;
@@ -48,10 +50,10 @@ export const getSelectedOrderId = createSelector(
   getOrderEntitiesState,
   fromOrders.getSelectedId
 );
-export const getSelectedOrder = createSelector(
-  getOrderEntitiesState,
-  fromOrders.getSelected
-);
+// export const getSelectedOrder = createSelector(
+//   getOrderEntitiesState,
+//   fromOrders.getSelected
+// );
 
 export const getSearchState = createSelector(
   getOrdersState,
@@ -96,14 +98,14 @@ export const getCollectionOrderIds = createSelector(
   getCollectionState,
   fromCollection.getIds
 );
-
-export const getOrderCollection = createSelector(
-  getOrderEntities,
-  getCollectionOrderIds,
-  (entities, ids) => {
-    return ids.map(id => entities[id]);
-  }
-);
+//
+// export const getOrderCollection = createSelector(
+//   getOrderEntities,
+//   getCollectionOrderIds,
+//   (entities, ids) => {
+//     return ids.map(id => entities[id]);
+//   }
+// );
 
 export const isSelectedOrderInCollection = createSelector(
   getCollectionOrderIds,
@@ -112,3 +114,42 @@ export const isSelectedOrderInCollection = createSelector(
     return ids.indexOf(selected) > -1;
   }
 );
+
+export const getOrderCollection = createSelector(
+  getCollectionOrderIds,
+  fromRoot.getEntities,
+  (ids, entities) => {
+    if (!entities.orders) return [];
+
+    return ids.map(id => entities.orders[id]);
+  }
+)
+
+export const getSelectedOrder = createSelector(
+  getSelectedOrderId,
+  fromRoot.getEntities,
+  (id, entities) => {
+    if (!entities.orders) return null;
+
+    return entities.orders[id];
+  }
+)
+
+export const getOrderProducts = createSelector(
+  getSelectedOrder,
+  fromRoot.getEntities,
+  (order, entities) => {
+    if (!entities.products) return null;
+    if (!entities.lines) return null;
+    if (!order) return null;
+
+    return order.items.map(lineId => {
+      const line = entities.lines[lineId];
+
+      return {
+        ...line,
+        product: entities.products[line.product],
+      }
+    })
+  }
+)

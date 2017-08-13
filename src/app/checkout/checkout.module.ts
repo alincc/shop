@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CheckoutRoutingModule, routedComponents } from './checkout.routing';
 import { CheckoutFormComponent } from './components/checkout-form/checkout-form.component';
 import { CheckoutComponent } from './containers/checkout/checkout.component';
+import { CheckoutBoxComponent } from './components/checkout-box.component';
 import { CartComponent } from './components/cart.component';
 import { PaymentListComponent } from './components/payment-list/payment-list.component';
 import { CheckoutItemsComponent } from './components/checkout-items/checkout-items.component';
@@ -13,6 +14,7 @@ import { ProductsModule } from '../products/products.module';
 
 import { reducers } from './reducers';
 import { CartEffects } from './effects/cart';
+import { CheckoutEffects } from './effects/checkout';
 
 @NgModule({
   imports: [
@@ -21,7 +23,7 @@ import { CartEffects } from './effects/cart';
     ProductsModule,
     StoreModule.forFeature('checkout', reducers),
 
-    EffectsModule.forFeature([CartEffects]),
+    EffectsModule.forFeature([CartEffects, CheckoutEffects]),
   ],
   declarations: [
     CartComponent,
@@ -30,6 +32,7 @@ import { CartEffects } from './effects/cart';
     CheckoutFormComponent,
     PaymentListComponent,
     routedComponents,
+    CheckoutBoxComponent,
   ],
   exports: [
     CheckoutItemsComponent,

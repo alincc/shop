@@ -15,7 +15,8 @@ export interface IOrder {
   status?: ShippingStatus;
   statusLog: ShippingStatusEntry[];
   items: OrderLine[];
-  customer?: Customer; // TODO: should not be optional
+  customer?: Customer; // TODO: remove property
+  user?: string;
   // shipping?: Shipping;
   shipping?: ShippingLine;
   shippingAddress?: ShippingAddress;
@@ -30,7 +31,8 @@ export class Order implements IOrder {
   status?: ShippingStatus;
   statusLog: ShippingStatusEntry[];
   items: OrderLine[];
-  customer?: Customer; // TODO: should not be optional
+  customer?: Customer; // TODO: remove property
+  user?: string;
   shipping?: ShippingLine;
   shippingAddress?: ShippingAddress;
   payment?: Payment;
@@ -40,9 +42,11 @@ export class Order implements IOrder {
     this.updatedAt = order.updatedAt;
     this.createdAt = order.createdAt;
     this.total = order.total;
+    this.user = order.user ? order.user : null;
     this.status = order.status;
     this.statusLog = order.statusLog.map(item => new ShippingStatusEntry(item));
-    this.items = order.items ? order.items.map(item => new OrderLine(item)) : [];
+    this.items = order.items ? order.items : [];
+    // this.items = order.items ? order.items.map(item => new OrderLine(item)) : [];
     this.customer = order.customer ? new Customer(order.customer) : null;
     this.shipping = order.shipping ? order.shipping : null;
     this.payment = order.payment ? order.payment : null;

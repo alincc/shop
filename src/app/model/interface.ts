@@ -2,6 +2,8 @@ import { normalize, schema } from 'normalizr';
 import { Product } from '../products/product';
 import { Category } from '../category/category';
 import { Order } from '../order/order';
+import { Payment } from '../payment/payment';
+import { Shipping } from '../carrier/carrier';
 import { User } from '../auth/user'
 
 export interface IOption {
@@ -20,13 +22,6 @@ export interface Discount {
 interface CartProduct {
   product: Product;
   quantity: number;
-}
-
-class Payment {
-  _id: string;
-  name: string;
-  image?: string;
-  active: boolean;
 }
 
 class Message {
@@ -275,14 +270,6 @@ export interface ProductImage {
   label: string;
   main: boolean;
   createdAt?: string;
-}
-
-class Shipping {
-  _id: string;
-  name: string;
-  price: number;
-  description?: string;
-  active: boolean;
 }
 
 export {

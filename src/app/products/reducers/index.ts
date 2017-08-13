@@ -117,10 +117,12 @@ export const isSelectedProductInCollection = createSelector(
 export const getProductCollection = createSelector(
   getCollectionProductIds,
   fromRoot.getEntities,
-  (ids, entities) => {
+  getCollectionLoaded,
+  (ids, entities, loaded) => {
+    if (!ids.length) return [];
     if (!entities.products) return [];
 
-    return ids.map(id => new Product(entities.products[id]));
+    return ids.map(id => entities.products[id]);
   }
 )
 
@@ -128,7 +130,9 @@ export const getSelectedProduct = createSelector(
   getSelectedProductId,
   fromRoot.getEntities,
   (id, entities) => {
-    if (!entities.products) return null;
+    if (!entities.products[id]) {
+      return null;
+    }
 
     return new Product(entities.products[id]);
   }

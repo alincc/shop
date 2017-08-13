@@ -6,4 +6,3 @@ export { ProductService } from './product.service';
 export { ShippingService } from './shipping.service';
 export { SearchService } from './search.service';
 export { StorageService } from './storage.service';
-export { PaymentService } from './payment.service';

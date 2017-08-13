@@ -57,6 +57,13 @@ export class CartEffects {
       this.toastr.success('Product was added to your cart', 'Success');
     });
 
+  @Effect({ dispatch: false })
+  clearCart$ = this.actions$
+    .ofType(Cart.CLEAR)
+    .do(() => {
+      this.cartService.clear();
+    });
+
   constructor(
     private actions$: Actions,
     private cartService: CartService,

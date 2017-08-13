@@ -30,6 +30,10 @@ export function reducer(state = initialState, action: cart.Actions): State {
       };
     }
 
+    case cart.CLEAR: {
+      return initialState;
+    }
+
     default: {
       return state;
     }

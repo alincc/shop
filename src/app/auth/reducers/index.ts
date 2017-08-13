@@ -2,6 +2,7 @@ import { createSelector, createFeatureSelector } from '@ngrx/store';
 import * as fromRoot from '../../reducers';
 import * as fromAuth from './auth';
 import * as fromLoginPage from './login-page';
+import * as fromEntities from '../../core/reducers/entities';
 
 export interface AuthState {
   status: fromAuth.State;
@@ -40,4 +41,16 @@ export const getLoginPageError = createSelector(
 export const getLoginPagePending = createSelector(
   selectLoginPageState,
   fromLoginPage.getPending
+);
+
+export const getUserOrders = createSelector(
+  getUser,
+  fromEntities.getEntities,
+  (user, entities) => {
+    if (!entities.orders) {
+      return [];
+    }
+
+    return user.orders.map(id => entities.orders[id]);
+  }
 );

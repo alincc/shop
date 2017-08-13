@@ -11,7 +11,7 @@
   <form class="form" (ngSubmit)="onSubmit()" #checkoutForm="ngForm" *ngIf="isFinished && !orderCreated">
     <h1>Secure Checkout</h1>
 
-    <p *ngIf="!authService.isAuthed()">Already have an account? Click <a routerLink="/login">here</a> to login</p>
+    <p *ngIf="!auth">Already have an account? Click <a routerLink="/login">here</a> to login</p>
 
     <div class="row"> <!-- .row -->
 
@@ -29,46 +29,47 @@
         <div class="row"> <!-- .row -->
 
           <div class="col-md-6 col-xs-12">
-            <div class="box">
-              <div class="title">
+            <app-checkout-box>
+              <div class="box-title">
                 <i class="fa fa-truck"></i> Shipping Method
               </div>
-              <div class="content">
-                <div *ngIf="!shipping" class="message info">
-                  No shipping types available, please contact administrators.
-                </div>
 
-                <div *ngIf="shipping">
+              <div class="box-body">
 
-                  <button class="button" type="button" *ngFor="let type of shipping" (click)="setSelectedShipping(type)">{{ type.name }}</button>
-
-                </div>
+                <app-button-select
+                  [options]="carriers"
+                  [label]="'name'"
+                  (select)="setSelectedCarrier($event)">
+                  <div class="empty">
+                    No carriers available, please contact administrators.
+                  </div>
+                </app-button-select>
 
               </div>
-            </div>
+            </app-checkout-box>
           </div>
 
           <div class="col-md-6 col-xs-12">
-            <div class="box">
-              <div class="title">
+            <app-checkout-box>
+              <div class="box-title">
                 <i class="fa fa-credit-card"></i> Payment Method
               </div>
-              <div class="content">
+              <div class="box-body">
 
                 <app-payment-list [payments]="payments" [selectedPayment]="selectedPayment" (paymentEmitter)="onSelectPayment($event)"></app-payment-list>
 
               </div>
-            </div>
+            </app-checkout-box>
           </div>
 
         </div> <!-- /.row -->
 
         <div>
-          <div class="box">
-            <div class="title">
+          <app-checkout-box>
+            <div class="box-title">
               <i class="fa fa-check-square"></i> Order review
             </div>
-            <div class="content">
+            <div class="box-body">
 
               <app-checkout-items
                 *ngIf="products.length"
@@ -76,8 +77,8 @@
                 [items]="products"
                 [editable]="true"
                 [subtotal]="subtotal"
-                [shipping]="selectedShipping"
-                [grandTotal]="subtotal + (selectedShipping ? selectedShipping.price : 0)">
+                [shipping]="selectedCarrier"
+                [grandTotal]="subtotal + (selectedCarrier ? selectedCarrier.price : 0)">
               </app-checkout-items>
 
               <div *ngIf="!products.length">
@@ -85,30 +86,30 @@
               </div>
 
             </div>
-          </div>
+          </app-checkout-box>
         </div>
 
         <div class="row"> <!-- .row -->
 
           <div class="col-md-6"> <!-- .col-md-6 -->
 
-            <div class="box">
+            <app-checkout-box [disableTitle]="true">
 
-              <div class="title small">Comments</div>
+              <div class="box-title">Comments</div>
 
-              <div class="content">
+              <div class="box-body">
 
                 <textarea name="comments" class="input" cols="30" rows="10"></textarea>
 
               </div>
 
-            </div>
+            </app-checkout-box>
 
           </div> <!-- /.col-md-6 -->
 
           <div class="col-md-6"> <!-- .col-md-6 -->
 
-            <button class="button" [disabled]="!selectedShipping || !selectedPayment" type="submit">Place Order</button>
+            <button class="button" [disabled]="!selectedCarrier || !selectedPayment" type="submit">Place Order</button>
 
           </div> <!-- /.col-md-6 -->
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { User } from '../user';
+import { Order } from '../../order/order';
 
 @Component({
   selector: 'app-profile-details',
@@ -20,9 +21,9 @@ import { User } from '../user';
             You have not placed any orders yet
           </div>
 
-          <div *ngIf="user.customer">
+          <div *ngIf="orders">
 
-            <app-order-table [orders]="user.customer.orders"></app-order-table>
+            <app-order-table [orders]="orders"></app-order-table>
 
           </div>
         </div>
@@ -41,6 +42,7 @@ import { User } from '../user';
 export class ProfileDetailsComponent implements OnInit {
   isFinished: boolean = false;
   @Input() user: User;
+  @Input() orders: Order[];
   @Output() logout = new EventEmitter<any>();
 
   constructor() { }

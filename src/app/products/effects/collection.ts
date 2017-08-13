@@ -39,7 +39,7 @@ export class CollectionEffects {
             new entities.LoadSuccessAction(normalized),
           ]
         })
-        .catch(() => of(new collection.LoadSuccessAction([])));
+        .catch(() => of(new collection.LoadFailAction([])));
     });
 
   constructor(

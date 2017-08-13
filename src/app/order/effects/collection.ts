@@ -12,7 +12,7 @@ import { defer } from 'rxjs/observable/defer';
 import { of } from 'rxjs/observable/of';
 
 import * as collection from '../actions/collection';
-// import * as threadCollection from '../../messages/actions/collection';
+import * as checkoutActions from '../../checkout/actions/checkout';
 import { CheckoutService } from '../../services/checkout.service';
 
 @Injectable()
@@ -33,6 +33,26 @@ export class CollectionEffects {
   //       })
   //       .catch(() => of(new collection.LoadSuccessAction([])));
   //   });
+
+
+
+  @Effect()
+  addOrder$ = this.actions$
+    .ofType(collection.ADD_ORDER)
+    .map((action: collection.AddOrderAction) => action.payload)
+    .switchMap((createOrder) => {
+      return this.service.createOrder(createOrder)
+        .map(order => new collection.AddOrderSuccessAction(order.data))
+        .catch(error => of(new collection.AddOrderFailAction(error)));
+    })
+
+  @Effect()
+  addOrderSuccess$ = this.actions$
+    .ofType(collection.ADD_ORDER_SUCCESS)
+    .map((action: collection.AddOrderSuccessAction) => action.payload)
+    .map((order) => {
+      return new checkoutActions.CreateOrderSuccessAction(order);
+    })
 
   constructor(
     private actions$: Actions,

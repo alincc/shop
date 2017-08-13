@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { OrderComponent } from './containers/order/order.component';
+import { OrderViewComponent } from './containers/order-view.component';
 
 const routes: Routes = [
-  { path: 'order/:id', component: OrderComponent },
+  { path: 'order/:id', component: OrderViewComponent },
 ];
 
 @NgModule({
@@ -13,4 +14,4 @@ const routes: Routes = [
 })
 export class OrderRoutingModule { }
 
-export const routedComponents = [OrderComponent];
+export const routedComponents = [OrderViewComponent];

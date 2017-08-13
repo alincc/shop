@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { Payment } from '../app/model/interface';
 import { FAKE_PAYMENTS } from './mock/mocks';
 
-export { PaymentService } from '../app/services';
+export { PaymentService } from '../app/payment/payment.service';
 
 @Injectable()
 export class PaymentServiceMock {

@@ -8,9 +8,12 @@ import { Router } from '@angular/router';
 import { Effect, Actions } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { normalize, denormalize, schema } from 'normalizr';
 
 import { AuthService } from '../auth.service';
 import * as Auth from '../actions/auth';
+import { User, userSchema } from '../user';
+import * as entities from '../../core/actions/entities';
 
 @Injectable()
 export class AuthEffects {
@@ -44,8 +47,16 @@ export class AuthEffects {
     .exhaustMap(auth =>
       this.authService
         .getUserInfo()
-        .map(user => {
-          return new Auth.LoginSuccess({ user, redirect: auth.redirect });
+        .mergeMap(user => {
+          const normalized = normalize(user, userSchema);
+          console.log('norm', normalized)
+          const authedUser: User = normalized.entities.users[normalized.result];
+
+          console.log('denorm', denormalize(normalized, userSchema, normalized.entities))
+          return [
+            new Auth.LoginSuccess({ user: authedUser, redirect: auth.redirect }),
+            new entities.LoadSuccessAction(normalized),
+          ];
         })
         .catch(error => of(new Auth.LoginFailure(error)))
     );

@@ -13,19 +13,17 @@ export class CheckoutItemsComponent implements OnInit {
   @Input() subtotal: number;
   @Input() grandTotal: number;
   @Input() editable: boolean = false;
-
-  @Output()
-  deleteEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Output() deleteEmitter = new EventEmitter<OrderLine>();
 
   constructor() { }
 
   ngOnInit() {
-    this.items = this.items.map(item => new OrderLine(item));
+
   }
 
-  onDelete(product: OrderLine): void {
+  onDelete(line: OrderLine): void {
     if (this.editable) {
-      this.deleteEmitter.emit(product);
+      this.deleteEmitter.emit(line);
     }
   }
 

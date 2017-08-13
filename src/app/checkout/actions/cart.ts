@@ -13,6 +13,7 @@ export const LOAD_FAIL = '[Cart] Load Fail';
 export const REMOVE_ITEM = '[Cart] Remove Item';
 export const REMOVE_ITEM_SUCCESS = '[Cart] Remove Item Success';
 export const REMOVE_ITEM_FAIL = '[Cart] Remove Item Fail';
+export const CLEAR = '[Cart] Clear';
 
 export class LoadAction implements Action {
   readonly type = LOAD;
@@ -66,6 +67,10 @@ export class RemoveItemFailAction implements Action {
   constructor(public payload: any) {}
 }
 
+export class ClearAction implements Action {
+  readonly type = CLEAR;
+}
+
 export type Actions =
   | LoadAction
   | LoadSuccessAction
@@ -75,4 +80,5 @@ export type Actions =
   | AddToCartFailAction
   | RemoveItemAction
   | RemoveItemSuccessAction
-  | RemoveItemFailAction;
+  | RemoveItemFailAction
+  | ClearAction;

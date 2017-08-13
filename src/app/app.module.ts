@@ -17,6 +17,8 @@ import { ProductsModule } from './products/products.module';
 import { CategoryModule } from './category/category.module';
 import { CheckoutModule } from './checkout/checkout.module';
 import { OrderModule } from './order/order.module';
+import { CarrierModule } from './carrier/carrier.module';
+import { PaymentModule } from './payment/payment.module';
 import { AuthModule } from './auth/auth.module';
 import { ContactModule } from './contact/contact.module';
 import { AboutModule } from './about/about.module';
@@ -32,7 +34,6 @@ import { CartService,
   ProductService,
   SearchService,
   StorageService,
-  PaymentService,
 } from './services';
 
 @NgModule({
@@ -48,6 +49,8 @@ import { CartService,
     CoreModule,
     ProductsModule,
     CategoryModule,
+    CarrierModule,
+    PaymentModule,
     CheckoutModule,
     ContactModule,
     OrderModule,
@@ -81,7 +84,6 @@ import { CartService,
     CategoryService,
     SearchService,
     StorageService,
-    PaymentService,
   ],
   bootstrap: [AppComponent]
 })

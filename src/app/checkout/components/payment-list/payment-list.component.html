@@ -1,15 +1,5 @@
-<div *ngIf="payments" class="payment-list">
-
-  <div *ngFor="let payment of payments" class="payment"
-    (click)="selectPayment(payment)"
-    [ngClass]="{'active': this.selectedPayment?._id == payment._id}">
-
-    <img [src]="payment.image" [alt]="payment.name">
-
+<app-image-select [options]="payments" [label]="'image'" (select)="selectPayment($event)">
+  <div class="empty">
+    No payment methods available, please contact administrators.
   </div>
-
-</div>
-
-<div class="message info" *ngIf="!payments">
-  No payment methods available
-</div>
+</app-image-select>

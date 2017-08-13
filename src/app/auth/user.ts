@@ -1,7 +1,9 @@
 import { Customer } from '../model/interface';
 
+export { userSchema } from '../model/schema';
+
 export interface IUser {
-  _id: String,
+  _id: string,
   admin: boolean;
   username: String;
   password: String;
@@ -9,10 +11,11 @@ export interface IUser {
   customer?: Customer;
   ip: String;
   image?: string;
+  orders?: string[];
 }
 
 export class User implements IUser {
-  _id: String;
+  _id: string;
   admin: boolean;
   username: String;
   password: String;
@@ -20,6 +23,7 @@ export class User implements IUser {
   customer?: Customer;
   ip: String;
   image?: string;
+  orders?: string[];
 
   constructor(user: IUser) {
     this._id = user._id;
@@ -30,6 +34,7 @@ export class User implements IUser {
     this.customer = user.customer ? user.customer : null;
     this.ip = user.ip;
     this.image = user.image ? user.image : 'no-pic.png';
+    this.orders = user.orders ? user.orders : [];
   }
 
   public getImagePath(): string {

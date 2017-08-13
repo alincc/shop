@@ -1,5 +1,7 @@
 import { Action } from '@ngrx/store';
+
 import { Order } from '../order';
+import { CreateOrder } from '../../checkout/cart';
 
 export const ADD_ORDER = '[Order Collection] Add Order';
 export const ADD_ORDER_SUCCESS = '[Order Collection] Add Order Success';
@@ -14,7 +16,7 @@ export const LOAD_FAIL = '[Order Collection] Load Fail';
 export class AddOrderAction implements Action {
   readonly type = ADD_ORDER;
 
-  constructor(public payload: Order) {}
+  constructor(public payload: CreateOrder) {}
 }
 
 export class AddOrderSuccessAction implements Action {

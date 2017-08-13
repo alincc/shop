@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { OrderLine, Product, Customer, Shipping, ShippingAddress, Payment, ShippingLine } from '../../../model/interface';
-import { CartService, CheckoutService, CustomerService, ShippingService, PaymentService } from '../../../services';
+import { OrderLine, Product, Customer, Shipping, ShippingAddress, Payment, ShippingLine, User } from '../../../model/interface';
+import { CartService, CheckoutService, CustomerService } from '../../../services';
 import { AuthService } from '../../../auth/auth.service';
+import { CreateOrder } from '../../cart';
 import { CheckoutFormComponent } from '../../components/checkout-form/checkout-form.component';
 
 @Component({
@@ -16,29 +17,29 @@ export class CheckoutComponent implements OnInit {
 
   @Input() products: OrderLine[];
   @Input() subtotal: number = 0;
+  @Input() selectedPayment: Payment;
+  @Input() carriers: Shipping[];
+  @Input() payments: Payment[];
+  @Input() auth: User;
+  @Input() selectedCarrier: Shipping;
   @Output() removeLine = new EventEmitter<OrderLine>();
-  private shipping: Shipping[];
-  private selectedShipping: Shipping;
+  @Output() selectPayment = new EventEmitter<Payment>();
+  @Output() selectCarrier = new EventEmitter<Shipping>();
+  @Output() createOrder = new EventEmitter<CreateOrder>();
   private form = {};
-  private customer: Customer;
+  private customer: Customer; // TODO: deprecate
   isFinished = false;
   orderCreated = false;
-  private selectedPayment: Payment;
-  private payments: Payment[];
 
   constructor(
     private cartService: CartService,
     private checkoutService: CheckoutService,
     private customerService: CustomerService,
-    private shippingService: ShippingService,
     private authService: AuthService,
-    private paymentService: PaymentService,
   ) { }
 
   ngOnInit() {
     this.loadCustomer();
-    this.loadShipping();
-    this.loadPayments();
   }
 
   onSubmit() {
@@ -56,86 +57,33 @@ export class CheckoutComponent implements OnInit {
     });
 
     const shipping: ShippingLine = new ShippingLine(
-      this.selectedShipping,
+      this.selectedCarrier,
       '',
-      this.selectedShipping.price,
+      this.selectedCarrier.price,
       0
     );
 
-    this.authService.getAuthedUser()
-      .subscribe(auth => {
-        // If user is authed
-        if (auth) {
-          // If authed user have customer information
-          if (auth.customer) {
-            let customerData = new Customer(auth.customer);
+    const createOrder: CreateOrder = {
+      user: this.auth ? this.auth._id : null,
+      items: this.products,
+      total: this.total(),
+      shipping: shipping,
+      payment: this.selectedPayment,
+      shippingAddress: shippingAddress,
+    };
 
-            // Check if customer data differs from the one entered
-            if (customerData.differs(customer)) {
-              // TODO: should display a dialog asking user if he wants to update customer data
-              this.customerService.update(customerData._id, customer)
-                .switchMap((res) => this.checkoutService.createOrder(res.data, this.products, this.total(), shipping, this.selectedPayment, shippingAddress))
-                .subscribe(
-                  res => this.orderCreatedSuccess(),
-                  err => console.log(err)
-                );
-            }
-            else {
-              this.checkoutService.createOrder(customerData, this.products, this.total(), shipping, this.selectedPayment, shippingAddress)
-                .subscribe(
-                  res => this.orderCreatedSuccess(),
-                  err => console.log(err)
-                );
-            }
-          }
-          else {
-            // If authed but no customer information exists
-            this.customerService.create(customer)
-              .switchMap(newCustomer => this.authService.update({ customer: newCustomer.data }))
-              .switchMap(user => this.checkoutService.createOrder(user.customer, this.products, this.total(), shipping, this.selectedPayment, shippingAddress))
-              .subscribe(
-                res => this.orderCreatedSuccess(),
-                err => console.log(err)
-              );
-          }
-        }
-        else {
-          // If user is not authenticated
-          this.customerService.create(customer)
-            .switchMap(newCustomer => this.checkoutService.createOrder(newCustomer.data, this.products, this.total(), shipping, this.selectedPayment, shippingAddress))
-            .subscribe(
-              res => this.orderCreatedSuccess(),
-              err => console.log(err)
-            );
-        }
-      })
+    this.createOrder.emit(createOrder);
+
+    return this.orderCreatedSuccess();
   }
 
-  onSelectPayment(payment): void {
-    this.selectedPayment = payment;
+  onSelectPayment(payment: Payment): void {
+    this.selectPayment.emit(payment);
   }
 
   orderCreatedSuccess() {
     this.orderCreated = true;
     this.cartService.clear();
-  }
-
-  loadShipping(): void {
-    this.shippingService.getAllShipping()
-      .subscribe(data => this.shipping = data);
-  }
-
-  loadPayments(): void {
-    this.paymentService.getActivePayments()
-      .subscribe(payments => this.payments = payments);
-  }
-
-  getProducts(): OrderLine[] {
-    return this.products;
-  }
-
-  getShipping(): Shipping[] {
-    return this.shipping;
   }
 
   loadCustomer(): void {
@@ -156,15 +104,15 @@ export class CheckoutComponent implements OnInit {
   }
 
   total(): number {
-    if (!this.selectedShipping) {
+    if (!this.selectedCarrier) {
       return this.subtotal;
     }
 
-    return this.subtotal + this.selectedShipping.price;
+    return this.subtotal + this.selectedCarrier.price;
   }
 
-  setSelectedShipping(shipping: Shipping) {
-    this.selectedShipping = shipping;
+  setSelectedCarrier(carrier: Shipping) {
+    this.selectCarrier.emit(carrier);
   }
 
 }
