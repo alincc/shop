@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
 
-import { OrderLine, Combination } from '../model/interface';
+import { OrderLine } from '../model/interface';
 import { Product, Variant } from '../products/product';
 import { StorageService } from './storage.service';
 
@@ -29,12 +29,8 @@ export class CartService {
     }
     else {
       const orderLine: OrderLine = new OrderLine({
-        // product: product,
         variant: variant,
         quantity: 1,
-        // combination: combination,
-        // selectedCombination: selectedCombination,
-        // price: product.getCurrentPrice(),
         price: variant.price,
       });
 

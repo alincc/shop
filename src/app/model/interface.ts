@@ -207,42 +207,6 @@ export class ShippingAddress {
   }
 }
 
-export class Combination {
-  quantity: number;
-  attributes: [{
-    attribute: Attribute,
-    value: AttributeValue,
-    _id?: string;
-  }];
-  _id?: string;
-}
-
-export interface AttributeValue {
-  label: string;
-  value: string;
-}
-
-export class Attribute {
-  constructor(
-    public name: string,
-    public values?: AttributeValue[],
-    public _id?: string,
-  ) {}
-}
-
-export interface AttributeLineValue {
-  value: string;
-  label: string;
-  quantity: number;
-}
-
-export class AttributeLine {
-  constructor(
-    public attribute: Attribute,
-    public values: AttributeLineValue[],
-  ) {}
-}
-
 export interface ProductImage {
   _id: string;
   url: string;

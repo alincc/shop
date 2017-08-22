@@ -1,6 +1,6 @@
 import { normalize, schema } from 'normalizr';
 
-import { Category, ProductImage, Combination, Discount } from '../model/interface';
+import { Category, ProductImage, Discount } from '../model/interface';
 
 export { productSchema, optionTypeSchema } from '../model/schema';
 
@@ -88,7 +88,6 @@ export interface IProduct {
   active: boolean;
   onSale: boolean;
   discount?: Discount;
-  combinations: Combination[];
   deleted?: boolean;
   variants: string[];
   optionTypes: string[];
@@ -106,7 +105,6 @@ export class Product implements IProduct {
   active: boolean;
   onSale: boolean;
   discount?: Discount;
-  combinations: Combination[];
   deleted?: boolean = false;
   variants: string[];
   optionTypes: string[];
@@ -123,7 +121,6 @@ export class Product implements IProduct {
     this.active = product.active;
     this.onSale = product.onSale;
     this.discount = product.discount;
-    this.combinations = product.combinations;
     this.deleted = product.deleted ? product.deleted : false;
     this.variants = product.variants ? product.variants : [];
     this.optionTypes = product.optionTypes ? product.optionTypes : [];
@@ -181,28 +178,10 @@ export class Product implements IProduct {
   }
 
   /**
-   * Whether or not the product has combinations
-   * @return {boolean} True if product has combinations, else false
-   */
-  public hasCombinations(): boolean {
-    return this.combinations.length > 0;
-  }
-
-  /**
-   * Get the quantity of the product, depending on
-   * whether the product has combinations
-   * @param  {Combination = null}        Get quantity for specific combination
+   * Get the quantity of the product
    * @return {number} Product quantity
    */
-  public getQuantity(combination: Combination = null): number {
-    if (!this.hasCombinations()) {
-      return this.quantity;
-    }
-
-    if (combination !== null) {
-      return combination.quantity;
-    }
-
-    return this.combinations.reduce((sum, combination) => (sum + combination.quantity), 0);
+  public getQuantity(): number {
+    return this.quantity;
   }
 }

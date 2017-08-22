@@ -47,26 +47,12 @@
         <span class="price">{{ product.getCurrentPrice() | currency:'USD':true }}</span>
       </div>
 
-      <div *ngIf="attributes.length">
-
-        <div *ngFor="let attribute of attributes">
-
-          <h4>{{ attribute.name }}</h4>
-          <select [(ngModel)]="attribute.selected" (ngModelChange)="onAttributeChange($event, attribute)">
-            <option [ngValue]="null" selected></option>
-            <option *ngFor="let item of attribute.values" [ngValue]="item" [disabled]="!attributeEnabled(item, attribute)">{{ item.label }}</option>
-          </select>
-
-        </div>
-
-      </div>
-
       <div *ngIf="!isInStock()">
         Out of stock
       </div>
 
       <div *ngIf="isInStock()">
-        <button (click)="onAddToCart()" class="button add-to-cart" [disabled]="!allAttributesSelected()">
+        <button (click)="onAddToCart()" class="button add-to-cart">
           <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
           Add to cart
         </button>
