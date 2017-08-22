@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { Product } from '../../products/product';
+import { Product, Variant } from '../../products/product';
 import { AddProduct } from '../cart';
 import { OrderLine } from '../../model/interface';
 
@@ -34,7 +34,7 @@ export class LoadFailAction implements Action {
 export class AddToCartAction implements Action {
   readonly type = ADD_TO_CART;
 
-  constructor(public payload: AddProduct) {}
+  constructor(public payload: Variant) {}
 }
 
 export class AddToCartSuccessAction implements Action {

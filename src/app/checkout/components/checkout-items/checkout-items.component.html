@@ -15,25 +15,19 @@
     <tr *ngFor="let item of items">
 
       <td class="image-column">
-        <a [routerLink]="['/product', item.product._id]" *ngIf="item.product.image">
-          <img [src]="item.product.image" alt="Image" />
+        <a [routerLink]="['/product', item.variant.product]" *ngIf="item.variant.image">
+          <img [src]="item.variant.image" alt="Image" />
         </a>
       </td>
 
       <td class="product-column">
         <h5>
-          <a [routerLink]="['/product', item.product._id]">
-            {{ item.product.name }}
+          <a [routerLink]="['/product', item.variant.product]">
+            {{ item.variant.name }}
           </a>
         </h5>
 
-        <div *ngIf="item.combination.length">
-          <ul class="product-attributes">
-            <li *ngFor="let attribute of item.combination">
-              <span *ngIf="attribute.value && attribute.attribute">{{ attribute.attribute.name }}: {{ attribute.value.label }}</span>
-            </li>
-          </ul>
-        </div>
+        <small *ngIf="item.variant.optionsText">{{ item.variant.optionsText }}</small>
 
       </td>
 

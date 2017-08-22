@@ -2,7 +2,79 @@ import { normalize, schema } from 'normalizr';
 
 import { Category, ProductImage, Combination, Discount } from '../model/interface';
 
-export { productSchema } from '../model/schema';
+export { productSchema, optionTypeSchema } from '../model/schema';
+
+export interface OptionType {
+  _id: string;
+  name: string;
+  label: string;
+  values?: OptionType[];
+}
+
+export interface OptionValue {
+  _id: string;
+  name: string;
+  label: string;
+  optionTypeName: string;
+  optionTypeId: string;
+  optionTypeLabel: string;
+}
+
+export interface IVariant {
+  _id: string;
+  product: string;
+  name: string;
+  description: string;
+  sku?: string;
+  options: OptionValue[];
+  price: number;
+  stock: number;
+  optionsText: string;
+  images?: ProductImage[];
+  master: boolean;
+}
+
+export class Variant implements IVariant {
+  _id: string;
+  product: string;
+  name: string;
+  description: string;
+  sku?: string;
+  options: OptionValue[];
+  price: number;
+  stock: number;
+  optionsText: string;
+  images?: ProductImage[];
+  master: boolean;
+
+  constructor (variant: IVariant) {
+    this._id = variant._id;
+    this.product = variant.product ? variant.product : null;
+    this.name = variant.name;
+    this.description = variant.description;
+    this.sku = variant.sku;
+    this.options = variant.options;
+    this.price = variant.price;
+    this.stock = variant.stock;
+    this.optionsText = variant.optionsText;
+    this.images = variant.images;
+    this.master = variant.master ? variant.master : false;
+  }
+
+  /**
+   * Get the default image for the product
+   * @return {string} Image path as string
+   */
+  public get image(): string {
+    if (this.images.length <= 0) {
+      return null;
+    }
+
+    const defaultImage = this.images.find(image => image.main === true);
+
+    return defaultImage ? defaultImage.url : this.images[0].url;
+  }
+}
 
 export interface IProduct {
   _id: string;
@@ -18,6 +90,8 @@ export interface IProduct {
   discount?: Discount;
   combinations: Combination[];
   deleted?: boolean;
+  variants: string[];
+  optionTypes: string[];
 }
 
 export class Product implements IProduct {
@@ -34,6 +108,8 @@ export class Product implements IProduct {
   discount?: Discount;
   combinations: Combination[];
   deleted?: boolean = false;
+  variants: string[];
+  optionTypes: string[];
 
   constructor (product: IProduct) {
     this._id = product._id;
@@ -49,6 +125,8 @@ export class Product implements IProduct {
     this.discount = product.discount;
     this.combinations = product.combinations;
     this.deleted = product.deleted ? product.deleted : false;
+    this.variants = product.variants ? product.variants : [];
+    this.optionTypes = product.optionTypes ? product.optionTypes : [];
   }
 
   /**

@@ -9,6 +9,9 @@ export interface State {
 const initialState: State = {
   entities: {
     carriers: {},
+    variants: {},
+    optionValues: {},
+    optionTypes: {},
     payments: {},
     categories: {},
     products: {},
@@ -42,6 +45,9 @@ export function reducer(state = initialState, action: entities.Actions): State {
           products: {...state.entities.products, ...payload.entities.products},
           lines: {...state.entities.lines, ...payload.entities.lines},
           orders: {...state.entities.orders, ...payload.entities.orders},
+          variants: {...state.entities.variants, ...payload.entities.variants},
+          optionValues: {...state.entities.optionValues, ...payload.entities.optionValues},
+          optionTypes: {...state.entities.optionTypes, ...payload.entities.optionTypes},
           users: {...state.entities.users, ...payload.entities.users},
         },
       };
@@ -55,3 +61,9 @@ export function reducer(state = initialState, action: entities.Actions): State {
 export const getEntitiesLoaded = (state: State) => state.loaded;
 
 export const getEntities = (state: State) => state.entities.entities;
+
+export const getVariants = (state: State) => state.entities.variants;
+
+export const getOptionValues = (state: State) => state.entities.optionValues;
+
+export const getOptionTypes = (state: State) => state.entities.optionTypes;

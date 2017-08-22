@@ -27,8 +27,8 @@ export class CartEffects {
   addToCart$ = this.actions$
     .ofType(Cart.ADD_TO_CART)
     .map((action: Cart.AddToCartAction) => action.payload)
-    .switchMap((addProduct) =>
-      this.cartService.add(addProduct.product, addProduct.combination, addProduct.selectedCombination)
+    .switchMap((variant) =>
+      this.cartService.add(variant)
         .map(items => new Cart.AddToCartSuccessAction(items))
         .catch(e => of(new Cart.AddToCartFailAction(e)))
     );

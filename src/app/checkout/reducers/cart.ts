@@ -20,7 +20,7 @@ export function reducer(state = initialState, action: cart.Actions): State {
       const items = action.payload;
 
       const total = items.reduce((sum, item) => {
-        return sum + (item.product.getCurrentPrice() * item.quantity);
+        return sum + (item.variant.price * item.quantity);
       }, 0);
 
       return {

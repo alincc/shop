@@ -9,10 +9,11 @@ import { OrderLine } from '../../model/interface';
       <h1>Cart</h1>
       <div class="products" *ngIf="products.length">
 
-        <div *ngFor="let product of products">
-          <h2>{{ product.product.name }}</h2>
-          <p>Quantity: {{ product.quantity }}</p>
-          <button type="button" (click)="onRemoveItem(product)">Remove</button>
+        <div *ngFor="let line of products">
+          <h2>{{ line.variant.name }}</h2>
+          <h5 *ngIf="line.variant.optionsText">{{ line.variant.optionsText }}</h5>
+          <p>Quantity: {{ line.quantity }}</p>
+          <button type="button" (click)="onRemoveItem(line)">Remove</button>
         </div>
 
         <div>

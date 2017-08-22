@@ -40,6 +40,23 @@ export const developmentReducerFactory: ActionReducerFactory<
 
 export const getEntities = fromEntities.getEntities;
 
+export const getEntitiesState = createFeatureSelector<fromEntities.State>('entities');
+
+export const getEntitiesVariants = createSelector(
+  getEntitiesState,
+  fromEntities.getVariants,
+)
+
+export const getEntitiesOptionValues = createSelector(
+  getEntitiesState,
+  fromEntities.getOptionValues,
+)
+
+export const getEntitiesOptionTypes = createSelector(
+  getEntitiesState,
+  fromEntities.getOptionTypes,
+)
+
 /**
  * Layout Reducers
  */

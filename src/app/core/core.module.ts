@@ -5,6 +5,9 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { ProductsModule } from '../products/products.module';
+import { VariantService } from './services/variant.service';
+import { VariantRetriverService } from './services/variant-retriever.service';
+import { VariantParserService } from './services/variant-parser.service';
 
 @NgModule({
   imports: [
@@ -19,6 +22,9 @@ import { ProductsModule } from '../products/products.module';
     SearchBoxComponent,
   ],
   providers: [
+    VariantService,
+    VariantRetriverService,
+    VariantParserService,
   ],
 })
 export class CoreModule {
@@ -31,7 +37,11 @@ export class CoreModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CoreModule,
-      providers: [],
+      providers: [
+        VariantService,
+        VariantRetriverService,
+        VariantParserService,
+      ],
       // providers: [
       //   {
       //     provide: HttpService,

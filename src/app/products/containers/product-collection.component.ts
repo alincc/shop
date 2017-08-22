@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import * as fromProducts from '../reducers';
 import * as collectionActions from '../actions/collection';
 import * as cartActions from '../../checkout/actions/cart';
-import { Product } from '../../model/interface';
+import { Product, Variant } from '../../products/product';
 import { AddProduct } from '../../checkout/cart';
 
 @Component({
@@ -25,10 +25,8 @@ export class ProductCollectionComponent {
     this.products$ = this.store.select(fromProducts.getProductCollection);
   }
 
-  onAddToCart(product: Product): void {
-    const line = new AddProduct(product);
-
-    this.store.dispatch(new cartActions.AddToCartAction(line));
+  onAddToCart(variant: Variant): void {
+    this.store.dispatch(new cartActions.AddToCartAction(variant));
   }
 
 }

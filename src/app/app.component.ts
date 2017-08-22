@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     public toastr: ToastsManager,
-    private authService: AuthService,
+    private authService: AuthService, // TODO: should not use auth service here
     private store: Store<fromAuth.State>,
     vcr: ViewContainerRef,
   ) {

@@ -2,8 +2,19 @@ import { normalize, schema } from 'normalizr';
 
 export const categorySchema = new schema.Entity('categories', {}, { idAttribute: '_id' });
 
+export const optionTypeSchema = new schema.Entity('optionTypes', {}, { idAttribute: '_id' });
+
+export const optionValueSchema = new schema.Entity('optionValues', {}, { idAttribute: '_id' });
+
+export const variantSchema = new schema.Entity('variants', {
+  options: [optionValueSchema],
+}, { idAttribute: '_id' });
+
+
 export const productSchema = new schema.Entity('products', {
   category: categorySchema,
+  variants: [variantSchema],
+  optionTypes: [optionTypeSchema],
 }, { idAttribute: '_id' });
 
 export const lineSchema = new schema.Entity('lines', {

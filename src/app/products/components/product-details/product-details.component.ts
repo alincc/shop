@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import * as _ from 'lodash';
 
-import { ErrorResponse, Message, Combination, Attribute } from '../../../model/interface';
-import { Product, Category } from '../../../model/interface';
+import { Product, OptionType, Variant } from '../../product';
+import { Category, ErrorResponse, Message, Combination, Attribute } from '../../../model/interface';
 import { AddProduct } from '../../../checkout/cart';
 
 @Component({
@@ -12,6 +12,7 @@ import { AddProduct } from '../../../checkout/cart';
 })
 export class ProductDetailsComponent implements OnInit {
   @Input() product: Product;
+  variant: Variant;
   @Output() addToCart = new EventEmitter<any>();
 
   errorMsg: Message;
@@ -43,15 +44,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   onAddToCart(): void {
-    const combinations = this.attributes.map(attribute =>
-      ({
-        attribute: new Attribute(attribute.name),
-        value: attribute.selected,
-      })
-    );
-
-    const addToCart: AddProduct = new AddProduct(this.product, combinations, this.selectedCombination);
-    this.addToCart.emit(addToCart);
+    this.addToCart.emit(this.variant);
   }
 
   isInStock(): boolean {

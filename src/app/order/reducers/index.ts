@@ -14,7 +14,6 @@ import * as fromOrders from './orders';
 import * as fromCollection from './collection';
 import * as fromRoot from '../../reducers';
 import { Order } from '../order';
-import { Product } from '../../products/product';
 
 export interface OrdersState {
   search: fromSearch.State;
@@ -139,16 +138,15 @@ export const getOrderProducts = createSelector(
   getSelectedOrder,
   fromRoot.getEntities,
   (order, entities) => {
-    if (!entities.products) return null;
+    if (!entities.variants) return null;
     if (!entities.lines) return null;
     if (!order) return null;
 
     return order.items.map(lineId => {
       const line = entities.lines[lineId];
-
       return {
         ...line,
-        product: entities.products[line.product],
+        variant: entities.variants[line.variant],
       }
     })
   }

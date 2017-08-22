@@ -60,10 +60,8 @@ export class AuthEffects {
         .getUserInfo()
         .mergeMap(user => {
           const normalized = normalize(user, userSchema);
-          console.log('norm', normalized)
           const authedUser: User = normalized.entities.users[normalized.result];
 
-          console.log('denorm', denormalize(normalized, userSchema, normalized.entities))
           return [
             new Auth.LoginSuccess({ user: authedUser, redirect: auth.redirect }),
             new entities.LoadSuccessAction(normalized),

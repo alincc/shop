@@ -1,5 +1,5 @@
 import { normalize, schema } from 'normalizr';
-import { Product } from '../products/product';
+import { Product, Variant } from '../products/product';
 import { Category } from '../category/category';
 import { Order } from '../order/order';
 import { Payment } from '../payment/payment';
@@ -133,41 +133,20 @@ class Customer implements ICustomer {
 }
 
 class IOrderLine {
-  product: Product;
   quantity: number;
   price: number;
-  combination?: {
-    attribute: Attribute;
-    value: {
-      label: string;
-      value: string;
-    }
-  }[];
-  selectedCombination?: Combination;
+  variant: Variant;
 }
 
 class OrderLine implements IOrderLine {
-  product: Product;
   quantity: number;
   price: number;
-  combination?: {
-    attribute: Attribute;
-    value: {
-      label: string;
-      value: string;
-    }
-  }[];
-  selectedCombination?: Combination;
+  variant: Variant;
 
   constructor(orderLine: IOrderLine) {
-    this.product = new Product(orderLine.product);
     this.quantity = orderLine.quantity;
     this.price = orderLine.price;
-    this.combination = orderLine.combination ? orderLine.combination.map(combination => ({
-      attribute: new Attribute(combination.attribute.name),
-      value: combination.value,
-    })) : [];
-    this.selectedCombination = orderLine.selectedCombination ? orderLine.selectedCombination : null;
+    this.variant = orderLine.variant ? new Variant(orderLine.variant) : null;
   }
 
   public getTotalPrice(): number {
