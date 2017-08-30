@@ -39,8 +39,6 @@ export class VariantRetriverService {
     currSelectedOption: any,
     product: any) {
 
-      console.log('CUUUUUR', currentSelectedOptions)
-
     // Set Variables
     this.currentSelectedOptions = currentSelectedOptions;
     this.customOptionTypesHash = customOptionTypesHash;
@@ -95,7 +93,6 @@ export class VariantRetriverService {
      *
      *
      ** */
-     console.log('curz', this.currentSelectedOptions);
     for (const key in this.currentSelectedOptions) {
       if (this.currentSelectedOptions.hasOwnProperty(key)) {
         this.customSelectedOptions[this.currentSelectedOptions[key]] =

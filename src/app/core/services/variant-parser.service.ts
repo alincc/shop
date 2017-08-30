@@ -28,8 +28,6 @@ export class VariantParserService {
    * @memberof VariantParserService
    */
   getOptionsToDisplay(variants: Variant[], optionTypes: OptionType[]) {
-    console.log('VARIANTS[]', variants);
-    console.log('optionTypes[]', optionTypes);
     const optionTypesHash: OptionTypesHash = {};
 
     /**Iterate over optionTypes say [tsize, tcolor] */

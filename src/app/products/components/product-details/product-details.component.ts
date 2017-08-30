@@ -16,6 +16,7 @@ export class ProductDetailsComponent implements OnInit {
   @Output() addToCart = new EventEmitter<any>();
 
   errorMsg: Message;
+  noVariantSelected: boolean = false;
   category: Category;
 
   constructor() { }
@@ -27,9 +28,13 @@ export class ProductDetailsComponent implements OnInit {
           status: 403,
           message: 'This product have been removed',
           data: null,
-        })
+        });
       }
     }
+  }
+
+  onVariantChange(data: any): void {
+    this.noVariantSelected = false;
   }
 
   handleError(error: ErrorResponse) {
@@ -37,12 +42,18 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   onAddToCart(): void {
+    this.noVariantSelected = false;
+
+    if (!this.variant) {
+      this.noVariantSelected = true;
+      return;
+    }
+
     this.addToCart.emit(this.variant);
   }
 
-  isInStock(): boolean {
-    // TODO: should get variant quantity
-    return this.product.getQuantity() > 0;
+  isInStock(quantity: number = 0): boolean {
+    return quantity > 0;
   }
 
 }

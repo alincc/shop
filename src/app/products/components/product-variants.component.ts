@@ -109,9 +109,30 @@ export class ProductVariantsComponent implements OnInit, AfterViewInit {
   clearSelected(): void {
     this.correspondingOptions = this.mainOptions;
     this.currentSelectedOptions = {};
+    this.variant = null;
+  }
+
+  /**
+   * Check if a value is already selected
+   * @param  {any}     option The option
+   * @return {boolean}        True if option is already selected
+   */
+  isAlreadySelected(option: any): boolean {
+    const type = option.value.optionValue.optionTypeName;
+    const value = option.key;
+
+    if (this.currentSelectedOptions[type] && this.currentSelectedOptions[type] === value) {
+      return true;
+    }
+
+    return false;
   }
 
   onSelectValue(value: any): void {
+    if (this.isAlreadySelected(value)) {
+      return;
+    }
+
     const result = new VariantRetriverService()
                     .getVariant(this.currentSelectedOptions,
                                 this.options,
@@ -133,7 +154,9 @@ export class ProductVariantsComponent implements OnInit, AfterViewInit {
     return Object.keys(this.currentSelectedOptions).length > 0;
   }
 
-  isDisabled(arrayToCheck, value) {
+  isDisabled(arrayToCheck, value): boolean {
+    if (!arrayToCheck) return true;
+
     if (Object.keys(this.currentSelectedOptions).length === 0) return false;
 
     return (arrayToCheck.indexOf(value) === -1);

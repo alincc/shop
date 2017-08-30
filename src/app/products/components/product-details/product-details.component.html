@@ -33,11 +33,19 @@
     <div class="right-info col-md-6 col-sm-6 col-xs-12">
       <h1>{{ variant?.name || product.name }}</h1>
 
-      <p>
-        {{ variant?.description || product.description }}
-      </p>
+      <p>{{ variant?.description || product.description }}</p>
 
-      <app-product-variants [variants]="product.variants" [optionTypes]="product.optionTypes" [product]="product" [(variant)]="variant"></app-product-variants>
+      <div class="message negative" *ngIf="noVariantSelected">
+        <p>Please select a variant of the product before adding it to your basket</p>
+      </div>
+
+      <app-product-variants
+        [variants]="product.variants"
+        [optionTypes]="product.optionTypes"
+        [product]="product"
+        [(variant)]="variant"
+        (variantChange)="onVariantChange($event)">
+      </app-product-variants>
 
       <span class="price" [ngClass]="{'strike': product.getActiveDiscount()}">
         {{ variant?.price || product.price | currency:'USD':true }}
@@ -47,11 +55,11 @@
         <span class="price">{{ product.getCurrentPrice() | currency:'USD':true }}</span>
       </div>
 
-      <div *ngIf="!isInStock()">
+      <div class="message m-t m-b" *ngIf="variant && !isInStock(variant.stock)">
         Out of stock
       </div>
 
-      <div *ngIf="isInStock()">
+      <div *ngIf="!variant || isInStock(variant.stock)">
         <button (click)="onAddToCart()" class="button add-to-cart">
           <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
           Add to cart
