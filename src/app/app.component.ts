@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 import { DropdownValue } from './model/interface';
-import { AuthService } from './auth/auth.service';
 import * as authActions from './auth/actions/auth';
 import * as fromAuth from './auth/reducers';
 
@@ -14,10 +13,10 @@ import * as fromAuth from './auth/reducers';
 })
 export class AppComponent implements OnInit {
   searchBoxVisible: boolean = false;
+  dropdownValues: DropdownValue[] = [];
 
   constructor(
     public toastr: ToastsManager,
-    private authService: AuthService, // TODO: should not use auth service here
     private store: Store<fromAuth.State>,
     vcr: ViewContainerRef,
   ) {
@@ -26,18 +25,20 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new authActions.CheckAuthAction());
-  }
 
-  getDropdownValues(): DropdownValue[] {
-    if (this.authService.isAuthed()) {
-      return [
-        new DropdownValue("profile", "Profile"),
-      ];
-    }
-    return [
-      new DropdownValue("login", "Login"),
-      new DropdownValue("register", "Register"),
-    ];
+    this.store.select(fromAuth.getLoggedIn).subscribe(authed => {
+      if (authed) {
+        this.dropdownValues = [
+          new DropdownValue("profile", "Profile"),
+        ];
+      }
+      else {
+        this.dropdownValues = [
+          new DropdownValue("login", "Login"),
+          new DropdownValue("register", "Register"),
+        ];
+      }
+    });
   }
 
   toggleSearch(): void {

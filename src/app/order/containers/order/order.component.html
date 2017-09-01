@@ -43,6 +43,7 @@
         <div *ngIf="order.shipping">
           <h4 class="m-b-xs m-t-xs">Shipping method</h4>
           {{ order.shipping.value.name }} <br/>
+          {{ order.shipping.value.description }}
         </div>
         <div *ngIf="order.shippingAddress">
           <h4 class="m-b-xs">Delivery Address</h4>
