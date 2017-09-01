@@ -8,6 +8,7 @@ import { ProductsRoutingModule, routedComponents } from './products.routing';
 import { ProductsContainerComponent } from './components/products-container/products-container.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { ProductVariantsComponent } from './components/product-variants.component';
+import { ProductImagesComponent } from './components/product-images.component';
 import { ProductSelectedComponent } from './containers/product-selected.component';
 import { SharedModule } from '../shared/shared.module';
 import { CollectionEffects } from './effects/collection';
@@ -29,6 +30,7 @@ import { reducers } from './reducers';
     ProductComponent,
     ProductDetailsComponent,
     ProductVariantsComponent,
+    ProductImagesComponent,
     routedComponents,
   ],
   exports: [

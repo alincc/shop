@@ -27,7 +27,11 @@
   <div class="row">
 
     <div class="large-image col-md-6 col-sm-6 col-xs-12">
-      <img [src]="product.image" *ngIf="product.image" alt="Large image"/>
+
+      <app-product-images
+        [images]="product.images">
+      </app-product-images>
+
     </div>
 
     <div class="right-info col-md-6 col-sm-6 col-xs-12">

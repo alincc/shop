@@ -20,6 +20,14 @@ export interface OptionValue {
   optionTypeLabel: string;
 }
 
+export interface ProductImage {
+  _id: string;
+  url: string;
+  label: string;
+  main: boolean;
+  createdAt?: string;
+}
+
 export interface IVariant {
   _id: string;
   product: string;

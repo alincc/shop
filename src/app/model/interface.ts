@@ -1,5 +1,5 @@
 import { normalize, schema } from 'normalizr';
-import { Product, Variant } from '../products/product';
+import { Product, Variant, ProductImage } from '../products/product';
 import { Category } from '../category/category';
 import { Order } from '../order/order';
 import { Payment } from '../payment/payment';
@@ -207,17 +207,10 @@ export class ShippingAddress {
   }
 }
 
-export interface ProductImage {
-  _id: string;
-  url: string;
-  label: string;
-  main: boolean;
-  createdAt?: string;
-}
-
 export {
   Category,
   CartProduct,
+  ProductImage,
   ContactMessage,
   Payment,
   Customer,
