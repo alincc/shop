@@ -13,6 +13,7 @@ export class OrderComponent implements OnInit, OnChanges {
   @Input() items: OrderLine[];
   subtotal: number = 0;
   errorMsg: Message;
+  showTicketForm: boolean = false;
   private ShippingStatus: typeof ShippingStatus = ShippingStatus
 
   constructor() {}

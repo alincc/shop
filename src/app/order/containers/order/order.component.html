@@ -69,6 +69,25 @@
       [grandTotal]="order.total">
     </app-checkout-items>
 
+    <div>
+
+      <div *ngIf="!showTicketForm">
+        <h3>Questions?</h3>
+        <p>Have any questions regarding this order? Click the button below to and describe the issue, and we'll get back to you as soon as possible.</p>
+
+        <button class="button" (click)="showTicketForm=!showTicketForm">Open Ticket</button>
+      </div>
+
+      <div *ngIf="showTicketForm">
+
+        <h3>Open ticket</h3>
+
+        <app-order-ticket-form></app-order-ticket-form>
+
+      </div>
+
+    </div>
+
   </div>
 
 </div>

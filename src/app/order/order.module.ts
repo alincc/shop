@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { OrderRoutingModule, routedComponents } from './order.routing';
 import { OrderSelectedComponent } from './containers/order-selected.component';
 import { OrderTableComponent } from './components/order-table.component';
+import { OrderTicketFormComponent } from './components/order-ticket-form.component';
 import { OrderComponent } from './containers/order/order.component';
 import { ProductsModule } from '../products/products.module';
 import { CheckoutModule } from '../checkout/checkout.module';
@@ -28,6 +29,7 @@ import { reducers } from './reducers';
     OrderSelectedComponent,
     OrderComponent,
     OrderTableComponent,
+    OrderTicketFormComponent,
   ],
   exports: [
     OrderTableComponent
